@@ -11,12 +11,12 @@
 			"import": "./dist/index.js"
 		}
 	},
+	"dependencies": {
+		"@nestjs-batch/infrastructure": "workspace:*"
+	},
 	"scripts": {
 		"build": "tsc",
 		"dev": "tsc --watch",
 		"clean": "rm -rf dist"
-	},
-	"devDependencies": {
-		"typescript": "^5.9.3"
 	}
 }
