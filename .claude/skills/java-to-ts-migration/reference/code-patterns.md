@@ -280,19 +280,9 @@ export namespace ToolDefinition {
 }
 ```
 
-## 7. toString Implementation
+## 7. equals, hashCode, toString
 
-**Java:**
-```java
-@Override
-public String toString() {
-    return "UserMessage{" + "content='" + getText() + "'}";
-}
-```
-
-**TypeScript:**
-```typescript
-[Symbol.toPrimitive](): string {
-    return `UserMessage{content='${this.text}'}`;
-}
-```
+Do NOT migrate these Java-specific methods. They have no standard equivalent in TypeScript:
+- `equals()` — JavaScript uses `===` for reference equality; custom equality is not idiomatic
+- `hashCode()` — JavaScript has no hash-based collection protocol
+- `toString()` — Skip unless explicitly requested

@@ -108,8 +108,8 @@ For detailed patterns and examples, see:
 - Replace `new HashMap<>(map)` with spread operator `{ ...metadata }`
 - Replace `new ArrayList<>(list)` with spread operator `[...list]`
 
-### 6. toString
-- `toString()` → `[Symbol.toPrimitive](): string`
+### 6. equals, hashCode, toString
+- Do NOT implement `equals()`, `hashCode()`, or `toString()` — these are Java-specific patterns that don't apply in TypeScript
 
 ## Import/Export Patterns
 
@@ -163,7 +163,7 @@ touch nestjs-ai/packages/model/src/chat/messages/__tests__/new-message.spec.ts
 4. Convert constructor (use Props interface pattern)
 5. Convert methods (getters use `get` keyword)
 6. Convert static methods (use `static` or namespace pattern)
-7. Add `[Symbol.toPrimitive]` if `toString` exists
+7. Skip `equals`, `hashCode`, `toString` (do not migrate)
 
 ### Step 4: Update Index
 Add exports to `index.ts`:
@@ -191,7 +191,7 @@ Migration Checklist:
 - [ ] Getters use `get` keyword (not `getXxx()` methods)
 - [ ] Static methods converted
 - [ ] Builder pattern converted (Props or Builder class)
-- [ ] toString → [Symbol.toPrimitive]
+- [ ] equals, hashCode, toString NOT implemented (Java-specific, skip)
 - [ ] All Javadoc/JSDoc dropped (license, class, method, field comments not migrated)
 - [ ] Inline comments inside method bodies preserved
 - [ ] Imports use correct package paths
