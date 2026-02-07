@@ -2,25 +2,25 @@
  * Represents a single job parameter.
  */
 export interface JobParameter<T = unknown> {
-  /**
-   * The name of the parameter.
-   */
-  readonly name: string;
+	/**
+	 * The name of the parameter.
+	 */
+	readonly name: string;
 
-  /**
-   * The value of the parameter.
-   */
-  readonly value: T;
+	/**
+	 * The value of the parameter.
+	 */
+	readonly value: T;
 
-  /**
-   * The type of the parameter.
-   */
-  readonly type: string;
+	/**
+	 * The type of the parameter.
+	 */
+	readonly type: string;
 
-  /**
-   * Whether this parameter identifies the job instance.
-   */
-  readonly identifying: boolean;
+	/**
+	 * Whether this parameter identifies the job instance.
+	 */
+	readonly identifying: boolean;
 }
 
 /**
@@ -32,15 +32,15 @@ export interface JobParameter<T = unknown> {
  * @returns a new JobParameter
  */
 export function createJobParameter<T>(
-  name: string,
-  value: T,
-  type: string,
-  identifying = true,
+	name: string,
+	value: T,
+	type: string,
+	identifying = true,
 ): JobParameter<T> {
-  return {
-    name,
-    value,
-    type,
-    identifying,
-  };
+	return {
+		name,
+		value,
+		type,
+		identifying,
+	};
 }
