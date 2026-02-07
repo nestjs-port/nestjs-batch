@@ -171,11 +171,9 @@ Add exports to `index.ts`:
 export { NewMessage, type NewMessageProps } from "./new-message";
 ```
 
-### Step 5: Migrate Documentation
-1. Convert Javadoc to JSDoc (only for elements that have documentation)
-2. Remove `@author` and `@since` tags
-3. Convert `@return` → `@returns`, `@param <T>` → `@template T`
-4. **Important:** Do NOT add JSDoc to elements that had no Javadoc
+### Step 5: Handle Comments
+1. **Drop all Javadoc/JSDoc comments** — do NOT migrate license headers, class, method, field, or constructor Javadoc
+2. **Only migrate inline comments** — preserve `//` and `/* */` comments that are inside method bodies
 
 ### Step 6: Convert Tests
 1. Change `@Test` methods to `it()` blocks
@@ -194,8 +192,8 @@ Migration Checklist:
 - [ ] Static methods converted
 - [ ] Builder pattern converted (Props or Builder class)
 - [ ] toString → [Symbol.toPrimitive]
-- [ ] Javadoc migrated to JSDoc (only for elements that had Javadoc)
-- [ ] @author tags removed (not migrated)
+- [ ] All Javadoc/JSDoc dropped (license, class, method, field comments not migrated)
+- [ ] Inline comments inside method bodies preserved
 - [ ] Imports use correct package paths
 - [ ] Exported in index.ts
 - [ ] Tests migrated to __tests__/*.spec.ts
