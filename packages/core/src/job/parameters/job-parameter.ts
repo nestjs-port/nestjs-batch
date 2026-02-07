@@ -1,46 +1,40 @@
-/**
- * Represents a single job parameter.
- */
-export interface JobParameter<T = unknown> {
-	/**
-	 * The name of the parameter.
-	 */
+import assert from "node:assert/strict";
+
+export class JobParameter<T = unknown> {
 	readonly name: string;
 
-	/**
-	 * The value of the parameter.
-	 */
 	readonly value: T;
 
-	/**
-	 * The type of the parameter.
-	 */
-	readonly type: string;
+	readonly type: new (
+		...args: never[]
+	) => T;
 
-	/**
-	 * Whether this parameter identifies the job instance.
-	 */
 	readonly identifying: boolean;
-}
 
-/**
- * Creates a new job parameter.
- * @param name - the parameter name
- * @param value - the parameter value
- * @param type - the parameter type
- * @param identifying - whether this parameter identifies the job instance
- * @returns a new JobParameter
- */
-export function createJobParameter<T>(
-	name: string,
-	value: T,
-	type: string,
-	identifying = true,
-): JobParameter<T> {
-	return {
-		name,
-		value,
-		type,
-		identifying,
-	};
+	constructor(name: string, value: T, type: new (...args: any[]) => T);
+	constructor(
+		name: string,
+		value: T,
+		type: new (...args: never[]) => T,
+		identifying: boolean,
+	);
+	constructor(
+		name: string,
+		value: T,
+		type: new (...args: never[]) => T,
+		identifying = true,
+	) {
+		assert(name != null, "name must not be null");
+		assert(value != null, "value must not be null");
+		assert(type != null, "type must not be null");
+		this.name = name;
+		this.value = value;
+		this.type = type;
+		this.identifying = identifying;
+	}
+
+	equals(other: unknown): boolean {
+		if (!(other instanceof JobParameter)) return false;
+		return this.name === other.name;
+	}
 }
