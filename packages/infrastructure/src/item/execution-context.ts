@@ -1,8 +1,3 @@
-/**
- * Object representing a context for an ItemStream. It is a thin wrapper for a
- * map that allows optionally for type safety on reads. It also allows for dirty
- * checking by setting a 'dirty' flag whenever any put is called.
- */
 export class ExecutionContext {
 	private _dirty = false;
 	private readonly _map: Map<string, unknown>;
@@ -191,9 +186,5 @@ export class ExecutionContext {
 	 */
 	get size(): number {
 		return this._map.size;
-	}
-
-	toString(): string {
-		return JSON.stringify(Object.fromEntries(this._map));
 	}
 }
