@@ -27,15 +27,28 @@ importers:
         specifier: ^4.0.16
         version: 4.0.18(@types/node@25.1.0)(yaml@2.8.2)
 
+  packages/commons: {}
+
   packages/core:
     dependencies:
+      '@nestjs-batch/commons':
+        specifier: workspace:*
+        version: link:../commons
       '@nestjs-batch/infrastructure':
         specifier: workspace:*
         version: link:../infrastructure
 
-  packages/infrastructure: {}
+  packages/infrastructure:
+    dependencies:
+      '@nestjs-batch/commons':
+        specifier: workspace:*
+        version: link:../commons
 
   packages/platform:
+    dependencies:
+      '@nestjs-batch/commons':
+        specifier: workspace:*
+        version: link:../commons
     devDependencies:
       '@nestjs/common':
         specifier: ^11.1.11
