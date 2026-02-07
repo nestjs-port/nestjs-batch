@@ -1,49 +1,25 @@
-/**
- * Enum representing the status of a repeat operation.
- */
-export enum RepeatStatus {
-	/**
-	 * Indicates that processing can continue.
-	 */
-	CONTINUABLE = "CONTINUABLE",
+export class RepeatStatus {
+	static readonly CONTINUABLE = new RepeatStatus(true);
 
-	/**
-	 * Indicates that processing is finished (either successful or unsuccessful).
-	 */
-	FINISHED = "FINISHED",
-}
+	static readonly FINISHED = new RepeatStatus(false);
 
-/**
- * Utility functions for RepeatStatus.
- */
-export const RepeatStatusUtils = {
-	/**
-	 * Returns CONTINUABLE if the condition is true, FINISHED otherwise.
-	 * @param continuable - the condition to check
-	 * @returns RepeatStatus based on the condition
-	 */
-	continueIf(continuable: boolean): RepeatStatus {
+	private readonly _continuable: boolean;
+
+	private constructor(continuable: boolean) {
+		this._continuable = continuable;
+	}
+
+	static continueIf(continuable: boolean): RepeatStatus {
 		return continuable ? RepeatStatus.CONTINUABLE : RepeatStatus.FINISHED;
-	},
+	}
 
-	/**
-	 * Checks if the status indicates processing can continue.
-	 * @param status - the status to check
-	 * @returns true if the status is CONTINUABLE
-	 */
-	isContinuable(status: RepeatStatus): boolean {
-		return status === RepeatStatus.CONTINUABLE;
-	},
+	get isContinuable(): boolean {
+		return this === RepeatStatus.CONTINUABLE;
+	}
 
-	/**
-	 * Combines a status with a boolean condition.
-	 * @param status - the current status
-	 * @param value - the boolean condition
-	 * @returns CONTINUABLE if both status is CONTINUABLE and value is true
-	 */
-	and(status: RepeatStatus, value: boolean): RepeatStatus {
-		return value && status === RepeatStatus.CONTINUABLE
+	and(value: boolean): RepeatStatus {
+		return value && this._continuable
 			? RepeatStatus.CONTINUABLE
 			: RepeatStatus.FINISHED;
-	},
-};
+	}
+}
