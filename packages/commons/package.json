@@ -1,5 +1,5 @@
 {
-	"name": "@nestjs-batch/infrastructure",
+	"name": "@nestjs-batch/commons",
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
@@ -10,12 +10,6 @@
 			"types": "./dist/index.d.ts",
 			"import": "./dist/index.js"
 		}
-	},
-	"dependencies": {
-		"@nestjs-batch/commons": "workspace:*"
-	},
-	"peerDependencies": {
-		"@nestjs-batch/commons": "*"
 	},
 	"scripts": {
 		"build": "tsc",

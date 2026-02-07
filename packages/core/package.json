@@ -12,7 +12,11 @@
 		}
 	},
 	"dependencies": {
+		"@nestjs-batch/commons": "workspace:*",
 		"@nestjs-batch/infrastructure": "workspace:*"
+	},
+	"peerDependencies": {
+		"@nestjs-batch/commons": "*"
 	},
 	"scripts": {
 		"build": "tsc",
