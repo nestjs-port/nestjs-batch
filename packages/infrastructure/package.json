@@ -18,8 +18,8 @@
 		"@nestjs-batch/commons": "*"
 	},
 	"scripts": {
-		"build": "tsc",
-		"dev": "tsc --watch",
+		"build": "tsc -p tsconfig.build.json",
+		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf dist"
 	}
 }
