@@ -57,26 +57,53 @@ export class JobParameters implements Iterable<JobParameter> {
 		return this._parameters.size;
 	}
 
+	getNumber(key: string): number | undefined;
+	getNumber(key: string, defaultValue: number): number;
+	getNumber(key: string, defaultValue?: number): number | undefined {
+		const param = this.getParameter(key);
+		if (param == null) return defaultValue;
+		if (param.type !== Number) {
+			throw new Error(`Key ${key} is not of type Number`);
+		}
+		return param.value as number;
+	}
+
+	getString(key: string): string | undefined;
+	getString(key: string, defaultValue: string): string;
+	getString(key: string, defaultValue?: string): string | undefined {
+		const param = this.getParameter(key);
+		if (param == null) return defaultValue;
+		if (param.type !== String) {
+			throw new Error(`Key ${key} is not of type String`);
+		}
+		return param.value as string;
+	}
+
+	getDate(key: string): Date | undefined;
+	getDate(key: string, defaultValue: Date): Date;
+	getDate(key: string, defaultValue?: Date): Date | undefined {
+		const param = this.getParameter(key);
+		if (param == null) return defaultValue;
+		if (param.type !== Date) {
+			throw new Error(`Key ${key} is not of type Date`);
+		}
+		return param.value as Date;
+	}
+
+	equals(other: unknown): boolean {
+		if (!(other instanceof JobParameters)) return false;
+		if (this._parameters.size !== other._parameters.size) return false;
+		for (const [key, param] of this._parameters) {
+			const otherParam = other._parameters.get(key);
+			if (otherParam == null || !param.equals(otherParam)) return false;
+		}
+		return true;
+	}
+
 	/**
 	 * Returns an iterator for the parameters.
 	 */
 	[Symbol.iterator](): Iterator<JobParameter> {
 		return this._parameters.values();
-	}
-
-	/**
-	 * Converts to a plain object.
-	 * @returns object with parameter values
-	 */
-	toObject(): Record<string, unknown> {
-		const result: Record<string, unknown> = {};
-		for (const [name, param] of this._parameters) {
-			result[name] = param.value;
-		}
-		return result;
-	}
-
-	toString(): string {
-		return JSON.stringify(this.toObject());
 	}
 }
