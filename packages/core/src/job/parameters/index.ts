@@ -1,3 +1,4 @@
+export { CompositeJobParametersValidator } from "./composite-job-parameters-validator";
 export { DefaultJobParametersValidator } from "./default-job-parameters-validator";
 export { InvalidJobParametersException } from "./invalid-job-parameters-exception";
 export { JobParameter } from "./job-parameter";
