@@ -28,9 +28,7 @@ export class RunIdIncrementer implements JobParametersIncrementer {
 			isIdentifying = runIdParameter.identifying;
 		}
 		return new JobParametersBuilder(parameters)
-			.addJobParameter(
-				new JobParameter(this._key, id, Number, isIdentifying),
-			)
+			.addJobParameter(new JobParameter(this._key, id, Number, isIdentifying))
 			.toJobParameters();
 	}
 }
