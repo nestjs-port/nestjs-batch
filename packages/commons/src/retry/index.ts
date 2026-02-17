@@ -5,7 +5,7 @@ export { FixedBackOff } from "./fixed-back-off";
 export { RetryException } from "./retry-exception";
 export type { RetryListener } from "./retry-listener.interface";
 export type { RetryOperations } from "./retry-operations.interface";
-export { RetryPolicy, RetryPolicyBuilder } from "./retry-policy.interface";
+export { RetryPolicy, RetryPolicyBuilder } from "./retry-policy";
 export { RetryState } from "./retry-state";
 export { RetryTemplate } from "./retry-template";
 export type { Retryable } from "./retryable.interface";
