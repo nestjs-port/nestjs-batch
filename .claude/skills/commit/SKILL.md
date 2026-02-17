@@ -64,7 +64,7 @@ Use scope when changes are limited to a specific package. Omit scope for cross-p
 ```
 feat: add OpenAI model package structure
 - Create packages/models/openai workspace package
-- Add package.json with @nestjs-ai/model dependency
+- Add package.json with @nestjs-batch/model dependency
 - Add tsconfig.json configuration
 - Update pnpm-workspace.yaml to include models directory
 ```

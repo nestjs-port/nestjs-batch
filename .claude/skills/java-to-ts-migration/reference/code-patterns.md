@@ -13,7 +13,7 @@ public interface Message extends Content {
 
 **TypeScript:**
 ```typescript
-import type { Content } from "@nestjs-ai/commons";
+import type { Content } from "@nestjs-batch/commons";
 import type { MessageType } from "./message-type";
 
 export interface Message extends Content {
@@ -25,7 +25,7 @@ export interface Message extends Content {
 - Use `export interface` instead of `public interface`
 - Convert `getXxx()` methods to `get xxx(): Type` getters
 - Use `import type` for type-only imports
-- Package imports use `@nestjs-ai/{package}` format
+- Package imports use `@nestjs-batch/{package}` format
 
 ## 2. Abstract Class Conversion
 
@@ -118,7 +118,7 @@ public class UserMessage extends AbstractMessage implements MediaContent {
 
 **TypeScript:**
 ```typescript
-import type { Media, MediaContent } from "@nestjs-ai/commons";
+import type { Media, MediaContent } from "@nestjs-batch/commons";
 import { AbstractMessage } from "./abstract-message";
 import { MessageType } from "./message-type";
 

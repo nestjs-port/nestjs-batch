@@ -128,8 +128,8 @@ export { MessageType } from "./message-type";
 ### Package Imports
 
 ```typescript
-// Cross-package imports use @nestjs-ai scope
-import type { Content, Media } from "@nestjs-ai/commons";
+// Cross-package imports use @nestjs-batch scope
+import type { Content, Media } from "@nestjs-batch/commons";
 
 // Same-package imports use relative paths
 import { AbstractMessage } from "./abstract-message";

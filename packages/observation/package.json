@@ -1,5 +1,5 @@
 {
-  "name": "@nestjs-ai/observation",
+  "name": "@nestjs-batch/observation",
   "version": "0.0.0",
   "private": true,
   "main": "./dist/index.js",
