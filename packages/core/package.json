@@ -1,26 +1,27 @@
 {
-	"name": "@nestjs-batch/core",
-	"version": "0.0.0",
-	"private": true,
-	"type": "module",
-	"main": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js"
-		}
-	},
-	"dependencies": {
-		"@nestjs-batch/commons": "workspace:*",
-		"@nestjs-batch/infrastructure": "workspace:*"
-	},
-	"peerDependencies": {
-		"@nestjs-batch/commons": "*"
-	},
-	"scripts": {
-		"build": "tsc -p tsconfig.build.json",
-		"typecheck": "tsc --noEmit",
-		"clean": "rm -rf dist"
-	}
+  "name": "@nestjs-batch/core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "dependencies": {
+    "@nestjs-batch/commons": "workspace:*",
+    "@nestjs-batch/infrastructure": "workspace:*"
+  },
+  "peerDependencies": {
+    "@nestjs-batch/commons": "*"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "test": "vitest run"
+  }
 }
