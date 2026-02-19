@@ -1,1 +1,11 @@
+export { Chunk } from "./chunk";
 export { ExecutionContext } from "./execution-context";
+export type { ItemCountAware } from "./item-count-aware.interface";
+export type { ItemProcessor } from "./item-processor.interface";
+export type { ItemReader } from "./item-reader.interface";
+export type { ItemStream } from "./item-stream.interface";
+export type { PeekableItemReader } from "./peekable-item-reader.interface";
+export type { ResourceAware } from "./resource-aware.interface";
+export type { ItemStreamReader } from "./item-stream-reader.interface";
+export type { ItemStreamWriter } from "./item-stream-writer.interface";
+export type { ItemWriter } from "./item-writer.interface";
