@@ -1,7 +1,7 @@
+import type { ObservationRegistry } from "../registry";
 import type { ObservationContext } from "./observation-context";
 import type { ObservationConvention } from "./observation-convention.interface";
 import type { ObservationHandler } from "./observation-handler.interface";
-import type { ObservationRegistry } from "./observation-registry.interface";
 import type { ObservationScope } from "./observation-scope.interface";
 
 /**
@@ -15,10 +15,10 @@ export abstract class Observation<CTX extends ObservationContext> {
   protected readonly _registry: ObservationRegistry;
 
   protected constructor(
-      context: CTX,
-      convention: ObservationConvention<CTX>,
-      handlers: ObservationHandler<CTX>[],
-      registry: ObservationRegistry,
+    context: CTX,
+    convention: ObservationConvention<CTX>,
+    handlers: ObservationHandler<CTX>[],
+    registry: ObservationRegistry,
   ) {
     this._context = context;
     this._convention = convention;
@@ -27,23 +27,14 @@ export abstract class Observation<CTX extends ObservationContext> {
   }
 
   abstract get context(): CTX;
-
   abstract get convention(): ObservationConvention<CTX>;
-
   abstract get handlers(): readonly ObservationHandler<CTX>[];
-
   abstract contextualName(contextualName: string | null): this;
-
   abstract start(): this;
-
   abstract openScope(): ObservationScope;
-
   abstract error(err: Error): this;
-
   abstract stop(): void;
-
   abstract notifyOnScopeOpened(): void;
-
   abstract notifyOnScopeClosed(): void;
 
   /**
@@ -53,14 +44,14 @@ export abstract class Observation<CTX extends ObservationContext> {
     this.start();
     const scope = this.openScope();
     const wrapped = this._handlers.reduceRight(
-        (next, handler) =>
-            handler.runInScope
-                ? () => {
-                  // biome-ignore lint/style/noNonNullAssertion: guarded by truthy check above
-                  return handler.runInScope!(this._context, next);
-                }
-                : next,
-        fn,
+      (next, handler) =>
+        handler.runInScope
+          ? () => {
+              // biome-ignore lint/style/noNonNullAssertion: guarded by truthy check above
+              return handler.runInScope!(this._context, next);
+            }
+          : next,
+      fn,
     );
     try {
       return await this._registry.runInScope(scope, wrapped);
@@ -72,5 +63,4 @@ export abstract class Observation<CTX extends ObservationContext> {
       this.stop();
     }
   }
-
 }

@@ -1,17 +1,18 @@
 import { AsyncLocalStorage } from "node:async_hooks";
-import type { Observation } from "./observation";
-import type { ObservationContext } from "./observation-context";
-import type { ObservationHandler } from "./observation-handler.interface";
+import type { Observation } from "../observation";
+import type { ObservationContext } from "../observation";
+import type { ObservationHandler } from "../observation";
+import type { ObservationScope } from "../observation";
 import type { ObservationRegistry } from "./observation-registry.interface";
-import type { ObservationScope } from "./observation-scope.interface";
 
 /**
  * Observation registry backed by AsyncLocalStorage.
  */
 export class AlsObservationRegistry implements ObservationRegistry {
   private readonly _handlers: ObservationHandler<ObservationContext>[] = [];
-  private readonly scopeStorage =
-    new AsyncLocalStorage<ObservationScope | null>();
+  private readonly scopeStorage = new AsyncLocalStorage<{
+    scope: ObservationScope | null;
+  }>();
 
   get handlers(): readonly ObservationHandler<ObservationContext>[] {
     return this._handlers;
@@ -26,11 +27,15 @@ export class AlsObservationRegistry implements ObservationRegistry {
   }
 
   get currentObservationScope(): ObservationScope | null {
-    return this.scopeStorage.getStore() ?? null;
+    return this.scopeStorage.getStore()?.scope ?? null;
   }
 
   set currentObservationScope(scope: ObservationScope | null) {
-    this.scopeStorage.enterWith(scope);
+    const store = this.scopeStorage.getStore();
+    if (!store) {
+      return;
+    }
+    store.scope = scope;
   }
 
   get currentObservation(): Observation<ObservationContext> | null {
@@ -38,7 +43,10 @@ export class AlsObservationRegistry implements ObservationRegistry {
     return scope?.currentObservation ?? null;
   }
 
-  runInScope<T>(scope: ObservationScope | null, fn: () => T): T {
-    return this.scopeStorage.run(scope, fn);
+  runInScope<T>(initialScope: ObservationScope, fn: () => T): T {
+    if (this.currentObservationScope != null) {
+      return fn();
+    }
+    return this.scopeStorage.run({ scope: initialScope }, fn);
   }
 }

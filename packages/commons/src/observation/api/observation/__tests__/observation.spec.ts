@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { AlsObservationRegistry } from "../als-observation-registry";
-import { KeyValue } from "../key-value";
+import { KeyValue } from "../../key-value";
+import { KeyValues } from "../../key-values";
+import { AlsObservationRegistry } from "../../registry";
 import { ObservationContext } from "../observation-context";
 import type { ObservationConvention } from "../observation-convention.interface";
 import type { ObservationHandler } from "../observation-handler.interface";
+import type { ObservationScope } from "../observation-scope.interface";
 import { SimpleObservation } from "../simple-observation";
 
 class TestConvention implements ObservationConvention<ObservationContext> {
@@ -19,12 +21,12 @@ class TestConvention implements ObservationConvention<ObservationContext> {
     return context instanceof ObservationContext;
   }
 
-  getLowCardinalityKeyValues(_context: ObservationContext): KeyValue[] {
-    return [KeyValue.of("low", "1")];
+  getLowCardinalityKeyValues(_context: ObservationContext): KeyValues {
+    return KeyValues.of(KeyValue.of("low", "1"));
   }
 
-  getHighCardinalityKeyValues(_context: ObservationContext): KeyValue[] {
-    return [KeyValue.of("high", "2")];
+  getHighCardinalityKeyValues(_context: ObservationContext): KeyValues {
+    return KeyValues.of(KeyValue.of("high", "2"));
   }
 }
 
@@ -40,6 +42,16 @@ function createObservation(
   );
 }
 
+function createDummyScope(
+  previousObservationScope: ObservationScope | null = null,
+): ObservationScope {
+  return {
+    currentObservation: null as never,
+    previousObservationScope,
+    close() {},
+  };
+}
+
 describe("Observation", () => {
   it("should populate convention values on start and stop", () => {
     const registry = new AlsObservationRegistry();
@@ -50,8 +62,10 @@ describe("Observation", () => {
     expect(context.name).toBe("test.observation");
     expect(context.contextualName).toBe("test contextual");
     expect(context.lowCardinalityKeyValues.get("low")).toBe("1");
+    expect(context.highCardinalityKeyValues.get("high")).toBe("2");
 
     observation.stop();
+    expect(context.lowCardinalityKeyValues.get("low")).toBe("1");
     expect(context.highCardinalityKeyValues.get("high")).toBe("2");
   });
 
@@ -152,23 +166,32 @@ describe("Observation", () => {
     expect(calls).toEqual(["run-scope-enter", "callback", "run-scope-exit"]);
   });
 
-  it("should restore parent observation scope when nested", () => {
+  it("should restore parent observation scope when nested", async () => {
     const registry = new AlsObservationRegistry();
     const parent = createObservation(registry);
     const child = createObservation(registry);
 
-    parent.start();
-    const parentScope = parent.openScope();
-    expect(registry.currentObservation).toBe(parent);
+    const initialScope = createDummyScope();
+    await registry.runInScope(initialScope, async () => {
+      await parent.observe(async () => {
+        expect(registry.currentObservation).toBe(parent);
+        const parentScope = registry.currentObservationScope;
 
-    child.start();
-    const childScope = child.openScope();
-    expect(registry.currentObservation).toBe(child);
+        await child.observe(async () => {
+          expect(registry.currentObservation).toBe(child);
+          expect(registry.currentObservationScope).not.toBe(parentScope);
+          expect(
+            registry.currentObservationScope?.previousObservationScope,
+          ).toBe(parentScope);
+        });
 
-    childScope.close();
-    expect(registry.currentObservation).toBe(parent);
-
-    parentScope.close();
-    expect(registry.currentObservation).toBeNull();
+        expect(registry.currentObservation).toBe(parent);
+        expect(registry.currentObservationScope).toBe(parentScope);
+        expect(registry.currentObservationScope?.previousObservationScope).toBe(
+          initialScope,
+        );
+      });
+      expect(registry.currentObservation).toBeNull();
+    });
   });
 });

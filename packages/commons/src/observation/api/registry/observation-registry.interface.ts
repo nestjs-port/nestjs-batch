@@ -1,7 +1,7 @@
-import type { Observation } from "./observation";
-import type { ObservationContext } from "./observation-context";
-import type { ObservationHandler } from "./observation-handler.interface";
-import type { ObservationScope } from "./observation-scope.interface";
+import type { Observation } from "../observation";
+import type { ObservationContext } from "../observation";
+import type { ObservationHandler } from "../observation";
+import type { ObservationScope } from "../observation";
 
 /**
  * Registry that manages handlers and current observation scope.
@@ -39,8 +39,8 @@ export interface ObservationRegistry {
   readonly currentObservation: Observation<ObservationContext> | null;
 
   /**
-   * Runs a callback with the provided scope set as current for the duration of the callback.
-   * Implementations should preserve the scope across async boundaries.
+   * Runs a callback within an observation context, using the provided initial scope when creating one.
+   * Implementations should preserve the context across async boundaries.
    */
-  runInScope<T>(scope: ObservationScope | null, fn: () => T): T;
+  runInScope<T>(initialScope: ObservationScope, fn: () => T): T;
 }

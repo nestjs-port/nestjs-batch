@@ -1,8 +1,8 @@
-import type { Observation } from "./observation";
-import type { ObservationContext } from "./observation-context";
-import type { ObservationHandler } from "./observation-handler.interface";
+import type { Observation } from "../observation";
+import type { ObservationContext } from "../observation";
+import type { ObservationHandler } from "../observation";
+import type { ObservationScope } from "../observation";
 import type { ObservationRegistry } from "./observation-registry.interface";
-import type { ObservationScope } from "./observation-scope.interface";
 
 /**
  * No-op implementation of ObservationRegistry.
@@ -36,7 +36,7 @@ export class NoopObservationRegistry implements ObservationRegistry {
     return null;
   }
 
-  runInScope<T>(_scope: ObservationScope | null, fn: () => T): T {
+  runInScope<T>(_initialScope: ObservationScope, fn: () => T): T {
     return fn();
   }
 }
