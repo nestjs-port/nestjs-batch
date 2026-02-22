@@ -1,3 +1,3 @@
 export interface ResourceAware {
-	setResource(resource: Buffer): void;
+	set resource(resource: Buffer);
 }
