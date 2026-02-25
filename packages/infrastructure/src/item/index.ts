@@ -1,5 +1,13 @@
 export { Chunk } from "./chunk";
 export { ExecutionContext } from "./execution-context";
+export { ItemReaderException } from "./item-reader-exception";
+export { ItemWriterException } from "./item-writer-exception";
+export { NonTransientResourceException } from "./non-transient-resource-exception";
+export { ParseException } from "./parse-exception";
+export { ReaderNotOpenException } from "./reader-not-open-exception";
+export { UnexpectedInputException } from "./unexpected-input-exception";
+export { WriteFailedException } from "./write-failed-exception";
+export { WriterNotOpenException } from "./writer-not-open-exception";
 export type { ItemCountAware } from "./item-count-aware.interface";
 export type { ItemProcessor } from "./item-processor.interface";
 export type { ItemReader } from "./item-reader.interface";
