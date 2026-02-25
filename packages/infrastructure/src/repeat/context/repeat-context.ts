@@ -1,13 +1,6 @@
-export interface RepeatContext {
-  setAttribute(name: string, value: unknown): void;
+import type { AttributeAccessor } from "@nestjs-batch/commons";
 
-  getAttribute(name: string): unknown;
-
-  removeAttribute(name: string): unknown;
-
-  hasAttribute(name: string): boolean;
-
-  attributeNames(): string[];
+export interface RepeatContext extends AttributeAccessor {
 
   get parent(): RepeatContext | null;
 
