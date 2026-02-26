@@ -1,7 +1,3 @@
 import { ItemWriterException } from "./item-writer-exception";
 
-export class WriteFailedException extends ItemWriterException {
-  constructor(message: string, cause?: unknown) {
-    super(message, cause);
-  }
-}
+export class WriteFailedException extends ItemWriterException {}
