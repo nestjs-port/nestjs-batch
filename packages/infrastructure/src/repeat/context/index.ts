@@ -1,1 +1,1 @@
-export {};
+export type { RepeatContext } from './repeat-context';
