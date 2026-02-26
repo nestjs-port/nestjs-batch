@@ -1,4 +1,4 @@
-import type { RecordSeparatorPolicy } from './record-separator-policy.interface';
+import type { RecordSeparatorPolicy } from "./record-separator-policy.interface";
 
 export class SimpleRecordSeparatorPolicy implements RecordSeparatorPolicy {
   isEndOfRecord(_line: string): boolean {

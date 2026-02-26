@@ -1,6 +1,6 @@
-import type { StepContribution } from "../step-contribution";
-import type { ChunkContext } from "../../scope";
 import type { RepeatStatus } from "@nestjs-batch/infrastructure";
+import type { ChunkContext } from "../../scope";
+import type { StepContribution } from "../step-contribution";
 
 /**
  * Strategy for processing in a step.

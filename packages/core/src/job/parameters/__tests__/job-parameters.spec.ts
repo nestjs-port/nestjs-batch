@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 
 import { JobParameter } from "../job-parameter";
 import { JobParameters } from "../job-parameters";

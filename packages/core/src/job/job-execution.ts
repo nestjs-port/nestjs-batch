@@ -1,5 +1,5 @@
-import { BatchStatus } from "../batch-status";
 import { ExecutionContext } from "@nestjs-batch/infrastructure";
+import { BatchStatus } from "../batch-status";
 import { ExitStatus } from "../exit-status";
 import type { JobInstance } from "./job-instance";
 import { JobParameters } from "./parameters";

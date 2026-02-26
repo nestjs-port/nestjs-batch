@@ -1,5 +1,5 @@
-import type { RepeatContext } from './context/repeat-context';
-import type { RepeatStatus } from './repeat-status';
+import type { RepeatContext } from "./context/repeat-context";
+import type { RepeatStatus } from "./repeat-status";
 
 export interface RepeatListener {
   before?(context: RepeatContext): void;

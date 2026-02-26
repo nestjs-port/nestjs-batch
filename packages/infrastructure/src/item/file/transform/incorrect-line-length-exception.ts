@@ -1,11 +1,16 @@
 import { FlatFileFormatException } from "./flat-file-format-exception";
 
-  export class IncorrectLineLengthException extends FlatFileFormatException {
+export class IncorrectLineLengthException extends FlatFileFormatException {
   private readonly _actualLength: number;
 
   private readonly _expectedLength: number;
 
-  constructor(message: string, expectedLength: number, actualLength: number, input: string);
+  constructor(
+    message: string,
+    expectedLength: number,
+    actualLength: number,
+    input: string,
+  );
   constructor(message: string, expectedLength: number, actualLength: number);
   constructor(expectedLength: number, actualLength: number, input: string);
   constructor(expectedLength: number, actualLength: number);
