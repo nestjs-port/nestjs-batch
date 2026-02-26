@@ -5,7 +5,12 @@ export class IncorrectTokenCountException extends FlatFileFormatException {
 
   private readonly _expectedCount: number;
 
-  constructor(message: string, expectedCount: number, actualCount: number, input: string);
+  constructor(
+    message: string,
+    expectedCount: number,
+    actualCount: number,
+    input: string,
+  );
   constructor(message: string, expectedCount: number, actualCount: number);
   constructor(expectedCount: number, actualCount: number, input: string);
   constructor(expectedCount: number, actualCount: number);

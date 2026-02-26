@@ -11,7 +11,7 @@ export class JobParameter<T = unknown> {
 
   readonly identifying: boolean;
 
-  constructor(name: string, value: T, type: new (...args: any[]) => T);
+  constructor(name: string, value: T, type: new (...args: never[]) => T);
   constructor(
     name: string,
     value: T,

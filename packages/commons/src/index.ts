@@ -1,4 +1,4 @@
-export { type AttributeAccessor } from "./attribute-accessor.interface";
+export type { AttributeAccessor } from "./attribute-accessor.interface";
 export * from "./converter";
 export * from "./logging";
 export * from "./observation";

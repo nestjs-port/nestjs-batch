@@ -1,7 +1,6 @@
 import type { AttributeAccessor } from "@nestjs-batch/commons";
 
 export interface RepeatContext extends AttributeAccessor {
-
   get parent(): RepeatContext | null;
 
   get startedCount(): number;

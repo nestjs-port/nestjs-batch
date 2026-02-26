@@ -1,5 +1,5 @@
-import type { RepeatCallback } from './repeat-callback';
-import type { RepeatStatus } from './repeat-status';
+import type { RepeatCallback } from "./repeat-callback";
+import type { RepeatStatus } from "./repeat-status";
 
 export interface RepeatOperations {
   /**

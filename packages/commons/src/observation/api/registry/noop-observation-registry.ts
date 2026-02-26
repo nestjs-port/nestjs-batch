@@ -1,7 +1,9 @@
-import type { Observation } from "../observation";
-import type { ObservationContext } from "../observation";
-import type { ObservationHandler } from "../observation";
-import type { ObservationScope } from "../observation";
+import type {
+  Observation,
+  ObservationContext,
+  ObservationHandler,
+  ObservationScope,
+} from "../observation";
 import type { ObservationRegistry } from "./observation-registry.interface";
 
 /**

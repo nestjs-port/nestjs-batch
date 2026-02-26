@@ -1,8 +1,8 @@
 import type { DynamicModule, InjectionToken, Provider } from "@nestjs/common";
 import { Module } from "@nestjs/common";
-import type { NestBatchModuleOptions } from "./nest-batch-module.options";
 import { LoggerFactory } from "@nestjs-batch/commons";
 import { NestLoggerFactory } from "../logging";
+import type { NestBatchModuleOptions } from "./nest-batch-module.options";
 
 @Module({})
 // biome-ignore lint/complexity/noStaticOnlyClass: NestJS modules use static methods for configuration
