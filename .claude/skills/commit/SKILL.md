@@ -1,11 +1,11 @@
 ---
 name: commit
-description: Commit changes following nestjs-ai repository conventions. Use when the user wants to commit changes. Analyzes git diff, generates conventional commit format messages, and executes git commit automatically.
+description: Commit changes following nestjs-batch repository conventions. Use when the user wants to commit changes. Analyzes git diff, generates conventional commit format messages, and executes git commit automatically.
 ---
 
-# Commit Changes for nestjs-ai
+# Commit Changes for nestjs-batch
 
-Commit changes following the nestjs-ai repository's conventional commit format. This skill analyzes changes, generates appropriate commit messages, and executes the commit.
+Commit changes following the nestjs-batch repository's conventional commit format. This skill analyzes changes, generates appropriate commit messages, and executes the commit.
 
 ## Commit Format
 
@@ -34,10 +34,11 @@ Use these types based on the change:
 
 Optional scopes based on affected packages:
 
-- `model`: Changes to `packages/model/`
-- `core`: Changes to `packages/core/`
 - `commons`: Changes to `packages/commons/`
-- `openai`: Changes to `packages/models/openai/`
+- `core`: Changes to `packages/core/`
+- `infrastructure`: Changes to `packages/infrastructure/`
+- `observation`: Changes to `packages/observation/`
+- `platform`: Changes to `packages/platform/`
 
 Use scope when changes are limited to a specific package. Omit scope for cross-package changes.
 
@@ -62,56 +63,50 @@ Use scope when changes are limited to a specific package. Omit scope for cross-p
 ### Feature Addition
 
 ```
-feat: add OpenAI model package structure
-- Create packages/models/openai workspace package
-- Add package.json with @nestjs-batch/model dependency
-- Add tsconfig.json configuration
-- Update pnpm-workspace.yaml to include models directory
+feat(observation): add async local observation registry
+- Add observation registry implementation backed by AsyncLocalStorage
+- Export observation registry API from package entrypoints
+- Wire shared observation interfaces for handler and scope access
 ```
 
 ### Migration/Porting
 
 ```
-feat(model): port ChatModel from Java to TypeScript
-- Add ChatModel abstract class extending StreamingChatModel
-- Implement Model<Prompt, ChatResponse> interface
-- Add callString() and callMessages() convenience methods
-- Add abstract call() method for prompt-based calls
-- Port ChatModelTests from Java with test case names in kebab-case
-- Add comprehensive test coverage for various edge cases
+feat(infrastructure): port repeat context components from Java
+- Add RepeatContext and RepeatListener contracts in TypeScript
+- Port repeat operations flow from Spring Batch Java implementation
+- Preserve parent-child context behavior and completion semantics
+- Add tests for nested context and termination edge cases
 ```
 
 ### Refactoring
 
 ```
-refactor: simplify ChatResponse and Generation classes
-- Remove empty generations validation from ChatResponse constructor
-- Remove GenerationBuilder class and related exports
-- Update ChatResponseBuilder to use generations() instead of generation()
-- Rename chatResponseMetadata() to metadata() in builder
-- Update tests to use builder pattern consistently
+refactor(core): simplify job parameter validation flow
+- Collapse duplicate validation branches in default validator
+- Reorder imports and exports for consistent module boundaries
+- Keep runtime behavior unchanged while reducing surface complexity
 ```
 
 ### Bug Fix
 
 ```
-fix: add null/undefined validation to Prompt constructor and fix lint warnings
-- Add null/undefined check for contentOrMessageOrMessages parameter in Prompt constructor
-- Fix lint warnings: rename shadowing toString variables to stringValue
-- Fix lint warnings: prefix unused variables with underscore
-- Apply code formatting fixes
+fix(core): validate job parameter type before builder insertion
+- Add guard for undefined parameter type in addJobParameter overload
+- Prevent runtime failures caused by non-null assertions
+- Update tests to cover invalid type input handling
 ```
 
 ### Documentation
 
 ```
-docs(model): add comprehensive JSDoc comments to core model interfaces and classes
+docs(core): add JSDoc comments for job execution APIs
 ```
 
 ### Test Addition
 
 ```
-test: add chat-model tests matching Java implementation
+test(infrastructure): add repeat context behavior tests
 ```
 
 ## Commit Workflow
@@ -122,16 +117,20 @@ When committing changes, follow these steps:
 2. **Analyze all changes first**: Review `git diff` (or `git diff --staged`) and understand the full change set before staging
 3. **Split by logical units when meaningful**: Group changes by cohesive intent (feature/fix/refactor/test/docs) and create multiple commits when the change set can be separated cleanly
 4. **Use a single commit when split is not meaningful**: If changes are tightly coupled or too small to separate, commit them together
-5. **Stage changes for each unit**: Use `git add <files>` (or `git add -p`) per logical unit
-6. **Determine type**: Classify as feat/fix/refactor/test/docs/chore based on each unit
-7. **Identify scope**: Check if changes are package-specific (model/core/commons/openai)
-8. **Generate commit message**: Create message following the format above
-9. **Execute commit**: Run `git commit -m "subject" -m "body"` with the generated message
+5. **Run formatting before commit**: Execute `pnpm format` and review any resulting changes
+6. **Run lint checks before commit**: Execute `pnpm lint` and resolve issues before staging/committing
+7. **Stage changes for each unit**: Use `git add <files>` (or `git add -p`) per logical unit
+8. **Determine type**: Classify as feat/fix/refactor/test/docs/chore based on each unit
+9. **Identify scope**: Check if changes are package-specific (commons/core/infrastructure/observation/platform)
+10. **Generate commit message**: Create message following the format above
+11. **Execute commit**: Run `git commit -m "subject" -m "body"` with the generated message
 
 ### Important Notes
 
 - **Always check git status first** before committing
 - **Always assess whether changes should be split into multiple commits** before staging everything
+- **Always run `pnpm format` before staging/committing**
+- **Always run `pnpm lint` before committing**
 - **Default behavior**: If the user says "commit" without a file scope, treat all current repository changes (staged, unstaged, and untracked) as commit candidates
 - **Do not force a single commit for all candidates**: Split into multiple commits when logical units are separable; use one commit only when split is not meaningful
 - **Only ask for scope confirmation** when the user explicitly indicates a partial commit, file-specific commit, or when the target repository is ambiguous
@@ -155,23 +154,30 @@ When user asks to commit:
 # 1. Check status
 git status
 
-# 2. If needed, stage changes
+# 2. Review changes
+git diff
+
+# 3. Run formatting and lint checks
+pnpm format
+pnpm lint
+
+# 4. Stage changes
 git add .
 
-# 3. Analyze staged changes
+# 5. Analyze staged changes
 git diff --staged
 
-# 4. Generate commit message based on changes
+# 6. Generate commit message based on changes
 # Example output:
-# feat(model): add new chat options interface
-# - Add ChatOptions interface with streaming support
-# - Implement default options builder
-# - Add comprehensive tests
+# feat(core): add job execution repository integration
+# - Add repository-backed lookup for running executions
+# - Wire execution mapper for persisted metadata
+# - Add tests for missing execution and success paths
 
-# 5. Execute commit
-git commit -m "feat(model): add new chat options interface" -m "- Add ChatOptions interface with streaming support
-- Implement default options builder
-- Add comprehensive tests"
+# 7. Execute commit
+git commit -m "feat(core): add job execution repository integration" -m "- Add repository-backed lookup for running executions
+- Wire execution mapper for persisted metadata
+- Add tests for missing execution and success paths"
 ```
 
 ## Pre-commit Hooks
