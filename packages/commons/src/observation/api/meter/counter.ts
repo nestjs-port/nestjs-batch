@@ -17,7 +17,7 @@ export interface Counter {
 
 export class CounterBuilder {
   private readonly _tags: Tag[] = [];
-  private _description?: string;
+  private _description: string | null = null;
 
   constructor(private readonly _name: string) {}
 

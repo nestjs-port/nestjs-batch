@@ -6,7 +6,7 @@ import { JobParameters } from "./job-parameters";
 export class JobParametersBuilder {
   private readonly _parameters: Map<string, JobParameter>;
 
-  constructor(jobParameters?: JobParameters) {
+  constructor(jobParameters: JobParameters | null = null) {
     this._parameters = new Map();
     if (jobParameters) {
       for (const param of jobParameters) {
@@ -38,13 +38,18 @@ export class JobParametersBuilder {
     name: string,
     value: T,
     type: new (...args: never[]) => T,
-    identifying?: boolean,
+    identifying: boolean,
+  ): this;
+  addJobParameter<T>(
+    name: string,
+    value: T,
+    type: new (...args: never[]) => T,
   ): this;
   addJobParameter<T>(
     jobParameterOrName: JobParameter | string,
-    value?: T,
-    type?: new (...args: never[]) => T,
-    identifying?: boolean,
+    value: T | null = null,
+    type: (new (...args: never[]) => T) | null = null,
+    identifying: boolean | null = null,
   ): this {
     if (jobParameterOrName instanceof JobParameter) {
       assert(jobParameterOrName != null, "JobParameter must not be null");

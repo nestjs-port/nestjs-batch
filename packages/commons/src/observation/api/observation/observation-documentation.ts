@@ -54,8 +54,11 @@ export abstract class ObservationDocumentation {
     }
 
     const defaultConventionType =
-      (defaultConvention as { constructor?: { name?: string } }).constructor
-        ?.name ?? typeof defaultConvention;
+      (
+        defaultConvention as {
+          constructor: { name: string | null } | null;
+        }
+      ).constructor?.name ?? typeof defaultConvention;
 
     if (!(defaultConvention instanceof documentedDefaultConvention)) {
       throw new TypeError(

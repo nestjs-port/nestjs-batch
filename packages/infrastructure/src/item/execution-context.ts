@@ -19,7 +19,7 @@ export class ExecutionContext {
    */
   constructor(executionContext: ExecutionContext);
 
-  constructor(arg?: Map<string, unknown> | ExecutionContext) {
+  constructor(arg: Map<string, unknown> | ExecutionContext | null = null) {
     if (arg instanceof ExecutionContext) {
       this._map = new Map(arg._map);
     } else if (arg instanceof Map) {
@@ -79,9 +79,9 @@ export class ExecutionContext {
    */
   getString(key: string): string;
   getString(key: string, defaultValue: string): string;
-  getString(key: string, defaultValue?: string): string {
+  getString(key: string, defaultValue: string | null = null): string {
     if (!this.containsKey(key)) {
-      if (defaultValue !== undefined) {
+      if (defaultValue != null) {
         return defaultValue;
       }
       throw new Error(`Key not found: ${key}`);
@@ -100,9 +100,9 @@ export class ExecutionContext {
    */
   getNumber(key: string): number;
   getNumber(key: string, defaultValue: number): number;
-  getNumber(key: string, defaultValue?: number): number {
+  getNumber(key: string, defaultValue: number | null = null): number {
     if (!this.containsKey(key)) {
-      if (defaultValue !== undefined) {
+      if (defaultValue != null) {
         return defaultValue;
       }
       throw new Error(`Key not found: ${key}`);

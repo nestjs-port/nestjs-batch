@@ -17,8 +17,8 @@ export class IncorrectLineLengthException extends FlatFileFormatException {
   constructor(
     messageOrExpectedLength: string | number,
     expectedLengthOrActualLength: number,
-    actualLengthOrInput?: number | string,
-    input?: string,
+    actualLengthOrInput: number | string | null = null,
+    input: string | null = null,
   ) {
     if (typeof messageOrExpectedLength === "string") {
       const message = messageOrExpectedLength;
@@ -35,7 +35,7 @@ export class IncorrectLineLengthException extends FlatFileFormatException {
     const actualLength = expectedLengthOrActualLength;
     const message = `Incorrect line length in record: expected ${expectedLength} actual ${actualLength}`;
 
-    super(message, actualLengthOrInput as string | undefined);
+    super(message, actualLengthOrInput as string | null);
     this._expectedLength = expectedLength;
     this._actualLength = actualLength;
   }

@@ -16,12 +16,12 @@ export class FlatFileParseException extends ParseException {
   constructor(
     message: string,
     inputOrCause: string | unknown,
-    inputOrLineNumber?: string | number,
+    inputOrLineNumber: string | number | null = null,
     lineNumber = 0,
   ) {
     if (typeof inputOrCause === "string") {
       const input = inputOrCause;
-      const resolvedLineNumber = (inputOrLineNumber as number | undefined) ?? 0;
+      const resolvedLineNumber = (inputOrLineNumber as number | null) ?? 0;
 
       super(message);
       this._input = input;

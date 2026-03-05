@@ -17,8 +17,8 @@ export class IncorrectTokenCountException extends FlatFileFormatException {
   constructor(
     messageOrExpectedCount: string | number,
     expectedCountOrActualCount: number,
-    actualCountOrInput?: number | string,
-    input?: string,
+    actualCountOrInput: number | string | null = null,
+    input: string | null = null,
   ) {
     if (typeof messageOrExpectedCount === "string") {
       const message = messageOrExpectedCount;
@@ -35,7 +35,7 @@ export class IncorrectTokenCountException extends FlatFileFormatException {
     const actualCount = expectedCountOrActualCount;
     const message = `Incorrect number of tokens found in record: expected ${expectedCount} actual ${actualCount}`;
 
-    super(message, actualCountOrInput as string | undefined);
+    super(message, actualCountOrInput as string | null);
     this._expectedCount = expectedCount;
     this._actualCount = actualCount;
   }

@@ -12,7 +12,7 @@ export abstract class JdbcParameterUtils {
    */
   static countParameterPlaceholders(
     sql: string | null,
-    namedParameterHolder?: string[] | null,
+    namedParameterHolder: string[] | null = null,
   ): number {
     if (sql == null) {
       return 0;

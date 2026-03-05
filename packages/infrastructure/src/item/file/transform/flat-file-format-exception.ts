@@ -4,7 +4,7 @@ export class FlatFileFormatException extends Error {
   constructor(message: string);
   constructor(message: string, input: string);
   constructor(message: string, cause: unknown);
-  constructor(message: string, inputOrCause?: string | unknown) {
+  constructor(message: string, inputOrCause: string | unknown | null = null) {
     if (typeof inputOrCause === "string") {
       super(message);
       this._input = inputOrCause;

@@ -28,7 +28,7 @@ export class JobExecution {
   constructor(
     id: number,
     jobInstance: JobInstance,
-    jobParameters?: JobParameters,
+    jobParameters: JobParameters | null = null,
   ) {
     this._id = id;
     this._jobInstance = jobInstance;

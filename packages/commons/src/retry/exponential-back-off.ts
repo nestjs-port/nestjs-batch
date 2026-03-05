@@ -124,8 +124,11 @@ export class ExponentialBackOff implements BackOff {
    */
   constructor(initialInterval: Milliseconds, multiplier: number);
 
-  constructor(initialInterval?: Milliseconds, multiplier?: number) {
-    if (initialInterval !== undefined && multiplier !== undefined) {
+  constructor(
+    initialInterval: Milliseconds | null = null,
+    multiplier: number | null = null,
+  ) {
+    if (initialInterval != null && multiplier != null) {
       this.checkMultiplier(multiplier);
       this.initialInterval = initialInterval;
       this.multiplier = multiplier;

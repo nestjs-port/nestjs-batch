@@ -11,7 +11,7 @@ export class JobParameters implements Iterable<JobParameter> {
    * Creates a new JobParameters.
    * @param parameters - map of parameter name to JobParameter
    */
-  constructor(parameters?: Map<string, JobParameter>) {
+  constructor(parameters: Map<string, JobParameter> | null = null) {
     this._parameters = new Map(parameters ?? []);
   }
 
@@ -63,7 +63,7 @@ export class JobParameters implements Iterable<JobParameter> {
 
   getNumber(key: string): number | null;
   getNumber(key: string, defaultValue: number): number;
-  getNumber(key: string, defaultValue?: number): number | null {
+  getNumber(key: string, defaultValue: number | null = null): number | null {
     const param = this.getParameter(key);
     if (param == null) return defaultValue ?? null;
     if (param.type !== Number) {
@@ -74,7 +74,7 @@ export class JobParameters implements Iterable<JobParameter> {
 
   getString(key: string): string | null;
   getString(key: string, defaultValue: string): string;
-  getString(key: string, defaultValue?: string): string | null {
+  getString(key: string, defaultValue: string | null = null): string | null {
     const param = this.getParameter(key);
     if (param == null) return defaultValue ?? null;
     if (param.type !== String) {
@@ -85,7 +85,7 @@ export class JobParameters implements Iterable<JobParameter> {
 
   getDate(key: string): Date | null;
   getDate(key: string, defaultValue: Date): Date;
-  getDate(key: string, defaultValue?: Date): Date | null {
+  getDate(key: string, defaultValue: Date | null = null): Date | null {
     const param = this.getParameter(key);
     if (param == null) return defaultValue ?? null;
     if (param.type !== Date) {

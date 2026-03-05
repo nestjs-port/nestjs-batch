@@ -30,14 +30,16 @@ export class OtelMeterRegistry implements MeterRegistry {
 
   private getOrCreateInstrument(
     name: string,
-    description?: string,
+    description: string | null = null,
   ): OtelCounter {
     const existing = this.instruments.get(name);
     if (existing) {
       return existing;
     }
 
-    const counter = this.meter.createCounter(name, { description });
+    const counter = this.meter.createCounter(name, {
+      description: description ?? undefined,
+    });
     this.instruments.set(name, counter);
     return counter;
   }

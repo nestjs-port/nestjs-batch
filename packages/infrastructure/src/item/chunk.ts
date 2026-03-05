@@ -1,7 +1,7 @@
 export class Chunk<W> implements Iterable<W> {
   private readonly _items: W[] = [];
 
-  constructor(items?: W[]) {
+  constructor(items: W[] | null = null) {
     if (items) {
       this._items.push(...items);
     }

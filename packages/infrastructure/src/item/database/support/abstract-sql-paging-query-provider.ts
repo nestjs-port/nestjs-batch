@@ -23,7 +23,7 @@ export abstract class AbstractSqlPagingQueryProvider
 
   private _usingNamedParameters = false;
 
-  setGroupClause(groupClause?: string): void {
+  setGroupClause(groupClause: string | null = null): void {
     this._groupClause =
       groupClause && groupClause.trim().length > 0
         ? this.removeKeyword("group by", groupClause)
@@ -58,7 +58,7 @@ export abstract class AbstractSqlPagingQueryProvider
     this._fromClause = this.removeKeyword("from", fromClause);
   }
 
-  setWhereClause(whereClause?: string): void {
+  setWhereClause(whereClause: string | null = null): void {
     this._whereClause =
       whereClause && whereClause.trim().length > 0
         ? this.removeKeyword("where", whereClause)

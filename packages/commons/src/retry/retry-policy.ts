@@ -147,16 +147,16 @@ export class RetryPolicyBuilder {
    */
   static readonly DEFAULT_MULTIPLIER = 1.0;
 
-  private _backOff?: BackOff;
-  private _maxRetries?: number;
+  private _backOff: BackOff | null = null;
+  private _maxRetries: number | null = null;
   private _timeout: Milliseconds = ms(0);
-  private _delay?: Milliseconds;
-  private _jitter?: Milliseconds;
-  private _multiplier?: number;
-  private _maxDelay?: Milliseconds;
+  private _delay: Milliseconds | null = null;
+  private _jitter: Milliseconds | null = null;
+  private _multiplier: number | null = null;
+  private _maxDelay: Milliseconds | null = null;
   private readonly _includes: Array<new (...args: never[]) => Error> = [];
   private readonly _excludes: Array<new (...args: never[]) => Error> = [];
-  private _predicate?: (throwable: unknown) => boolean;
+  private _predicate: ((throwable: unknown) => boolean) | null = null;
 
   /**
    * Specify the {@link BackOff} strategy to use.

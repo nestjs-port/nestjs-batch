@@ -21,12 +21,15 @@ export class KeyValues implements Iterable<KeyValue> {
 
   and(key: string, value: string): KeyValues;
   and(keyValue: KeyValue): KeyValues;
-  and(keyOrKeyValue: string | KeyValue, value?: string): KeyValues {
+  and(
+    keyOrKeyValue: string | KeyValue,
+    value: string | null = null,
+  ): KeyValues {
     if (keyOrKeyValue instanceof KeyValue) {
       return new KeyValues([...this._values, keyOrKeyValue]);
     }
 
-    if (value === undefined) {
+    if (value == null) {
       throw new Error("value must be provided when key is a string");
     }
 

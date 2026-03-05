@@ -4,6 +4,7 @@ import { LoggerFactory } from "../logging";
 import { BackOffExecution } from "./back-off.interface";
 import { RetryException } from "./retry-exception";
 import type { RetryListener } from "./retry-listener.interface";
+import type { RetryOperations } from "./retry-operations.interface";
 import { RetryPolicy } from "./retry-policy";
 import { RetryState } from "./retry-state";
 import type { Retryable } from "./retryable.interface";
@@ -56,7 +57,7 @@ class MutableRetryState extends RetryState {
  * @see RetryListener
  * @see Retryable
  */
-export class RetryTemplate {
+export class RetryTemplate implements RetryOperations {
   private _retryPolicy: RetryPolicy = RetryPolicy.withDefaults();
   private _retryListener: RetryListener = {};
   private logger = LoggerFactory.getLogger(RetryTemplate.name);
@@ -74,7 +75,7 @@ export class RetryTemplate {
    */
   constructor(retryPolicy: RetryPolicy);
 
-  constructor(retryPolicy?: RetryPolicy) {
+  constructor(retryPolicy: RetryPolicy | null = null) {
     if (retryPolicy != null) {
       this._retryPolicy = retryPolicy;
     }
@@ -135,7 +136,10 @@ export class RetryTemplate {
    * @returns the result of the {@code Retryable}, if any
    * @throws RetryException if the {@code RetryPolicy} is exhausted
    */
-  async execute<R>(retryable: Retryable<R>, name?: string): Promise<R> {
+  async execute<R>(
+    retryable: Retryable<R>,
+    name: string | null = null,
+  ): Promise<R> {
     const startTime = Date.now();
     const retryableName = (name ?? retryable.name) || "anonymous";
     const retryState = new MutableRetryState();

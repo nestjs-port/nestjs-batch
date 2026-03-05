@@ -10,12 +10,12 @@ export class DefaultRetryPolicy extends RetryPolicy {
   private readonly exceptionTypeFilter: ExceptionTypeFilter;
   private readonly _backOff: BackOff;
   private readonly _timeout: Milliseconds;
-  private readonly _predicate?: (throwable: unknown) => boolean;
+  private readonly _predicate: ((throwable: unknown) => boolean) | null;
 
   constructor(
     includes: Array<new (...args: never[]) => Error>,
     excludes: Array<new (...args: never[]) => Error>,
-    predicate: ((throwable: unknown) => boolean) | undefined,
+    predicate: ((throwable: unknown) => boolean) | null,
     timeout: Milliseconds,
     backOff: BackOff,
   ) {

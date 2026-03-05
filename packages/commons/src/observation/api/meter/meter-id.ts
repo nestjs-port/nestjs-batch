@@ -7,14 +7,14 @@ import type { Tag } from "./tag";
 export class MeterId {
   readonly name: string;
   readonly tags: readonly Tag[];
-  readonly description?: string;
-  readonly baseUnit?: string;
+  readonly description: string | null;
+  readonly baseUnit: string | null;
 
   private constructor(
     name: string,
     tags: Tag[],
-    description?: string,
-    baseUnit?: string,
+    description: string | null = null,
+    baseUnit: string | null = null,
   ) {
     this.name = name;
     this.tags = MeterId.normalizeTags(tags);
@@ -25,8 +25,8 @@ export class MeterId {
   static of(
     name: string,
     tags: Tag[] = [],
-    description?: string,
-    baseUnit?: string,
+    description: string | null = null,
+    baseUnit: string | null = null,
   ): MeterId {
     return new MeterId(name, tags, description, baseUnit);
   }
@@ -40,7 +40,7 @@ export class MeterId {
     );
   }
 
-  withDescription(description?: string): MeterId {
+  withDescription(description: string | null = null): MeterId {
     return new MeterId(this.name, [...this.tags], description, this.baseUnit);
   }
 

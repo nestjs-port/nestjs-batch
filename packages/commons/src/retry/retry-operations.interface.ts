@@ -22,5 +22,6 @@ export interface RetryOperations {
    * @return the result of the {@code Retryable}, if any
    * @throws RetryException if the {@code RetryPolicy} is exhausted
    */
-  execute<R>(retryable: Retryable<R>, name?: string): Promise<R>;
+  execute<R>(retryable: Retryable<R>): Promise<R>;
+  execute<R>(retryable: Retryable<R>, name: string | null): Promise<R>;
 }
