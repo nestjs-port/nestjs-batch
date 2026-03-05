@@ -15,9 +15,9 @@ export class JobExecution {
   private _status: BatchStatus = BatchStatus.STARTING;
   private _exitStatus: ExitStatus = ExitStatus.UNKNOWN;
   private _createTime: Date = new Date();
-  private _startTime?: Date;
-  private _endTime?: Date;
-  private _lastUpdated?: Date;
+  private _startTime: Date | null = null;
+  private _endTime: Date | null = null;
+  private _lastUpdated: Date | null = null;
 
   /**
    * Creates a new JobExecution.
@@ -118,9 +118,9 @@ export class JobExecution {
 
   /**
    * Gets the start time.
-   * @returns the start time or undefined
+   * @returns the start time or null
    */
-  get startTime(): Date | undefined {
+  get startTime(): Date | null {
     return this._startTime;
   }
 
@@ -128,15 +128,15 @@ export class JobExecution {
    * Sets the start time.
    * @param startTime - the start time
    */
-  set startTime(startTime: Date | undefined) {
+  set startTime(startTime: Date | null) {
     this._startTime = startTime;
   }
 
   /**
    * Gets the end time.
-   * @returns the end time or undefined
+   * @returns the end time or null
    */
-  get endTime(): Date | undefined {
+  get endTime(): Date | null {
     return this._endTime;
   }
 
@@ -144,15 +144,15 @@ export class JobExecution {
    * Sets the end time.
    * @param endTime - the end time
    */
-  set endTime(endTime: Date | undefined) {
+  set endTime(endTime: Date | null) {
     this._endTime = endTime;
   }
 
   /**
    * Gets the last updated time.
-   * @returns the last updated time or undefined
+   * @returns the last updated time or null
    */
-  get lastUpdated(): Date | undefined {
+  get lastUpdated(): Date | null {
     return this._lastUpdated;
   }
 
@@ -160,7 +160,7 @@ export class JobExecution {
    * Sets the last updated time.
    * @param lastUpdated - the last updated time
    */
-  set lastUpdated(lastUpdated: Date | undefined) {
+  set lastUpdated(lastUpdated: Date | null) {
     this._lastUpdated = lastUpdated;
   }
 

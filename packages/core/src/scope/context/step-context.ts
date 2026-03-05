@@ -42,7 +42,7 @@ export class StepContext {
    * Convenient accessor for current JobInstance identifier.
    * @returns the identifier of the enclosing JobInstance
    */
-  get jobInstanceId(): number | undefined {
+  get jobInstanceId(): number | null {
     return this._stepExecution.jobExecution.jobInstance.instanceId;
   }
 
@@ -100,22 +100,22 @@ export class StepContext {
   /**
    * Gets an attribute from this context.
    * @param name - the attribute name
-   * @returns the attribute value or undefined
+   * @returns the attribute value or null
    */
-  getAttribute(name: string): unknown {
-    return this._attributes.get(name);
+  getAttribute(name: string): unknown | null {
+    return this._attributes.get(name) ?? null;
   }
 
   /**
    * Removes an attribute from this context.
    * @param name - the attribute name
-   * @returns the removed value or undefined
+   * @returns the removed value or null
    */
-  removeAttribute(name: string): unknown {
+  removeAttribute(name: string): unknown | null {
     this._callbacks.delete(name);
     const value = this._attributes.get(name);
     this._attributes.delete(name);
-    return value;
+    return value ?? null;
   }
 
   /**

@@ -54,21 +54,21 @@ export class ChunkContext {
   /**
    * Gets an attribute from this context.
    * @param name - the attribute name
-   * @returns the attribute value or undefined
+   * @returns the attribute value or null
    */
-  getAttribute(name: string): unknown {
-    return this._attributes.get(name);
+  getAttribute(name: string): unknown | null {
+    return this._attributes.get(name) ?? null;
   }
 
   /**
    * Removes an attribute from this context.
    * @param name - the attribute name
-   * @returns the removed value or undefined
+   * @returns the removed value or null
    */
-  removeAttribute(name: string): unknown {
+  removeAttribute(name: string): unknown | null {
     const value = this._attributes.get(name);
     this._attributes.delete(name);
-    return value;
+    return value ?? null;
   }
 
   /**

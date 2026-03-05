@@ -12,6 +12,7 @@ export type { ItemProcessor } from "./item-processor.interface";
 export type { ItemReader } from "./item-reader.interface";
 export { ItemReaderException } from "./item-reader-exception";
 export type { ItemStream } from "./item-stream.interface";
+export { ItemStreamException } from "./item-stream-exception";
 export type { ItemStreamReader } from "./item-stream-reader.interface";
 export type { ItemStreamWriter } from "./item-stream-writer.interface";
 export type { ItemWriter } from "./item-writer.interface";

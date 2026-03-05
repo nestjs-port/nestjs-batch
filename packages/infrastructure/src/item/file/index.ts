@@ -1,4 +1,5 @@
 export * from "./builder";
+export { FlatFileParseException } from "./flat-file-parse-exception";
 export type { LineCallbackHandler } from "./line-callback-handler.interface";
 export * from "./mapping";
 export type { ResourceSuffixCreator } from "./resource-suffix-creator.interface";

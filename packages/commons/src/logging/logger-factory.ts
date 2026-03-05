@@ -10,11 +10,11 @@ let boundFactory: ILoggerFactory | null = null;
  * A logger that delegates to the real logger once the factory is bound.
  */
 class DelegatingLogger implements Logger {
-  private _delegate?: Logger;
+  private _delegate: Logger | null = null;
 
   constructor(readonly name: string) {}
 
-  private get delegate(): Logger | undefined {
+  private get delegate(): Logger | null {
     if (!this._delegate && boundFactory) {
       this._delegate = boundFactory.getLogger(this.name);
     }

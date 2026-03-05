@@ -53,8 +53,9 @@ export class JobParametersBuilder {
     }
     const name = jobParameterOrName;
     assert(value != null, `Value for parameter '${name}' must not be null`);
+    assert(type != null, `Type for parameter '${name}' must not be null`);
     return this.addJobParameter(
-      new JobParameter(name, value as T, type!, identifying ?? true),
+      new JobParameter(name, value as T, type, identifying ?? true),
     );
   }
 

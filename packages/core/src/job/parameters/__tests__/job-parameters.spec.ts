@@ -55,7 +55,7 @@ describe("JobParameters", () => {
   });
 
   it("test get missing number", () => {
-    expect(parameters.getNumber("missing.number1")).toBeUndefined();
+    expect(parameters.getNumber("missing.number1")).toBeNull();
   });
 
   it("test is empty when empty", () => {
@@ -87,15 +87,15 @@ describe("JobParameters", () => {
     expect(parameters.equals(null)).toBe(false);
   });
 
-  it("test number returns undefined when key doesn't exist", () => {
-    expect(new JobParameters().getNumber("keythatdoesntexist")).toBeUndefined();
+  it("test number returns null when key doesn't exist", () => {
+    expect(new JobParameters().getNumber("keythatdoesntexist")).toBeNull();
   });
 
-  it("test string returns undefined when key doesn't exist", () => {
-    expect(new JobParameters().getString("keythatdoesntexist")).toBeUndefined();
+  it("test string returns null when key doesn't exist", () => {
+    expect(new JobParameters().getString("keythatdoesntexist")).toBeNull();
   });
 
-  it("test date returns undefined when key doesn't exist", () => {
-    expect(new JobParameters().getDate("keythatdoesntexist")).toBeUndefined();
+  it("test date returns null when key doesn't exist", () => {
+    expect(new JobParameters().getDate("keythatdoesntexist")).toBeNull();
   });
 });

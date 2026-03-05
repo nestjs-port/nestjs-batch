@@ -5,14 +5,14 @@
  */
 export class JobInstance {
   private readonly _jobName: string;
-  private readonly _instanceId?: number;
+  private readonly _instanceId: number | null;
 
   /**
    * Creates a new JobInstance.
    * @param instanceId - the instance ID
    * @param jobName - the job name
    */
-  constructor(instanceId: number | undefined, jobName: string) {
+  constructor(instanceId: number | null, jobName: string) {
     this._instanceId = instanceId;
     this._jobName = jobName;
   }
@@ -29,7 +29,7 @@ export class JobInstance {
    * Gets the instance ID.
    * @returns the instance ID
    */
-  get instanceId(): number | undefined {
+  get instanceId(): number | null {
     return this._instanceId;
   }
 

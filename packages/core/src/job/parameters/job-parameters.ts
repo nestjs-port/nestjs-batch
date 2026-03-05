@@ -18,19 +18,23 @@ export class JobParameters implements Iterable<JobParameter> {
   /**
    * Gets a parameter by name.
    * @param name - the parameter name
-   * @returns the JobParameter or undefined
+   * @returns the JobParameter or null
    */
-  getParameter(name: string): JobParameter | undefined {
-    return this._parameters.get(name);
+  getParameter(name: string): JobParameter | null {
+    return this._parameters.get(name) ?? null;
   }
 
   /**
    * Gets a parameter value by name.
    * @param name - the parameter name
-   * @returns the parameter value or undefined
+   * @returns the parameter value or null
    */
-  getValue<T = unknown>(name: string): T | undefined {
-    return this._parameters.get(name)?.value as T | undefined;
+  getValue<T = unknown>(name: string): T | null {
+    const parameter = this._parameters.get(name);
+    if (parameter == null) {
+      return null;
+    }
+    return parameter.value as T;
   }
 
   /**
@@ -57,33 +61,33 @@ export class JobParameters implements Iterable<JobParameter> {
     return this._parameters.size;
   }
 
-  getNumber(key: string): number | undefined;
+  getNumber(key: string): number | null;
   getNumber(key: string, defaultValue: number): number;
-  getNumber(key: string, defaultValue?: number): number | undefined {
+  getNumber(key: string, defaultValue?: number): number | null {
     const param = this.getParameter(key);
-    if (param == null) return defaultValue;
+    if (param == null) return defaultValue ?? null;
     if (param.type !== Number) {
       throw new Error(`Key ${key} is not of type Number`);
     }
     return param.value as number;
   }
 
-  getString(key: string): string | undefined;
+  getString(key: string): string | null;
   getString(key: string, defaultValue: string): string;
-  getString(key: string, defaultValue?: string): string | undefined {
+  getString(key: string, defaultValue?: string): string | null {
     const param = this.getParameter(key);
-    if (param == null) return defaultValue;
+    if (param == null) return defaultValue ?? null;
     if (param.type !== String) {
       throw new Error(`Key ${key} is not of type String`);
     }
     return param.value as string;
   }
 
-  getDate(key: string): Date | undefined;
+  getDate(key: string): Date | null;
   getDate(key: string, defaultValue: Date): Date;
-  getDate(key: string, defaultValue?: Date): Date | undefined {
+  getDate(key: string, defaultValue?: Date): Date | null {
     const param = this.getParameter(key);
-    if (param == null) return defaultValue;
+    if (param == null) return defaultValue ?? null;
     if (param.type !== Date) {
       throw new Error(`Key ${key} is not of type Date`);
     }

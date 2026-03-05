@@ -81,12 +81,12 @@ describe("ExecutionContext", () => {
   // Putting null value is equivalent to removing the entry for the given key.
   it("test put null", () => {
     context.put("1", null);
-    expect(context.get("1")).toBeUndefined();
+    expect(context.get("1")).toBeNull();
     expect(context.containsKey("1")).toBe(false);
   });
 
   it("test get null", () => {
-    expect(context.get("does not exist")).toBeUndefined();
+    expect(context.get("does not exist")).toBeNull();
   });
 
   it("test copy constructor", () => {

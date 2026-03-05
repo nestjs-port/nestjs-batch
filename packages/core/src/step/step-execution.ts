@@ -28,9 +28,9 @@ export class StepExecution {
   private _filterCount = 0;
 
   private _createTime: Date = new Date();
-  private _startTime?: Date;
-  private _endTime?: Date;
-  private _lastUpdated?: Date;
+  private _startTime: Date | null = null;
+  private _endTime: Date | null = null;
+  private _lastUpdated: Date | null = null;
 
   private _terminateOnly = false;
   private readonly _failureExceptions: Error[] = [];
@@ -268,42 +268,42 @@ export class StepExecution {
   /**
    * Gets the start time.
    */
-  get startTime(): Date | undefined {
+  get startTime(): Date | null {
     return this._startTime;
   }
 
   /**
    * Sets the start time.
    */
-  set startTime(startTime: Date | undefined) {
+  set startTime(startTime: Date | null) {
     this._startTime = startTime;
   }
 
   /**
    * Gets the end time.
    */
-  get endTime(): Date | undefined {
+  get endTime(): Date | null {
     return this._endTime;
   }
 
   /**
    * Sets the end time.
    */
-  set endTime(endTime: Date | undefined) {
+  set endTime(endTime: Date | null) {
     this._endTime = endTime;
   }
 
   /**
    * Gets the last updated time.
    */
-  get lastUpdated(): Date | undefined {
+  get lastUpdated(): Date | null {
     return this._lastUpdated;
   }
 
   /**
    * Sets the last updated time.
    */
-  set lastUpdated(lastUpdated: Date | undefined) {
+  set lastUpdated(lastUpdated: Date | null) {
     this._lastUpdated = lastUpdated;
   }
 

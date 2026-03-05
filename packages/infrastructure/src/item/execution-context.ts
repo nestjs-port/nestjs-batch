@@ -117,10 +117,10 @@ export class ExecutionContext {
   /**
    * Getter for the value represented by the provided key.
    * @param key - the key to get
-   * @returns the value or undefined
+   * @returns the value or null
    */
-  get(key: string): unknown {
-    return this._map.get(key);
+  get(key: string): unknown | null {
+    return this._map.get(key) ?? null;
   }
 
   /**
@@ -160,10 +160,10 @@ export class ExecutionContext {
    * @param key - key to remove
    * @returns the removed value
    */
-  remove(key: string): unknown {
+  remove(key: string): unknown | null {
     const value = this._map.get(key);
     this._map.delete(key);
-    return value;
+    return value ?? null;
   }
 
   /**

@@ -37,18 +37,18 @@ export class KeyValues implements Iterable<KeyValue> {
     return [...this._values];
   }
 
-  get(key: string): string | undefined {
+  get(key: string): string | null {
     for (let i = this._values.length - 1; i >= 0; i--) {
       const keyValue = this._values[i];
       if (keyValue.key === key) {
         return keyValue.value;
       }
     }
-    return undefined;
+    return null;
   }
 
   has(key: string): boolean {
-    return this.get(key) !== undefined;
+    return this.get(key) !== null;
   }
 
   *keys(): IterableIterator<string> {
