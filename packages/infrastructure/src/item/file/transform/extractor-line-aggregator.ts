@@ -5,7 +5,8 @@ import type { LineAggregator } from "./line-aggregator";
 import { PassThroughFieldExtractor } from "./pass-through-field-extractor";
 
 export abstract class ExtractorLineAggregator<T> implements LineAggregator<T> {
-  private _fieldExtractor: FieldExtractor<T> = new PassThroughFieldExtractor<T>();
+  private _fieldExtractor: FieldExtractor<T> =
+    new PassThroughFieldExtractor<T>();
 
   setFieldExtractor(fieldExtractor: FieldExtractor<T>): void {
     this._fieldExtractor = fieldExtractor;

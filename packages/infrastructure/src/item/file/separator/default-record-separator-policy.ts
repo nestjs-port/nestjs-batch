@@ -46,7 +46,7 @@ export class DefaultRecordSeparatorPolicy extends SimpleRecordSeparatorPolicy {
   }
 
   private isContinued(line: string | null | undefined): boolean {
-    return line != null && line.trim().endsWith(this._continuation);
+    return line?.trim().endsWith(this._continuation) ?? false;
   }
 
   private countOccurrences(value: string, substring: string): number {
