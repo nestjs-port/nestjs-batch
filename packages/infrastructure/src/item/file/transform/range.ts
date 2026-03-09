@@ -30,9 +30,6 @@ export class Range {
 
   private checkMinMaxValues(min: number, max: number): void {
     assert.ok(min > 0, "Min value must be higher than zero");
-    assert.ok(
-      min <= max,
-      "Min value should be lower or equal to max value",
-    );
+    assert.ok(min <= max, "Min value should be lower or equal to max value");
   }
 }
