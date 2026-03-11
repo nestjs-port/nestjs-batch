@@ -1,5 +1,6 @@
-// javax.xml.stream.XMLEventReader 가 Iterator<unknown>로 변환
-export interface FragmentEventReader extends Iterator<unknown> {
+import type { XMLEventReader } from "./xml-event-reader.interface";
+
+export interface FragmentEventReader extends XMLEventReader {
   markStartFragment(): void;
 
   markFragmentProcessed(): void;
