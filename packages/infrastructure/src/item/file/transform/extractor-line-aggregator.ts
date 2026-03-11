@@ -15,10 +15,12 @@ export abstract class ExtractorLineAggregator<T> implements LineAggregator<T> {
   aggregate(item: T): string {
     assert.ok(item != null, "Item is required");
     const fields = this._fieldExtractor.extract(item);
-
+    //
+    // Replace nulls with empty strings
+    //
     const args: unknown[] = new Array(fields.length);
     for (let i = 0; i < fields.length; i += 1) {
-      if (fields[i] === null) {
+      if (fields[i] == null) {
         args[i] = "";
       } else {
         args[i] = fields[i];

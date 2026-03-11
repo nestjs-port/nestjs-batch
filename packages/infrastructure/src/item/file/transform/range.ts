@@ -24,9 +24,6 @@ export class Range {
     return this._max !== Range.UPPER_BORDER_NOT_DEFINED;
   }
 
-  toString(): string {
-    return this.hasMaxValue() ? `${this._min}-${this._max}` : String(this._min);
-  }
 
   private checkMinMaxValues(min: number, max: number): void {
     assert.ok(min > 0, "Min value must be higher than zero");
