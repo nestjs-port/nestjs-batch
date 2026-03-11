@@ -1,3 +1,5 @@
+import { StringUtils } from "@nestjs-batch/commons";
+
 import { SimpleRecordSeparatorPolicy } from "./simple-record-separator-policy";
 
 export class DefaultRecordSeparatorPolicy extends SimpleRecordSeparatorPolicy {
@@ -38,32 +40,14 @@ export class DefaultRecordSeparatorPolicy extends SimpleRecordSeparatorPolicy {
     return line;
   }
 
-  private isQuoteUnterminated(line: string | null | undefined): boolean {
+  private isQuoteUnterminated(line: string | null = null): boolean {
     return (
       line != null &&
-      this.countOccurrences(line, this._quoteCharacter) % 2 !== 0
+      StringUtils.countOccurrences(line, this._quoteCharacter) % 2 !== 0
     );
   }
 
   private isContinued(line: string | null | undefined): boolean {
     return line?.trim().endsWith(this._continuation) ?? false;
-  }
-
-  private countOccurrences(value: string, substring: string): number {
-    if (substring.length === 0) {
-      return 0;
-    }
-
-    let count = 0;
-    let index = 0;
-    while (true) {
-      index = value.indexOf(substring, index);
-      if (index === -1) {
-        break;
-      }
-      count += 1;
-      index += substring.length;
-    }
-    return count;
   }
 }
