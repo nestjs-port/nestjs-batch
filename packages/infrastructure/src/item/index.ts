@@ -29,6 +29,7 @@ export * from "./queue";
 export { ReaderNotOpenException } from "./reader-not-open-exception";
 export * from "./redis";
 export type { ResourceAware } from "./resource-aware.interface";
+export { SkipWrapper } from "./skip-wrapper";
 export * from "./support";
 export { UnexpectedInputException } from "./unexpected-input-exception";
 export * from "./util";
