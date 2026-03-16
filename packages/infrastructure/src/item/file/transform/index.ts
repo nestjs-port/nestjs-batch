@@ -1,4 +1,8 @@
+export { AbstractLineTokenizer } from "./abstract-line-tokenizer";
 export { ConversionException } from "./conversion-exception";
+export { DefaultFieldSet } from "./default-field-set";
+export { DefaultFieldSetFactory } from "./default-field-set-factory";
+export { DelimitedLineAggregator } from "./delimited-line-aggregator";
 export { ExtractorLineAggregator } from "./extractor-line-aggregator";
 export type { FieldExtractor } from "./field-extractor.interface";
 export type { FieldSet } from "./field-set.interface";
