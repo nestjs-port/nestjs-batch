@@ -1,7 +1,10 @@
 export * from "./builder";
+export type { FlatFileFooterCallback } from "./flat-file-footer-callback";
+export type { FlatFileHeaderCallback } from "./flat-file-header-callback";
 export { FlatFileParseException } from "./flat-file-parse-exception";
 export type { LineCallbackHandler } from "./line-callback-handler.interface";
 export type { LineMapper } from "./line-mapper";
+export { NonTransientFlatFileException } from "./non-transient-flat-file-exception";
 export * from "./mapping";
 export type { ResourceSuffixCreator } from "./resource-suffix-creator.interface";
 export * from "./separator";
