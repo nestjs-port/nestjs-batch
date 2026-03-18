@@ -24,7 +24,6 @@ export class Range {
     return this._max !== Range.UPPER_BORDER_NOT_DEFINED;
   }
 
-
   private checkMinMaxValues(min: number, max: number): void {
     assert.ok(min > 0, "Min value must be higher than zero");
     assert.ok(min <= max, "Min value should be lower or equal to max value");

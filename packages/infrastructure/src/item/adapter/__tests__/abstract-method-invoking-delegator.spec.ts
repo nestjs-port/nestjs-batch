@@ -15,7 +15,9 @@ class TestDelegator<T> extends AbstractMethodInvokingDelegator<T> {
     return this.invokeDelegateMethodWithArgument(argument);
   }
 
-  invokeWithArguments(arguments_: Array<unknown | null> | null): Promise<T | null> {
+  invokeWithArguments(
+    arguments_: Array<unknown | null> | null,
+  ): Promise<T | null> {
     return this.invokeDelegateMethodWithArguments(arguments_);
   }
 
@@ -49,10 +51,14 @@ class TargetService {
 describe("AbstractMethodInvokingDelegator", () => {
   it("should validate required properties", () => {
     const delegator = new TestDelegator<string>();
-    expect(() => delegator.afterPropertiesSet()).toThrow("targetObject must not be null");
+    expect(() => delegator.afterPropertiesSet()).toThrow(
+      "targetObject must not be null",
+    );
 
     delegator.setTargetObject(new TargetService());
-    expect(() => delegator.afterPropertiesSet()).toThrow("targetMethod must not be empty");
+    expect(() => delegator.afterPropertiesSet()).toThrow(
+      "targetMethod must not be empty",
+    );
 
     delegator.setTargetMethod("doesNotExist");
     expect(() => delegator.afterPropertiesSet()).toThrow(
@@ -97,7 +103,9 @@ describe("AbstractMethodInvokingDelegator", () => {
     delegator.setTargetMethod("extractName");
     delegator.afterPropertiesSet();
 
-    await expect(delegator.invokeWithArgument({ name: "foo" })).resolves.toBe("foo");
+    await expect(delegator.invokeWithArgument({ name: "foo" })).resolves.toBe(
+      "foo",
+    );
   });
 
   it("should invoke delegate method with explicit arguments", async () => {
@@ -106,7 +114,9 @@ describe("AbstractMethodInvokingDelegator", () => {
     delegator.setTargetMethod("combine");
     delegator.afterPropertiesSet();
 
-    await expect(delegator.invokeWithArguments(["bar", 2])).resolves.toBe("bar-2");
+    await expect(delegator.invokeWithArguments(["bar", 2])).resolves.toBe(
+      "bar-2",
+    );
   });
 
   it("should support async delegate methods", async () => {

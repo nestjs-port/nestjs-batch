@@ -10,10 +10,7 @@ export class DefaultFieldSetFactory implements FieldSetFactory {
   private _numberFormat: Intl.NumberFormat | null = null;
 
   constructor();
-  constructor(
-    dateFormat: DateFormat,
-    numberFormat: Intl.NumberFormat,
-  );
+  constructor(dateFormat: DateFormat, numberFormat: Intl.NumberFormat);
   constructor(
     dateFormat: DateFormat | null = null,
     numberFormat: Intl.NumberFormat | null = null,

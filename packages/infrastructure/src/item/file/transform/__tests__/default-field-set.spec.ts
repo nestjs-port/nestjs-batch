@@ -228,7 +228,9 @@ describe("DefaultFieldSet", () => {
     const longValueAtIndex = 543;
 
     expect(fieldSet.readLong(indexOfNull, defaultValue)).toBe(defaultValue);
-    expect(fieldSet.readLong(indexNotNull, defaultValue)).toBe(longValueAtIndex);
+    expect(fieldSet.readLong(indexNotNull, defaultValue)).toBe(
+      longValueAtIndex,
+    );
 
     expect(fieldSet.readLong(nameNull, defaultValue)).toBe(defaultValue);
     expect(fieldSet.readLong(nameNotNull, defaultValue)).toBe(longValueAtIndex);
@@ -283,16 +285,20 @@ describe("DefaultFieldSet", () => {
     const defaultDate = new Date();
     expect(() => fieldSet.readDate(1, defaultDate)).toThrow("yyyy-MM-dd");
 
-    expect(() => fieldSet.readDate("String", defaultDate)).toThrow("yyyy-MM-dd");
-    expect(() => fieldSet.readDate("String", defaultDate)).toThrow("name: [String]");
+    expect(() => fieldSet.readDate("String", defaultDate)).toThrow(
+      "yyyy-MM-dd",
+    );
+    expect(() => fieldSet.readDate("String", defaultDate)).toThrow(
+      "name: [String]",
+    );
 
     expect(() => fieldSet.readDate(1, "dd-MM-yyyy", defaultDate)).toThrow(
       "dd-MM-yyyy",
     );
 
-    expect(() => fieldSet.readDate("String", "dd-MM-yyyy", defaultDate)).toThrow(
-      "dd-MM-yyyy",
-    );
+    expect(() =>
+      fieldSet.readDate("String", "dd-MM-yyyy", defaultDate),
+    ).toThrow("dd-MM-yyyy");
     expect(() =>
       fieldSet.readDate("String", "dd-MM-yyyy", defaultDate),
     ).toThrow("name: [String]");
@@ -309,7 +315,9 @@ describe("DefaultFieldSet", () => {
   });
 
   it("test read date by name invalid with pattern", () => {
-    expect(() => fieldSet.readDate("String", "dd-MM-yyyy")).toThrow("dd-MM-yyyy");
+    expect(() => fieldSet.readDate("String", "dd-MM-yyyy")).toThrow(
+      "dd-MM-yyyy",
+    );
     expect(() => fieldSet.readDate("String", "dd-MM-yyyy")).toThrow("String");
   });
 
@@ -339,9 +347,9 @@ describe("DefaultFieldSet", () => {
   });
 
   it("test equals null tokens", () => {
-    expect(new DefaultFieldSet(null).values as Array<string | null>).not.toEqual(
-      fieldSet.values as Array<string | null>,
-    );
+    expect(
+      new DefaultFieldSet(null).values as Array<string | null>,
+    ).not.toEqual(fieldSet.values as Array<string | null>);
   });
 
   it("test equals not equal", () => {
@@ -355,9 +363,7 @@ describe("DefaultFieldSet", () => {
   });
 
   it("test hash code", () => {
-    expect(
-      javaArrayHashCode(fieldSet.values as Array<string | null>),
-    ).toBe(
+    expect(javaArrayHashCode(fieldSet.values as Array<string | null>)).toBe(
       javaArrayHashCode(
         new DefaultFieldSet(tokens).values as Array<string | null>,
       ),
@@ -366,7 +372,9 @@ describe("DefaultFieldSet", () => {
 
   it("test hash code with null tokens", () => {
     expect(
-      javaArrayHashCode(new DefaultFieldSet(null).values as Array<string | null>),
+      javaArrayHashCode(
+        new DefaultFieldSet(null).values as Array<string | null>,
+      ),
     ).toBe(0);
   });
 

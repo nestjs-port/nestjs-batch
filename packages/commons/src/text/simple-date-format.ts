@@ -201,9 +201,7 @@ export class SimpleDateFormat extends DateFormat {
         }
         case "E": {
           const names = count >= 4 ? DAYS_LONG : DAYS_SHORT;
-          const found = names.find((n) =>
-            source.substring(pos).startsWith(n),
-          );
+          const found = names.find((n) => source.substring(pos).startsWith(n));
           if (found) {
             pos += found.length;
           }
@@ -261,10 +259,7 @@ export class SimpleDateFormat extends DateFormat {
           }
           tokens.push({ type: "literal", value: literal });
         }
-      } else if (
-        (c >= "a" && c <= "z") ||
-        (c >= "A" && c <= "Z")
-      ) {
+      } else if ((c >= "a" && c <= "z") || (c >= "A" && c <= "Z")) {
         // field pattern: collect consecutive same characters
         let field = c;
         i++;
@@ -284,10 +279,29 @@ export class SimpleDateFormat extends DateFormat {
   }
 
   private static readonly NUMERIC_FIELDS = new Set([
-    "y", "Y", "M", "L", "d", "D", "H", "h", "k", "K", "m", "s", "S", "w", "W", "F", "u",
+    "y",
+    "Y",
+    "M",
+    "L",
+    "d",
+    "D",
+    "H",
+    "h",
+    "k",
+    "K",
+    "m",
+    "s",
+    "S",
+    "w",
+    "W",
+    "F",
+    "u",
   ]);
 
-  private isNextTokenNumericField(tokens: PatternToken[], currentIndex: number): boolean {
+  private isNextTokenNumericField(
+    tokens: PatternToken[],
+    currentIndex: number,
+  ): boolean {
     for (let i = currentIndex + 1; i < tokens.length; i++) {
       const next = tokens[i];
       if (next.type === "literal") {
@@ -333,18 +347,19 @@ export class SimpleDateFormat extends DateFormat {
         return this.pad(this.weekOfYear(date), count);
       case "d": // day of month
         return this.pad(date.getDate(), count);
-      case "D": { // day of year
+      case "D": {
+        // day of year
         const start = new Date(date.getFullYear(), 0, 1);
-        const diff = Math.floor(
-          (date.getTime() - start.getTime()) / 86400000,
-        );
+        const diff = Math.floor((date.getTime() - start.getTime()) / 86400000);
         return this.pad(diff + 1, count);
       }
-      case "E": { // day of week
+      case "E": {
+        // day of week
         const dow = date.getDay();
         return count >= 4 ? DAYS_LONG[dow] : DAYS_SHORT[dow];
       }
-      case "u": { // day number of week (1=Mon, 7=Sun)
+      case "u": {
+        // day number of week (1=Mon, 7=Sun)
         const d = date.getDay();
         return String(d === 0 ? 7 : d);
       }
@@ -352,13 +367,15 @@ export class SimpleDateFormat extends DateFormat {
         return date.getHours() < 12 ? "AM" : "PM";
       case "H": // hour (0-23)
         return this.pad(date.getHours(), count);
-      case "k": { // hour (1-24)
+      case "k": {
+        // hour (1-24)
         const h = date.getHours();
         return this.pad(h === 0 ? 24 : h, count);
       }
       case "K": // hour in am/pm (0-11)
         return this.pad(date.getHours() % 12, count);
-      case "h": { // hour in am/pm (1-12)
+      case "h": {
+        // hour in am/pm (1-12)
         const h = date.getHours() % 12;
         return this.pad(h === 0 ? 12 : h, count);
       }
@@ -370,7 +387,8 @@ export class SimpleDateFormat extends DateFormat {
         return this.pad(date.getMilliseconds(), count);
       case "z": // timezone name (simplified)
         return this.formatTimeZoneName(date);
-      case "Z": { // timezone offset ("-/+hhmm")
+      case "Z": {
+        // timezone offset ("-/+hhmm")
         const offset = -date.getTimezoneOffset();
         const sign = offset >= 0 ? "+" : "-";
         const absOffset = Math.abs(offset);
@@ -380,7 +398,8 @@ export class SimpleDateFormat extends DateFormat {
           this.pad(absOffset % 60, 2)
         );
       }
-      case "X": { // ISO 8601 timezone
+      case "X": {
+        // ISO 8601 timezone
         const tz = -date.getTimezoneOffset();
         if (tz === 0) {
           return "Z";
@@ -406,7 +425,11 @@ export class SimpleDateFormat extends DateFormat {
     return String(value).padStart(length, "0");
   }
 
-  private extractNumber(source: string, pos: number, minDigits: number): string {
+  private extractNumber(
+    source: string,
+    pos: number,
+    minDigits: number,
+  ): string {
     let end = pos;
     while (end < source.length && source[end] >= "0" && source[end] <= "9") {
       end++;

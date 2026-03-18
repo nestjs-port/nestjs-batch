@@ -24,7 +24,9 @@ describe("DefaultFieldSetFactory", () => {
     const format = new SimpleDateFormat("yyyy/MM/dd");
     factory.setDateFormat(format);
     const fieldSet = factory.create(["1999/12/18", "bar"]);
-    expect(fieldSet.readDate(0).getTime()).toBe(format.parse("1999/12/18").getTime());
+    expect(fieldSet.readDate(0).getTime()).toBe(
+      format.parse("1999/12/18").getTime(),
+    );
   });
 
   it("test field set with number format", () => {

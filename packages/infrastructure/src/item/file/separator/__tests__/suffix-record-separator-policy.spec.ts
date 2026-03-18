@@ -12,9 +12,9 @@ describe("SuffixRecordSeparatorPolicy", () => {
 
   it("test normal line with default suffix", () => {
     const policy = new SuffixRecordSeparatorPolicy();
-    expect(policy.isEndOfRecord(line + SuffixRecordSeparatorPolicy.DEFAULT_SUFFIX)).toBe(
-      true,
-    );
+    expect(
+      policy.isEndOfRecord(line + SuffixRecordSeparatorPolicy.DEFAULT_SUFFIX),
+    ).toBe(true);
   });
 
   it("test normal line with non default suffix", () => {
@@ -26,7 +26,9 @@ describe("SuffixRecordSeparatorPolicy", () => {
   it("test normal line with default suffix and whitespace", () => {
     const policy = new SuffixRecordSeparatorPolicy();
     expect(
-      policy.isEndOfRecord(line + SuffixRecordSeparatorPolicy.DEFAULT_SUFFIX + "  "),
+      policy.isEndOfRecord(
+        line + SuffixRecordSeparatorPolicy.DEFAULT_SUFFIX + "  ",
+      ),
     ).toBe(true);
   });
 
@@ -34,7 +36,9 @@ describe("SuffixRecordSeparatorPolicy", () => {
     const policy = new SuffixRecordSeparatorPolicy();
     policy.setIgnoreWhitespace(false);
     expect(
-      policy.isEndOfRecord(line + SuffixRecordSeparatorPolicy.DEFAULT_SUFFIX + "  "),
+      policy.isEndOfRecord(
+        line + SuffixRecordSeparatorPolicy.DEFAULT_SUFFIX + "  ",
+      ),
     ).toBe(false);
   });
 
