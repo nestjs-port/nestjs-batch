@@ -7,6 +7,7 @@ export { ExtractorLineAggregator } from "./extractor-line-aggregator";
 export type { FieldExtractor } from "./field-extractor.interface";
 export type { FieldSet } from "./field-set.interface";
 export type { FieldSetFactory } from "./field-set-factory.interface";
+export { FixedLengthTokenizer } from "./fixed-length-tokenizer";
 export { FlatFileFormatException } from "./flat-file-format-exception";
 export { IncorrectLineLengthException } from "./incorrect-line-length-exception";
 export { IncorrectTokenCountException } from "./incorrect-token-count-exception";
