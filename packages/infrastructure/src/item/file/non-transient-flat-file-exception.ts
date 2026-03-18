@@ -8,7 +8,12 @@ export class NonTransientFlatFileException extends NonTransientResourceException
   constructor(message: string, cause: unknown);
   constructor(message: string, input: string);
   constructor(message: string, input: string, lineNumber: number);
-  constructor(message: string, cause: unknown, input: string, lineNumber: number);
+  constructor(
+    message: string,
+    cause: unknown,
+    input: string,
+    lineNumber: number,
+  );
   constructor(
     message: string,
     inputOrCause: string | unknown,
@@ -27,7 +32,8 @@ export class NonTransientFlatFileException extends NonTransientResourceException
     }
 
     const cause = inputOrCause;
-    const input = typeof inputOrLineNumber === "string" ? inputOrLineNumber : null;
+    const input =
+      typeof inputOrLineNumber === "string" ? inputOrLineNumber : null;
     const resolvedLineNumber = input != null ? lineNumber : 0;
 
     super(message, cause);

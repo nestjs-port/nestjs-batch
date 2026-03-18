@@ -437,7 +437,9 @@ describe("SimpleDateFormat", () => {
     it("non-lenient parse rejects invalid calendar date", () => {
       const sdf = new SimpleDateFormat("yyyy-MM-dd");
       sdf.lenient = false;
-      expect(() => sdf.parse("2001-02-30")).toThrow("Unparseable date: 2001-02-30");
+      expect(() => sdf.parse("2001-02-30")).toThrow(
+        "Unparseable date: 2001-02-30",
+      );
     });
 
     it("lenient parse normalizes invalid calendar date", () => {
@@ -595,29 +597,29 @@ describe("SimpleDateFormat", () => {
       { num: 12, short: "Dec", long: "December" },
     ];
 
-    it.each(months)(
-      "MMM formats and parses $short correctly",
-      ({ num, short: abbr }) => {
-        const sdf = new SimpleDateFormat("dd-MMM-yyyy");
-        const date = localDate(2001, num, 15);
-        const formatted = sdf.format(date);
-        expect(formatted).toContain(abbr);
-        const parsed = sdf.parse(formatted);
-        expect(parsed.getMonth()).toBe(num - 1);
-      },
-    );
+    it.each(months)("MMM formats and parses $short correctly", ({
+      num,
+      short: abbr,
+    }) => {
+      const sdf = new SimpleDateFormat("dd-MMM-yyyy");
+      const date = localDate(2001, num, 15);
+      const formatted = sdf.format(date);
+      expect(formatted).toContain(abbr);
+      const parsed = sdf.parse(formatted);
+      expect(parsed.getMonth()).toBe(num - 1);
+    });
 
-    it.each(months)(
-      "MMMM formats and parses $long correctly",
-      ({ num, long: full }) => {
-        const sdf = new SimpleDateFormat("dd-MMMM-yyyy");
-        const date = localDate(2001, num, 15);
-        const formatted = sdf.format(date);
-        expect(formatted).toContain(full);
-        const parsed = sdf.parse(formatted);
-        expect(parsed.getMonth()).toBe(num - 1);
-      },
-    );
+    it.each(months)("MMMM formats and parses $long correctly", ({
+      num,
+      long: full,
+    }) => {
+      const sdf = new SimpleDateFormat("dd-MMMM-yyyy");
+      const date = localDate(2001, num, 15);
+      const formatted = sdf.format(date);
+      expect(formatted).toContain(full);
+      const parsed = sdf.parse(formatted);
+      expect(parsed.getMonth()).toBe(num - 1);
+    });
   });
 
   describe("all days of week format correctly", () => {
@@ -637,13 +639,10 @@ describe("SimpleDateFormat", () => {
       expect(sdf.format(localDate(2001, 7, date))).toBe(abbr);
     });
 
-    it.each(days)(
-      "EEEE formats $long correctly",
-      ({ date, long: full }) => {
-        const sdf = new SimpleDateFormat("EEEE");
-        expect(sdf.format(localDate(2001, 7, date))).toBe(full);
-      },
-    );
+    it.each(days)("EEEE formats $long correctly", ({ date, long: full }) => {
+      const sdf = new SimpleDateFormat("EEEE");
+      expect(sdf.format(localDate(2001, 7, date))).toBe(full);
+    });
   });
 
   describe("millisecond format patterns", () => {

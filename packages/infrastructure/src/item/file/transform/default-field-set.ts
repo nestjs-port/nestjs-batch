@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
 
-import { DateFormat, SimpleDateFormat, StringUtils } from "@nestjs-batch/commons";
+import {
+  DateFormat,
+  SimpleDateFormat,
+  StringUtils,
+} from "@nestjs-batch/commons";
 
 import type { FieldSet } from "./field-set.interface";
 
@@ -251,7 +255,10 @@ export class DefaultFieldSet implements FieldSet {
   ): number | null {
     if (typeof indexOrName === "string") {
       try {
-        return this.readBigDecimalFromIndex(this.indexOf(indexOrName), defaultValue);
+        return this.readBigDecimalFromIndex(
+          this.indexOf(indexOrName),
+          defaultValue,
+        );
       } catch (error) {
         throw new Error(
           `${this.toErrorMessage(error)}, name: [${indexOrName}]`,
@@ -373,9 +380,7 @@ export class DefaultFieldSet implements FieldSet {
     try {
       return dateFormat.parse(input);
     } catch (error) {
-      throw new Error(
-        `${this.toErrorMessage(error)}, format: [${pattern}]`,
-      );
+      throw new Error(`${this.toErrorMessage(error)}, format: [${pattern}]`);
     }
   }
 

@@ -14,21 +14,30 @@ export abstract class AbstractMethodInvokingDelegator<T> {
   private _arguments: Array<unknown | null> | null = null;
 
   protected async invokeDelegateMethod(): Promise<T | null> {
-    const invoker = this.createMethodInvoker(this._targetObject, this._targetMethod);
+    const invoker = this.createMethodInvoker(
+      this._targetObject,
+      this._targetMethod,
+    );
     return this.doInvoke(invoker, this._arguments);
   }
 
   protected async invokeDelegateMethodWithArgument(
     object: unknown | null,
   ): Promise<T | null> {
-    const invoker = this.createMethodInvoker(this._targetObject, this._targetMethod);
+    const invoker = this.createMethodInvoker(
+      this._targetObject,
+      this._targetMethod,
+    );
     return this.doInvoke(invoker, [object]);
   }
 
   protected async invokeDelegateMethodWithArguments(
     args: Array<unknown | null> | null,
   ): Promise<T | null> {
-    const invoker = this.createMethodInvoker(this._targetObject, this._targetMethod);
+    const invoker = this.createMethodInvoker(
+      this._targetObject,
+      this._targetMethod,
+    );
     return this.doInvoke(invoker, args);
   }
 
@@ -82,7 +91,10 @@ export abstract class AbstractMethodInvokingDelegator<T> {
   }
 
   private targetClassDeclaresTargetMethod(): boolean {
-    if (this._targetObject == null || !StringUtils.hasText(this._targetMethod)) {
+    if (
+      this._targetObject == null ||
+      !StringUtils.hasText(this._targetMethod)
+    ) {
       return false;
     }
 
@@ -172,12 +184,18 @@ export abstract class AbstractMethodInvokingDelegator<T> {
    * prototype chain. Mirrors Java's combination of
    * {@code Class.getMethods()} + {@code Class.getDeclaredMethods()}.
    */
-  private collectMethods(targetObject: object, targetMethod: string): InvocableMethod[] {
+  private collectMethods(
+    targetObject: object,
+    targetMethod: string,
+  ): InvocableMethod[] {
     const methods: InvocableMethod[] = [];
     const seen = new Set<InvocableMethod>();
 
     // Check own properties of the instance (e.g. arrow function fields)
-    const ownDescriptor = Object.getOwnPropertyDescriptor(targetObject, targetMethod);
+    const ownDescriptor = Object.getOwnPropertyDescriptor(
+      targetObject,
+      targetMethod,
+    );
     if (typeof ownDescriptor?.value === "function") {
       const method = ownDescriptor.value as InvocableMethod;
       methods.push(method);
@@ -187,7 +205,10 @@ export abstract class AbstractMethodInvokingDelegator<T> {
     // Traverse prototype chain (analogous to getMethods + getDeclaredMethods)
     let prototype = Object.getPrototypeOf(targetObject) as object | null;
     while (prototype != null && prototype !== Object.prototype) {
-      const descriptor = Object.getOwnPropertyDescriptor(prototype, targetMethod);
+      const descriptor = Object.getOwnPropertyDescriptor(
+        prototype,
+        targetMethod,
+      );
       if (typeof descriptor?.value === "function") {
         const method = descriptor.value as InvocableMethod;
         if (!seen.has(method)) {
