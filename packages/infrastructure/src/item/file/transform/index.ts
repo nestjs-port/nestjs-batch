@@ -15,4 +15,5 @@ export type { LineAggregator } from "./line-aggregator";
 export type { LineTokenizer } from "./line-tokenizer";
 export { PassThroughFieldExtractor } from "./pass-through-field-extractor";
 export { PassThroughLineAggregator } from "./pass-through-line-aggregator";
+export { RecursiveCollectionLineAggregator } from "./recursive-collection-line-aggregator";
 export { Range } from "./range";
