@@ -1,201 +1,118 @@
 ---
 name: java-to-ts-migration
-description: Migrate Spring AI Java files to NestJS AI TypeScript. Use when converting Java classes/interfaces from spring-ai to TypeScript in nestjs-ai, maintaining package structure and patterns.
+description: Migrate Spring Batch Java files to NestJS Batch TypeScript. Use when converting Java classes, interfaces, enums, or tests from this repository's spring-batch modules into nestjs-batch packages while preserving module/package structure and local TypeScript conventions.
 argument-hint: <path-to-java-file>
 ---
 
 # Java to TypeScript Migration Guide
 
-This skill guides the migration of Java files from `spring-ai` to TypeScript in `nestjs-ai`.
+Migrate one Java file from `spring-batch-*` to the matching TypeScript file in `nestjs-batch/packages/*`.
 
 ## Usage
 
-**Single File Migration Mode:**
-- Migrate ONLY the specified Java file to TypeScript
-- Do NOT migrate other files, even if they are related or referenced
-- If the file depends on types/classes from other files that don't exist yet in TypeScript:
-  - **Assume they already exist** and import them as if they were available
-  - Use the expected TypeScript path based on the directory mapping below
-  - Do NOT create stub files or placeholder implementations
-- Focus solely on converting the given file's content
+Single-file mode rules:
+- Migrate only the requested Java file.
+- Do not migrate or create additional files unless explicitly requested.
+- If dependent TS symbols are missing, assume they exist and import from expected locations.
+- Do not create placeholder/stub files for dependencies.
 
-**Example:**
+Example:
+```bash
+/java-to-ts-migration spring-batch-core/src/main/java/org/springframework/batch/core/ExitStatus.java
 ```
-/java-to-ts-migration spring-ai-model/src/main/java/org/springframework/ai/chat/messages/UserMessage.java
-```
-This will migrate only `UserMessage.java`, assuming any dependencies like `AbstractMessage`, `Message` interface, etc. already exist.
 
 ## Additional Resources
 
-For detailed patterns and examples, see:
-- [Code Patterns](reference/code-patterns.md) - Interface, class, builder, enum conversions
-- [Documentation Migration](reference/documentation.md) - Javadoc to JSDoc conversion
-- [Test Migration](reference/test-migration.md) - JUnit to Vitest conversion
+Load these only when needed:
+- [Code Patterns](reference/code-patterns.md)
+- [Documentation Migration](reference/documentation.md)
+- [Test Migration](reference/test-migration.md)
 
-## Directory Structure Mapping
+## Repository Mapping
 
-| Spring AI (Java)                                              | NestJS AI (TypeScript)                     |
-|---------------------------------------------------------------|-----------------------------------------------|
-| `spring-ai-model/src/main/java/org/springframework/ai/chat/`  | `nestjs-ai/packages/model/src/chat/`       |
-| `spring-ai-model/src/main/java/org/springframework/ai/model/` | `nestjs-ai/packages/model/src/model/`      |
-| `spring-ai-model/src/main/java/org/springframework/ai/tool/`  | `nestjs-ai/packages/model/src/tool/`       |
-| `spring-ai-commons/src/main/java/org/springframework/ai/content/` | `nestjs-ai/packages/commons/src/content/` |
-| `models/spring-ai-openai/`                                    | `nestjs-ai/packages/models/openai/`        |
-| `models/spring-ai-{provider}/`                                | `nestjs-ai/packages/models/{provider}/`    |
+Module mapping (Java module -> TypeScript package):
+- `spring-batch-core` -> `nestjs-batch/packages/core`
+- `spring-batch-infrastructure` -> `nestjs-batch/packages/infrastructure`
+- `spring-batch-integration` -> `nestjs-batch/packages/platform`
+- `spring-batch-test` -> `nestjs-batch/packages/commons`
+- `spring-batch-{x}` -> `nestjs-batch/packages/{x}` (fallback if package exists)
 
-### Test File Mapping
+Java source base path:
+- Preferred: `src/main/java/org/springframework/batch/...`
+- Fallback: `src/main/java/...`
 
-| Java Test Location                     | TypeScript Test Location        |
-|----------------------------------------|---------------------------------|
-| `src/test/java/.../FooTests.java`      | `src/.../__tests__/foo.spec.ts` |
+Path conversion rules:
+- Strip Java base path.
+- For `spring-batch-core`, strip leading `core/` from relative path.
+- Preserve remaining directory structure under `packages/<target>/src/`.
 
-## File Naming Conventions
+## Naming Rules
 
-| Java Pattern              | TypeScript Pattern                    |
-|---------------------------|---------------------------------------|
-| `FooBar.java` (class)     | `foo-bar.ts` (kebab-case)             |
-| `FooBar.java` (interface) | `foo-bar.interface.ts` or `foo-bar.ts`|
-| `FooBarTests.java`        | `__tests__/foo-bar.spec.ts`           |
+- Java `FooBar.java` -> `foo-bar.ts`.
+- Interface target may be `foo-bar.interface.ts`.
+- Enum target may be `foo-bar.enum.ts`.
+- Java test `FooBarTests.java` -> `__tests__/foo-bar.spec.ts`.
 
-## Type Conversion Quick Reference
+## Import Rules
 
-### Primitive Types
-
-| Java                      | TypeScript                            |
-|---------------------------|---------------------------------------|
-| `String`                  | `string`                              |
-| `int`, `long`, `Integer`  | `number`                              |
-| `boolean`, `Boolean`      | `boolean`                             |
-| `void`                    | `void`                                |
-| `Object`                  | `unknown`                             |
-| `@Nullable T`             | `T \| null`                           |
-
-### Collection Types
-
-| Java                      | TypeScript                            |
-|---------------------------|---------------------------------------|
-| `List<T>`                 | `T[]`                                 |
-| `Set<T>`                  | `Set<T>`                              |
-| `Map<K, V>`               | `Map<K, V>` or `Record<K, V>`         |
-| `Map<String, Object>`     | `Record<string, unknown>`             |
-
-### Special Types
-
-| Java                      | TypeScript                            |
-|---------------------------|---------------------------------------|
-| `Flux<T>`                 | `Observable<T>` (from rxjs)           |
-| `Mono<T>`                 | `Promise<T>`                          |
-| `Resource`                | Remove (Spring-specific)              |
-
-## Key Conversion Rules
-
-### 1. Getters
-- `getXxx()` methods → `get xxx(): Type` getters
-
-### 2. Fields
-- Prefix protected/private fields with `_` underscore
-- Use `readonly` for immutable fields
-- `public static final` → `static readonly`
-
-### 3. Constructors
-- Create `{ClassName}Props` interface for constructor parameters
-- Use object destructuring with defaults
-
-### 4. Assertions
-- Replace `Assert.notNull()` with `assert()` from `node:assert/strict`
-
-### 5. Collections
-- Replace `new HashMap<>(map)` with spread operator `{ ...metadata }`
-- Replace `new ArrayList<>(list)` with spread operator `[...list]`
-
-### 6. equals, hashCode, toString
-- Do NOT implement `equals()`, `hashCode()`, or `toString()` — these are Java-specific patterns that don't apply in TypeScript
-
-## Import/Export Patterns
-
-### Index Files
-
-Each directory should have an `index.ts` that re-exports public APIs:
-
-```typescript
-// src/chat/messages/index.ts
-export { AbstractMessage } from "./abstract-message";
-export { UserMessage, type UserMessageProps } from "./user-message";
-export type { Message } from "./message.interface";
-export { MessageType } from "./message-type";
-```
-
-### Package Imports
-
-```typescript
-// Cross-package imports use @nestjs-batch scope
-import type { Content, Media } from "@nestjs-batch/commons";
-
-// Same-package imports use relative paths
-import { AbstractMessage } from "./abstract-message";
-import type { Message } from "./message.interface";
-```
+- Cross-package imports: `@nestjs-batch/<package>`.
+- Intra-package imports: relative paths (`./`, `../`).
+- Use `import type` for type-only imports.
 
 ## Migration Workflow
 
-### Step 1: Identify Source Files
+### 1) Resolve expected target file
+
+Use repository helper script:
 ```bash
-# Find the Java source file
-ls spring-ai-model/src/main/java/org/springframework/ai/chat/messages/
-
-# Find corresponding test file
-ls spring-ai-model/src/test/java/org/springframework/ai/chat/messages/
+./check-missing-ts.sh spring-batch-core
+./check-missing-ts.sh core
 ```
 
-### Step 2: Create Target Files
+Use its output path as the canonical TS destination.
+
+### 2) Convert Java code to TypeScript
+
+- Convert package/imports to TS imports.
+- Convert class/interface/enum declarations to TS equivalents.
+- Convert `getXxx()` to `get xxx()`.
+- Prefer `readonly` and follow nearby folder style for private/protected fields.
+- Convert Java collections to TS arrays/maps/records.
+- Omit Java-only patterns: `equals`, `hashCode`, `toString`.
+- Omit license headers/Javadoc. Keep only inline comments inside method/function bodies.
+
+### 3) Align with local package style
+
+- Follow neighboring TS files in the same directory for constructor/builder patterns.
+- Update `index.ts` exports only when the file is meant to be publicly exported.
+- Keep output Biome/TypeScript compatible with this monorepo.
+
+### 4) Migrate tests (only when requested)
+
+- Convert JUnit tests to Vitest `describe/it`.
+- Preserve intent and case coverage of original tests.
+- Target test location: `src/**/__tests__/*.spec.ts`.
+
+### 5) Verify
+
+Run from `nestjs-batch/`:
 ```bash
-# Create TypeScript file in corresponding location
-touch nestjs-ai/packages/model/src/chat/messages/new-message.ts
-
-# Create test file
-touch nestjs-ai/packages/model/src/chat/messages/__tests__/new-message.spec.ts
+pnpm --filter @nestjs-batch/<package-name> typecheck
+pnpm --filter @nestjs-batch/<package-name> test
 ```
-
-### Step 3: Convert Code
-1. Convert imports (Java packages → TypeScript imports)
-2. Convert class/interface declaration
-3. Convert fields (apply `_` prefix, `readonly`)
-4. Convert constructor (use Props interface pattern)
-5. Convert methods (getters use `get` keyword)
-6. Convert static methods (use `static` or namespace pattern)
-7. Skip `equals`, `hashCode`, `toString` (do not migrate)
-
-### Step 4: Update Index
-Add exports to `index.ts`:
-```typescript
-export { NewMessage, type NewMessageProps } from "./new-message";
-```
-
-### Step 5: Handle Comments
-1. **Drop all Javadoc/JSDoc comments** — do NOT migrate license headers, class, method, field, or constructor Javadoc
-2. **Only migrate inline comments** — preserve `//` and `/* */` comments that are inside method bodies
-
-### Step 6: Convert Tests
-1. Change `@Test` methods to `it()` blocks
-2. Wrap in `describe()` block
-3. Convert AssertJ assertions to Vitest expectations
-4. Run tests: `npm test`
 
 ## Checklist
 
 ```
 Migration Checklist:
-- [ ] File created with kebab-case name
-- [ ] Props interface defined (if class has constructor params)
-- [ ] Fields prefixed with _ and marked readonly
-- [ ] Getters use `get` keyword (not `getXxx()` methods)
-- [ ] Static methods converted
-- [ ] Builder pattern converted (Props or Builder class)
-- [ ] equals, hashCode, toString NOT implemented (Java-specific, skip)
-- [ ] All Javadoc/JSDoc dropped (license, class, method, field comments not migrated)
-- [ ] Inline comments inside method bodies preserved
-- [ ] Imports use correct package paths
-- [ ] Exported in index.ts
-- [ ] Tests migrated to __tests__/*.spec.ts
-- [ ] All tests pass
+- [ ] Output file path matches spring-batch -> nestjs-batch mapping
+- [ ] File naming follows kebab-case (.ts/.interface.ts/.enum.ts)
+- [ ] Imports use @nestjs-batch/* or proper relative paths
+- [ ] Type-only imports use import type
+- [ ] Java-only methods (equals/hashCode/toString) are not ported
+- [ ] Javadoc/license headers are removed
+- [ ] Inline comments inside method bodies are preserved
+- [ ] index.ts export updated only when needed
+- [ ] Test file migrated to __tests__/*.spec.ts (if requested)
+- [ ] Typecheck/test executed for touched package, or limitation stated
 ```

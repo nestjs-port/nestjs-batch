@@ -1,53 +1,43 @@
 # Code Patterns Reference
 
-Detailed examples for converting Java code patterns to TypeScript.
+Use these patterns when migrating Spring Batch Java files to NestJS Batch TypeScript.
 
-## 1. Interface Conversion
+## 1. Interface Conversion (ItemReader)
 
 **Java:**
 ```java
-public interface Message extends Content {
-    MessageType getMessageType();
+@FunctionalInterface
+public interface ItemReader<T> {
+    @Nullable T read() throws Exception;
 }
 ```
 
 **TypeScript:**
 ```typescript
-import type { Content } from "@nestjs-batch/commons";
-import type { MessageType } from "./message-type";
-
-export interface Message extends Content {
-    get messageType(): MessageType;
+export interface ItemReader<T> {
+  read(): Promise<T | null>;
 }
 ```
 
-**Key differences:**
-- Use `export interface` instead of `public interface`
-- Convert `getXxx()` methods to `get xxx(): Type` getters
-- Use `import type` for type-only imports
-- Package imports use `@nestjs-batch/{package}` format
+Key points:
+- Remove Java annotations (`@FunctionalInterface`, `@Nullable`).
+- Keep generic type parameter.
+- Use async-style contract in TS when interface in target package already uses it.
 
-## 2. Abstract Class Conversion
+## 2. Record/Class Conversion (JobParameter)
 
 **Java:**
 ```java
-public abstract class AbstractMessage implements Message {
-    public static final String MESSAGE_TYPE = "messageType";
-    protected final MessageType messageType;
-    protected final @Nullable String textContent;
-    protected final Map<String, Object> metadata;
-
-    protected AbstractMessage(MessageType messageType, @Nullable String textContent,
-                              Map<String, Object> metadata) {
-        Assert.notNull(messageType, "Message type must not be null");
-        this.messageType = messageType;
-        this.textContent = textContent;
-        this.metadata = new HashMap<>(metadata);
-    }
-
-    @Override
-    public MessageType getMessageType() {
-        return this.messageType;
+public record JobParameter<T>(
+    String name,
+    T value,
+    Class<T> type,
+    boolean identifying
+) {
+    public JobParameter {
+        Assert.notNull(name, "name must not be null");
+        Assert.notNull(value, "value must not be null");
+        Assert.notNull(type, "type must not be null");
     }
 }
 ```
@@ -55,234 +45,125 @@ public abstract class AbstractMessage implements Message {
 **TypeScript:**
 ```typescript
 import assert from "node:assert/strict";
-import type { Message } from "./message.interface";
-import { MessageType } from "./message-type";
 
-export abstract class AbstractMessage implements Message {
-    static readonly MESSAGE_TYPE = "messageType";
-    protected readonly _messageType: MessageType;
-    protected readonly _textContent: string | null;
-    protected readonly _metadata: Record<string, unknown>;
+export class JobParameter<T = unknown> {
+  readonly name: string;
+  readonly value: T;
+  readonly type: new (...args: never[]) => T;
+  readonly identifying: boolean;
 
-    protected constructor(
-        messageType: MessageType,
-        textContent: string | null,
-        metadata: Record<string, unknown>,
-    ) {
-        assert(messageType, "Message type must not be null");
-        this._messageType = messageType;
-        this._textContent = textContent;
-        this._metadata = { ...metadata };
-    }
-
-    get messageType(): MessageType {
-        return this._messageType;
-    }
+  constructor(
+    name: string,
+    value: T,
+    type: new (...args: never[]) => T,
+    identifying = true,
+  ) {
+    assert(name != null, "name must not be null");
+    assert(value != null, "value must not be null");
+    assert(type != null, "type must not be null");
+    this.name = name;
+    this.value = value;
+    this.type = type;
+    this.identifying = identifying;
+  }
 }
 ```
 
-**Key differences:**
-- Use `static readonly` instead of `public static final`
-- Prefix protected fields with `_` underscore
-- Use `readonly` for immutable fields
-- Replace `Assert.notNull()` with `assert()` from `node:assert/strict`
-- Replace `new HashMap<>(map)` with spread operator `{ ...metadata }`
+Key points:
+- Replace `Assert.notNull` with Node strict `assert`.
+- Use overload/default parameter patterns when Java has multiple constructors.
+- Keep immutable fields as `readonly`.
 
-## 3. Concrete Class with Props Interface
+## 3. Enum Conversion (BatchStatus)
 
 **Java:**
 ```java
-public class UserMessage extends AbstractMessage implements MediaContent {
-    protected final List<Media> media;
-
-    public UserMessage(@Nullable String textContent) {
-        this(textContent, new ArrayList<>(), Map.of());
-    }
-
-    private UserMessage(@Nullable String textContent, Collection<Media> media,
-                        Map<String, Object> metadata) {
-        super(MessageType.USER, textContent, metadata);
-        this.media = new ArrayList<>(media);
-    }
-
-    @Override
-    public List<Media> getMedia() {
-        return this.media;
-    }
-
-    public UserMessage copy() {
-        return mutate().build();
-    }
+public enum BatchStatus {
+    COMPLETED, STARTING, STARTED, STOPPING, STOPPED, FAILED, ABANDONED, UNKNOWN
 }
 ```
 
 **TypeScript:**
 ```typescript
-import type { Media, MediaContent } from "@nestjs-batch/commons";
-import { AbstractMessage } from "./abstract-message";
-import { MessageType } from "./message-type";
-
-export interface UserMessageProps {
-    content?: string | null;
-    properties?: Record<string, unknown>;
-    media?: Media[];
-}
-
-export class UserMessage extends AbstractMessage implements MediaContent {
-    protected readonly _media: Media[];
-
-    constructor(options: UserMessageProps = {}) {
-        super(MessageType.USER, options.content ?? null, options.properties ?? {});
-        this._media = [...(options.media ?? [])];
-    }
-
-    static of(textContent: string): UserMessage {
-        return new UserMessage({ content: textContent, media: [] });
-    }
-
-    get media(): Media[] {
-        return this._media;
-    }
-
-    copy(): UserMessage {
-        return new UserMessage({
-            content: this.text,
-            properties: { ...this.metadata },
-            media: [...this._media],
-        });
-    }
+export enum BatchStatus {
+  COMPLETED = "COMPLETED",
+  STARTING = "STARTING",
+  STARTED = "STARTED",
+  STOPPING = "STOPPING",
+  STOPPED = "STOPPED",
+  FAILED = "FAILED",
+  ABANDONED = "ABANDONED",
+  UNKNOWN = "UNKNOWN",
 }
 ```
 
-**Key differences:**
-- Create `{ClassName}Props` interface for constructor parameters
-- Use object destructuring with defaults
-- Replace factory methods with `static of()` or similar patterns
-- Replace Builder pattern with Props interface (simpler for TS)
+Key points:
+- Use string enums to keep JSON/logging output stable.
+- Preserve Java enum member names exactly.
 
-## 4. Builder Pattern Conversion
+## 4. Static Utility Method Conversion
 
-**Java Builder:**
-```java
-public static Builder builder() {
-    return new Builder();
-}
-
-public static final class Builder {
-    private @Nullable String text;
-    private List<Media> media = new ArrayList<>();
-
-    public Builder text(String text) {
-        this.text = text;
-        return this;
-    }
-
-    public Builder media(List<Media> media) {
-        this.media = media;
-        return this;
-    }
-
-    public UserMessage build() {
-        return new UserMessage(this.text, this.media, this.metadata);
-    }
-}
-```
-
-**TypeScript (Option A - Props Interface):**
-```typescript
-export interface UserMessageProps {
-    content?: string | null;
-    media?: Media[];
-    properties?: Record<string, unknown>;
-}
-
-export class UserMessage {
-    constructor(options: UserMessageProps = {}) {
-        // ...
-    }
-}
-
-// Usage: new UserMessage({ content: "Hello", media: [] })
-```
-
-**TypeScript (Option B - Fluent Builder when needed):**
-```typescript
-export class ChatResponseBuilder {
-    private _generations: Generation[] | null = null;
-
-    from(other: ChatResponse): this {
-        this._generations = other.results;
-        return this;
-    }
-
-    generations(generations: Generation[]): this {
-        this._generations = generations;
-        return this;
-    }
-
-    build(): ChatResponse {
-        assert(this._generations !== null, "'generations' must not be null");
-        return new ChatResponse({ generations: this._generations });
-    }
-}
-
-// Usage: ChatResponse.builder().generations([gen]).build()
-```
-
-**Guideline:** Prefer Props interface for simpler cases. Use Builder class when chaining is important.
-
-## 5. Enum Conversion
+When Java enum/class has static helpers, convert to a companion utility object if needed.
 
 **Java:**
 ```java
-public enum MessageType {
-    USER, ASSISTANT, SYSTEM, TOOL
+public static BatchStatus max(BatchStatus status1, BatchStatus status2) { ... }
+```
+
+**TypeScript:**
+```typescript
+export const BatchStatusUtils = {
+  max(status1: BatchStatus, status2: BatchStatus): BatchStatus {
+    return this.isGreaterThan(status1, status2) ? status1 : status2;
+  },
+  isGreaterThan(status1: BatchStatus, status2: BatchStatus): boolean {
+    return STATUS_ORDER.indexOf(status1) > STATUS_ORDER.indexOf(status2);
+  },
+};
+```
+
+## 5. Builder Conversion (JobParametersBuilder)
+
+**Java:**
+```java
+public class JobParametersBuilder {
+    public JobParametersBuilder addString(String name, String value, boolean identifying) { ... }
+    public JobParametersBuilder addLong(String name, Long value, boolean identifying) { ... }
+    public JobParameters toJobParameters() { ... }
 }
 ```
 
 **TypeScript:**
 ```typescript
-export enum MessageType {
-    USER = "USER",
-    ASSISTANT = "ASSISTANT",
-    SYSTEM = "SYSTEM",
-    TOOL = "TOOL",
+export class JobParametersBuilder {
+  addString(name: string, value: string, identifying = true): this { ... }
+  addNumber(name: string, value: number, identifying = true): this { ... }
+  addDate(name: string, value: Date, identifying = true): this { ... }
+  toJobParameters(): JobParameters { ... }
 }
 ```
 
-**Note:** Always assign string values to enums for JSON serialization compatibility.
+Key points:
+- Keep fluent return type as `this`.
+- Map `Long/Double` to `number`.
+- Keep default `identifying = true`.
 
-## 6. Interface with Static Methods (Namespace Pattern)
+## 6. Import Patterns
 
-**Java:**
-```java
-public interface ToolDefinition {
-    String name();
-    String description();
+Use repository package naming:
 
-    static DefaultToolDefinition.Builder builder() {
-        return DefaultToolDefinition.builder();
-    }
-}
-```
-
-**TypeScript:**
 ```typescript
-export interface ToolDefinition {
-    readonly name: string;
-    readonly description: string;
-}
-
-export namespace ToolDefinition {
-    export function builder(): DefaultToolDefinitionBuilder {
-        return DefaultToolDefinition.builder();
-    }
-}
+import type { ItemReader } from "@nestjs-batch/infrastructure";
+import { JobParameter } from "./job-parameter";
 ```
 
-## 7. equals, hashCode, toString
+Rules:
+- Cross-package: `@nestjs-batch/<package>`.
+- Same package: relative imports.
+- Type-only symbol: `import type`.
 
-Do NOT migrate these Java-specific methods. They have no standard equivalent in TypeScript:
-- `equals()` — JavaScript uses `===` for reference equality; custom equality is not idiomatic
-- `hashCode()` — JavaScript has no hash-based collection protocol
-- `toString()` — Skip unless explicitly requested
+## 7. Java-Specific Methods
+
+Default rule:
+- Skip `hashCode()` and `toString()` unless explicitly required.
+- Keep `equals` only if the target file in this repository already implements explicit equality semantics (for example `JobParameter.equals`).
