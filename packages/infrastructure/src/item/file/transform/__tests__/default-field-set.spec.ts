@@ -1,8 +1,7 @@
 import { SimpleDateFormat } from "@nestjs-batch/commons";
 import { beforeEach, describe, expect, it } from "vitest";
-
-import type { FieldSet } from "../field-set.interface";
 import { DefaultFieldSet } from "../default-field-set";
+import type { FieldSet } from "../field-set.interface";
 
 function javaArrayHashCode(values: Array<string | null>): number {
   if (values.length === 0) {
