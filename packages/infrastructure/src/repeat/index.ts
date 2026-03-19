@@ -1,6 +1,5 @@
 export * from "./callback";
 export type { CompletionPolicy } from "./completion-policy";
-export * from "./context";
 export * from "./exception";
 export * from "./interceptor";
 export * from "./listener";

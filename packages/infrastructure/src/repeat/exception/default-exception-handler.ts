@@ -1,4 +1,4 @@
-import type { RepeatContext } from "../context/index.js";
+import type { RepeatContext } from "../repeat-context.js";
 import type { ExceptionHandler } from "./exception-handler";
 
 export class DefaultExceptionHandler implements ExceptionHandler {
