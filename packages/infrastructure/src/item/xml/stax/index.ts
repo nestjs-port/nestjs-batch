@@ -6,3 +6,4 @@ export type {
   XMLEvent,
 } from "./xml-event.interface";
 export type { XMLEventReader } from "./xml-event-reader.interface";
+export type { XMLEventWriter } from "./xml-event-writer.interface";
