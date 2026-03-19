@@ -5,6 +5,7 @@ export * from "./db";
 export * from "./io";
 export * from "./jdbc";
 export * from "./logging";
+export * from "./mail";
 export * from "./observation";
 export * from "./ordered.interface";
 export * from "./retry";
