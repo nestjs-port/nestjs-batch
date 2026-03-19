@@ -5,3 +5,4 @@ export type {
   LdapAttributeValue,
 } from "./ldap-attributes.interface";
 export type { RecordCallbackHandler } from "./record-callback-handler";
+export type { RecordMapper } from "./record-mapper.interface";
