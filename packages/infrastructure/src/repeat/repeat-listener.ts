@@ -1,4 +1,4 @@
-import type { RepeatContext } from "./context/repeat-context";
+import type { RepeatContext } from "./repeat-context.js";
 import type { RepeatStatus } from "./repeat-status";
 
 export interface RepeatListener {
