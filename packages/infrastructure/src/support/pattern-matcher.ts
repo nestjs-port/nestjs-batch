@@ -1,3 +1,5 @@
+import assert from "node:assert/strict";
+
 export class PatternMatcher<S> {
   private readonly map: Map<string, S>;
   private readonly sorted: string[];
@@ -132,9 +134,7 @@ export class PatternMatcher<S> {
   }
 
   match(line: string): S {
-    if (line == null) {
-      throw new Error("A non-null key must be provided to match against.");
-    }
+    assert(line != null, "A non-null key must be provided to match against.");
 
     for (const key of this.sorted) {
       if (PatternMatcher.match(key, line)) {

@@ -1,4 +1,5 @@
-import { PatternMatcher } from "../../../support/index.js";
+import assert from "node:assert/strict";
+import { PatternMatcher } from "../../../support";
 import type { FieldSet } from "./field-set.interface";
 import type { LineTokenizer } from "./line-tokenizer";
 
@@ -17,9 +18,8 @@ export class PatternMatchingCompositeLineTokenizer implements LineTokenizer {
   }
 
   setTokenizers(tokenizers: Map<string, LineTokenizer>): void {
-    if (tokenizers.size === 0) {
-      throw new Error("The 'tokenizers' property must be non-empty");
-    }
+    assert(tokenizers.size > 0, "The 'tokenizers' property must be non-empty");
+
     this._tokenizers = new PatternMatcher(tokenizers);
   }
 }
