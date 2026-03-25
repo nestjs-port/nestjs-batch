@@ -4,9 +4,9 @@ import { SupplierItemReader } from "../supplier-item-reader";
 
 describe("SupplierItemReader", () => {
   it("test mandatory supplier", () => {
-    expect(() => new SupplierItemReader(null as unknown as () => string)).toThrow(
-      "A supplier is required",
-    );
+    expect(
+      () => new SupplierItemReader(null as unknown as () => string),
+    ).toThrow("A supplier is required");
   });
 
   it("test read", async () => {

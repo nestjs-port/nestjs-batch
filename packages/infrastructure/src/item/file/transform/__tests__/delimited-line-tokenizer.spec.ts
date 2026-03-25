@@ -3,7 +3,6 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { DelimitedLineTokenizer } from "../delimited-line-tokenizer";
 import { IncorrectTokenCountException } from "../incorrect-token-count-exception";
 
-
 describe("DelimitedLineTokenizer", () => {
   let tokenizer: DelimitedLineTokenizer;
 
@@ -44,7 +43,9 @@ describe("DelimitedLineTokenizer", () => {
   it("test invalid constructor argument", () => {
     expect(
       () =>
-        new DelimitedLineTokenizer(DelimitedLineTokenizer.DEFAULT_QUOTE_CHARACTER),
+        new DelimitedLineTokenizer(
+          DelimitedLineTokenizer.DEFAULT_QUOTE_CHARACTER,
+        ),
     ).toThrow();
   });
 
@@ -117,7 +118,9 @@ describe("DelimitedLineTokenizer", () => {
   });
 
   it("test delimited line tokenizer null delimiter", () => {
-    expect(() => new DelimitedLineTokenizer(null as unknown as string)).toThrow();
+    expect(
+      () => new DelimitedLineTokenizer(null as unknown as string),
+    ).toThrow();
   });
 
   it("test delimited line tokenizer string", () => {
@@ -328,7 +331,9 @@ describe("DelimitedLineTokenizer", () => {
 
   it("test tokenize over multiple lines", () => {
     tokenizer = new DelimitedLineTokenizer(";");
-    const line = tokenizer.tokenize('value1;"value2\nvalue2cont";value3;value4');
+    const line = tokenizer.tokenize(
+      'value1;"value2\nvalue2cont";value3;value4',
+    );
     expect(line.fieldCount).toBe(4);
     expect(line.readString(1)).toBe("value2\nvalue2cont");
   });

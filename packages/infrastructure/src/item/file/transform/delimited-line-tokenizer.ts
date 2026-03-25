@@ -65,7 +65,11 @@ export class DelimitedLineTokenizer extends AbstractLineTokenizer {
       const currentChar = line[i];
       const isEnd = i === length - 1;
 
-      const isDelimiter = this.endsWithDelimiter(line, i, endIndexLastDelimiter);
+      const isDelimiter = this.endsWithDelimiter(
+        line,
+        i,
+        endIndexLastDelimiter,
+      );
 
       if ((isDelimiter && !inQuoted) || isEnd) {
         endIndexLastDelimiter = i;
@@ -77,19 +81,26 @@ export class DelimitedLineTokenizer extends AbstractLineTokenizer {
           endPosition = endPosition - this._delimiter.length + 1;
         }
 
-        if (this._includedFields.size === 0 || this._includedFields.has(fieldCount)) {
-          const value = this.substringWithTrimmedWhitespaceAndQuotesIfQuotesPresent(
-            line,
-            lastCut,
-            endPosition,
-          );
+        if (
+          this._includedFields.size === 0 ||
+          this._includedFields.has(fieldCount)
+        ) {
+          const value =
+            this.substringWithTrimmedWhitespaceAndQuotesIfQuotesPresent(
+              line,
+              lastCut,
+              endPosition,
+            );
           tokens.push(value);
         }
 
         fieldCount++;
 
         if (isEnd && isDelimiter) {
-          if (this._includedFields.size === 0 || this._includedFields.has(fieldCount)) {
+          if (
+            this._includedFields.size === 0 ||
+            this._includedFields.has(fieldCount)
+          ) {
             tokens.push("");
           }
           fieldCount++;
@@ -145,7 +156,11 @@ export class DelimitedLineTokenizer extends AbstractLineTokenizer {
     return value;
   }
 
-  private endsWithDelimiter(line: string, end: number, previous: number): boolean {
+  private endsWithDelimiter(
+    line: string,
+    end: number,
+    previous: number,
+  ): boolean {
     let result = false;
 
     if (end - previous >= this._delimiter.length) {
@@ -157,7 +172,9 @@ export class DelimitedLineTokenizer extends AbstractLineTokenizer {
           end - this._delimiter.length + 1 + j < line.length;
           j++
         ) {
-          if (this._delimiter[j] !== line[end - this._delimiter.length + 1 + j]) {
+          if (
+            this._delimiter[j] !== line[end - this._delimiter.length + 1 + j]
+          ) {
             result = false;
           }
         }
