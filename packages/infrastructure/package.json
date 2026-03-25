@@ -14,8 +14,24 @@
   "dependencies": {
     "@nestjs-batch/commons": "workspace:*"
   },
+  "devDependencies": {
+    "@testcontainers/redis": "^11.8.1",
+    "redis": "^5.11.0",
+    "ioredis": "^5.10.1",
+    "testcontainers": "^11.8.1"
+  },
   "peerDependencies": {
-    "@nestjs-batch/commons": "*"
+    "@nestjs-batch/commons": "*",
+    "redis": "^5.0.0",
+    "ioredis": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "redis": {
+      "optional": true
+    },
+    "ioredis": {
+      "optional": true
+    }
   },
   "scripts": {
     "build": "pnpm clean && tsc -p tsconfig.build.json",
