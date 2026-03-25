@@ -109,6 +109,10 @@ export class SimpleMailMessage implements MailMessage {
     return this._text;
   }
 
+  toString(): string {
+    return `SimpleMailMessage: from=${this.from}, replyTo=${this.replyTo}, to=${this.to}, cc=${this.cc}, bcc=${this.bcc}, sentDate=${this.sentDate}, subject=${this.subject}, text=${this.text}`;
+  }
+
   copyTo(target: MailMessage): void {
     assert(target, "'target' MailMessage must not be null");
     if (this.from != null) {
