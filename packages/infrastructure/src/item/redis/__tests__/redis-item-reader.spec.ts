@@ -7,7 +7,7 @@ import { createClient } from "redis";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 import { ExecutionContext } from "../../execution-context";
-import { RedisItemReader, type RedisScanOptions } from "../redis-item-reader";
+import { RedisItemReader } from "../redis-item-reader";
 
 async function readAllValues(reader: RedisItemReader): Promise<string[]> {
   reader.open(new ExecutionContext());
@@ -58,45 +58,54 @@ describe("RedisItemReader", () => {
       await client.quit();
     });
 
-    async function seedUsers(): Promise<void> {
+    it("pattern", async () => {
       await client.flushAll();
       await client.set("user:1", "alice");
       await client.set("user:2", "bob");
       await client.set("user:3", "carol");
       await client.set("other:1", "ignored");
-    }
 
-    async function readValues(options: RedisScanOptions): Promise<string[]> {
-      return readAllValues(new RedisItemReader(client, options));
-    }
-
-    it("pattern", async () => {
-      await seedUsers();
-      const items = await readValues({
-        pattern: "user:*",
-        count: 10,
-      });
+      const items = await readAllValues(
+        new RedisItemReader(client, {
+          pattern: "user:*",
+          count: 10,
+        }),
+      );
 
       expect(items).toHaveLength(3);
       expect([...items].sort()).toEqual(["alice", "bob", "carol"]);
     });
 
     it("count", async () => {
-      await seedUsers();
-      const items = await readValues({
-        count: 1,
-      });
+      await client.flushAll();
+      await client.set("user:1", "alice");
+      await client.set("user:2", "bob");
+      await client.set("user:3", "carol");
+      await client.set("other:1", "ignored");
+
+      const items = await readAllValues(
+        new RedisItemReader(client, {
+          count: 1,
+        }),
+      );
 
       expect(items).toHaveLength(4);
       expect([...items].sort()).toEqual(["alice", "bob", "carol", "ignored"]);
     });
 
     it("bytePattern", async () => {
-      await seedUsers();
-      const items = await readValues({
-        bytePattern: Buffer.from("user:*"),
-        count: 10,
-      });
+      await client.flushAll();
+      await client.set("user:1", "alice");
+      await client.set("user:2", "bob");
+      await client.set("user:3", "carol");
+      await client.set("other:1", "ignored");
+
+      const items = await readAllValues(
+        new RedisItemReader(client, {
+          bytePattern: Buffer.from("user:*"),
+          count: 10,
+        }),
+      );
 
       expect(items).toHaveLength(3);
       expect([...items].sort()).toEqual(["alice", "bob", "carol"]);
@@ -114,45 +123,54 @@ describe("RedisItemReader", () => {
       await client.quit();
     });
 
-    async function seedUsers(): Promise<void> {
+    it("pattern", async () => {
       await client.flushall();
       await client.set("user:1", "alice");
       await client.set("user:2", "bob");
       await client.set("user:3", "carol");
       await client.set("other:1", "ignored");
-    }
 
-    async function readValues(options: RedisScanOptions): Promise<string[]> {
-      return readAllValues(new RedisItemReader(client, options));
-    }
-
-    it("pattern", async () => {
-      await seedUsers();
-      const items = await readValues({
-        pattern: "user:*",
-        count: 10,
-      });
+      const items = await readAllValues(
+        new RedisItemReader(client, {
+          pattern: "user:*",
+          count: 10,
+        }),
+      );
 
       expect(items).toHaveLength(3);
       expect([...items].sort()).toEqual(["alice", "bob", "carol"]);
     });
 
     it("count", async () => {
-      await seedUsers();
-      const items = await readValues({
-        count: 1,
-      });
+      await client.flushall();
+      await client.set("user:1", "alice");
+      await client.set("user:2", "bob");
+      await client.set("user:3", "carol");
+      await client.set("other:1", "ignored");
+
+      const items = await readAllValues(
+        new RedisItemReader(client, {
+          count: 1,
+        }),
+      );
 
       expect(items).toHaveLength(4);
       expect([...items].sort()).toEqual(["alice", "bob", "carol", "ignored"]);
     });
 
     it("bytePattern", async () => {
-      await seedUsers();
-      const items = await readValues({
-        bytePattern: Buffer.from("user:*"),
-        count: 10,
-      });
+      await client.flushall();
+      await client.set("user:1", "alice");
+      await client.set("user:2", "bob");
+      await client.set("user:3", "carol");
+      await client.set("other:1", "ignored");
+
+      const items = await readAllValues(
+        new RedisItemReader(client, {
+          bytePattern: Buffer.from("user:*"),
+          count: 10,
+        }),
+      );
 
       expect(items).toHaveLength(3);
       expect([...items].sort()).toEqual(["alice", "bob", "carol"]);
