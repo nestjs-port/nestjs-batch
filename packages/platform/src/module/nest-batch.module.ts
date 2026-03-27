@@ -5,7 +5,6 @@ import { NestLoggerFactory } from "../logging";
 import type { NestBatchModuleOptions } from "./nest-batch-module.options";
 
 @Module({})
-// biome-ignore lint/complexity/noStaticOnlyClass: NestJS modules use static methods for configuration
 export class NestBatchModule {
   static forRoot(options: NestBatchModuleOptions = {}): DynamicModule {
     const providers: Provider[] = [];

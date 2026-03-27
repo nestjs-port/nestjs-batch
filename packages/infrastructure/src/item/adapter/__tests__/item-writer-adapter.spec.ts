@@ -55,7 +55,11 @@ describe("ItemWriterAdapter", () => {
 
     let foo: Foo | null;
     const foos = new Chunk<Foo>();
-    while ((foo = fooService.generateFoo()) != null) {
+    for (;;) {
+      foo = fooService.generateFoo();
+      if (foo == null) {
+        break;
+      }
       foos.add(foo);
     }
     await processor.write(foos);

@@ -5,6 +5,12 @@ import { describe, expect, it } from "vitest";
 import { RedisItemWriter } from "../../redis-item-writer";
 import { RedisItemWriterBuilder } from "../redis-item-writer-builder";
 
+type RedisItemWriterInternals = {
+  _redisClient: ReturnType<typeof createClient> | Redis;
+  _itemKeyMapper: unknown;
+  _delete: boolean;
+};
+
 describe("RedisItemWriterBuilder", () => {
   it("builds a writer with node-redis client", () => {
     const redisClient = { id: "node-redis" } as unknown as ReturnType<
@@ -21,9 +27,10 @@ describe("RedisItemWriterBuilder", () => {
       .build();
 
     expect(writer).toBeInstanceOf(RedisItemWriter);
-    expect((writer as any)._redisClient).toBe(redisClient);
-    expect((writer as any)._itemKeyMapper).toBe(itemKeyMapper);
-    expect((writer as any)._delete).toBe(true);
+    const internals = writer as unknown as RedisItemWriterInternals;
+    expect(internals._redisClient).toBe(redisClient);
+    expect(internals._itemKeyMapper).toBe(itemKeyMapper);
+    expect(internals._delete).toBe(true);
   });
 
   it("builds a writer with ioredis client", () => {
@@ -38,9 +45,10 @@ describe("RedisItemWriterBuilder", () => {
       .build();
 
     expect(writer).toBeInstanceOf(RedisItemWriter);
-    expect((writer as any)._redisClient).toBe(redisClient);
-    expect((writer as any)._itemKeyMapper).toBe(itemKeyMapper);
-    expect((writer as any)._delete).toBe(false);
+    const internals = writer as unknown as RedisItemWriterInternals;
+    expect(internals._redisClient).toBe(redisClient);
+    expect(internals._itemKeyMapper).toBe(itemKeyMapper);
+    expect(internals._delete).toBe(false);
   });
 
   it("throws when both client types are set", () => {

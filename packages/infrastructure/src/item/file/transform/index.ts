@@ -1,9 +1,9 @@
 export { AbstractLineTokenizer } from "./abstract-line-tokenizer";
 export { ConversionException } from "./conversion-exception";
-export { DelimitedLineTokenizer } from "./delimited-line-tokenizer";
 export { DefaultFieldSet } from "./default-field-set";
 export { DefaultFieldSetFactory } from "./default-field-set-factory";
 export { DelimitedLineAggregator } from "./delimited-line-aggregator";
+export { DelimitedLineTokenizer } from "./delimited-line-tokenizer";
 export { ExtractorLineAggregator } from "./extractor-line-aggregator";
 export type { FieldExtractor } from "./field-extractor.interface";
 export type { FieldSet } from "./field-set.interface";
@@ -15,7 +15,7 @@ export { IncorrectTokenCountException } from "./incorrect-token-count-exception"
 export type { LineAggregator } from "./line-aggregator";
 export type { LineTokenizer } from "./line-tokenizer";
 export { PassThroughFieldExtractor } from "./pass-through-field-extractor";
-export { PatternMatchingCompositeLineTokenizer } from "./pattern-matching-composite-line-tokenizer";
 export { PassThroughLineAggregator } from "./pass-through-line-aggregator";
+export { PatternMatchingCompositeLineTokenizer } from "./pattern-matching-composite-line-tokenizer";
 export { Range } from "./range";
 export { RecursiveCollectionLineAggregator } from "./recursive-collection-line-aggregator";

@@ -17,8 +17,6 @@ export class DefaultFieldSet implements FieldSet {
     DefaultFieldSet.DEFAULT_DATE_PATTERN,
   );
 
-  private _numberFormat: Intl.NumberFormat = new Intl.NumberFormat("en-US");
-
   private _grouping: string | null = null;
 
   private _decimal: string | null = null;
@@ -98,8 +96,6 @@ export class DefaultFieldSet implements FieldSet {
   }
 
   setNumberFormat(numberFormat: Intl.NumberFormat): void {
-    this._numberFormat = numberFormat;
-
     const parts = numberFormat.formatToParts(12345.6);
     this._grouping = parts.find((part) => part.type === "group")?.value ?? ",";
     this._decimal = parts.find((part) => part.type === "decimal")?.value ?? ".";
@@ -205,9 +201,14 @@ export class DefaultFieldSet implements FieldSet {
     const value = this.readAndTrim(index);
 
     if (defaultValue !== undefined) {
-      return this.hasLength(value) ? Number.parseInt(value!, 10) : defaultValue;
+      if (!this.hasLength(value)) {
+        return defaultValue;
+      }
+      assert(value != null, "Cannot convert null to int.");
+      return Number.parseInt(value, 10);
     }
-    return Math.trunc(this.parseNumber(value!));
+    assert(value != null, "Cannot convert null to int.");
+    return Math.trunc(this.parseNumber(value));
   }
 
   readLong(index: number): number;
@@ -220,9 +221,14 @@ export class DefaultFieldSet implements FieldSet {
     const value = this.readAndTrim(index);
 
     if (defaultValue !== undefined) {
-      return this.hasLength(value) ? Number.parseInt(value!, 10) : defaultValue;
+      if (!this.hasLength(value)) {
+        return defaultValue;
+      }
+      assert(value != null, "Cannot convert null to long.");
+      return Number.parseInt(value, 10);
     }
-    return Math.trunc(this.parseNumber(value!));
+    assert(value != null, "Cannot convert null to long.");
+    return Math.trunc(this.parseNumber(value));
   }
 
   readFloat(index: number): number;
@@ -232,7 +238,8 @@ export class DefaultFieldSet implements FieldSet {
       typeof indexOrName === "number"
         ? this.readAndTrim(indexOrName)
         : this.readAndTrim(this.indexOf(indexOrName));
-    return this.parseNumber(value!);
+    assert(value != null, "Cannot convert null to float.");
+    return this.parseNumber(value);
   }
 
   readDouble(index: number): number;
@@ -242,7 +249,8 @@ export class DefaultFieldSet implements FieldSet {
       typeof indexOrName === "number"
         ? this.readAndTrim(indexOrName)
         : this.readAndTrim(this.indexOf(indexOrName));
-    return this.parseNumber(value!);
+    assert(value != null, "Cannot convert null to double.");
+    return this.parseNumber(value);
   }
 
   readBigDecimal(index: number): number | null;
@@ -281,8 +289,8 @@ export class DefaultFieldSet implements FieldSet {
     patternOrDefault?: string | Date | null,
     defaultValue?: Date | null,
   ): Date {
-    const hasPatternOrDefault = arguments.length >= 2;
-    const hasDefaultValue = arguments.length >= 3;
+    const hasPatternOrDefault = patternOrDefault !== undefined;
+    const hasDefaultValue = defaultValue !== undefined;
 
     if (typeof indexOrName === "string") {
       try {
@@ -424,21 +432,25 @@ export class DefaultFieldSet implements FieldSet {
     const candidate = this.readAndTrim(index);
 
     if (hasPatternOrDefault && typeof patternOrDefault !== "string") {
-      return StringUtils.hasText(candidate)
-        ? this.parseDate(candidate!, this._dateFormat)
-        : (patternOrDefault as Date);
+      if (!StringUtils.hasText(candidate)) {
+        return patternOrDefault as Date;
+      }
+      assert(candidate != null, "Cannot convert null to date.");
+      return this.parseDate(candidate, this._dateFormat);
     }
 
     if (typeof patternOrDefault === "string") {
       if (hasDefaultValue && !StringUtils.hasText(candidate)) {
         return defaultValue as Date;
       }
+      assert(candidate != null, "Cannot convert null to date.");
       return this.parseDate(
-        candidate!,
+        candidate,
         DefaultFieldSet.createDateFormat(patternOrDefault),
       );
     }
 
-    return this.parseDate(candidate!, this._dateFormat);
+    assert(candidate != null, "Cannot convert null to date.");
+    return this.parseDate(candidate, this._dateFormat);
   }
 }

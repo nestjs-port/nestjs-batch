@@ -414,7 +414,7 @@ export class SimpleDateFormat extends DateFormat {
         if (count === 2) {
           return s + hh + mm;
         }
-        return s + hh + ":" + mm;
+        return `${s + hh}:${mm}`;
       }
       default:
         return field;

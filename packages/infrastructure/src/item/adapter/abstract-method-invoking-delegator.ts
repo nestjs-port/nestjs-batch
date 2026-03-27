@@ -109,10 +109,11 @@ export abstract class AbstractMethodInvokingDelegator<T> {
       if (method.length === this._arguments.length) {
         let argumentsMatchParameters = true;
         for (let j = 0; j < method.length; j++) {
-          if (this._arguments[j] == null) {
+          const argument = this._arguments[j];
+          if (argument == null) {
             continue;
           }
-          if (!this.isAssignableValue(method, j, this._arguments[j]!)) {
+          if (!this.isAssignableValue(method, j, argument)) {
             argumentsMatchParameters = false;
           }
         }
@@ -126,7 +127,7 @@ export abstract class AbstractMethodInvokingDelegator<T> {
   }
 
   private isAssignableValue(
-    method: InvocableMethod,
+    _method: InvocableMethod,
     _paramIndex: number,
     value: unknown,
   ): boolean {
