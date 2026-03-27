@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import type { Readable } from "node:stream";
 
 import type Redis from "ioredis";
+import type { ScanStreamOptions } from "ioredis/built/types";
 import type { createClient } from "redis";
 
 import type { ExecutionContext } from "../execution-context";
@@ -121,7 +122,7 @@ export class RedisItemReader implements ItemStreamReader<string> {
   private async *createIORedisKeyIterator(
     client: Redis,
   ): AsyncGenerator<string | Buffer> {
-    const scanOptions: NonNullable<Parameters<Redis["scanStream"]>[0]> = {};
+    const scanOptions: ScanStreamOptions = {};
 
     if (this._scanOptions.count != null) {
       scanOptions.count = this._scanOptions.count;
