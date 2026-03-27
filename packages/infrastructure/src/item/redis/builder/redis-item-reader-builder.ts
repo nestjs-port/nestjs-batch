@@ -3,8 +3,8 @@ import assert from "node:assert/strict";
 import type Redis from "ioredis";
 import type { createClient } from "redis";
 
-import { RedisItemReader } from "../redis-item-reader";
 import type { RedisScanOptions } from "../redis-item-reader";
+import { RedisItemReader } from "../redis-item-reader";
 
 type NodeRedisClient = ReturnType<typeof createClient>;
 

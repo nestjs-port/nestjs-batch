@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
 
-import type { FieldSet } from "../field-set.interface";
 import { FixedLengthTokenizer } from "../fixed-length-tokenizer";
 import { IncorrectLineLengthException } from "../incorrect-line-length-exception";
 import { IncorrectTokenCountException } from "../incorrect-token-count-exception";

@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
 import { SimpleMailMessage } from "@nestjs-batch/commons";
+import { describe, expect, it } from "vitest";
 
 import { DefaultMailErrorHandler } from "../default-mail-error-handler";
 

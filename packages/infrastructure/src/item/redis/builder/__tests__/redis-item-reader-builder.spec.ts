@@ -5,6 +5,11 @@ import { describe, expect, it } from "vitest";
 import { RedisItemReader } from "../../redis-item-reader";
 import { RedisItemReaderBuilder } from "../redis-item-reader-builder";
 
+type RedisItemReaderInternals = {
+  _redisClient: ReturnType<typeof createClient> | Redis;
+  _scanOptions: unknown;
+};
+
 describe("RedisItemReaderBuilder", () => {
   it("builds a reader with node-redis client", () => {
     const redisClient = { id: "node-redis" } as unknown as ReturnType<
@@ -21,8 +26,9 @@ describe("RedisItemReaderBuilder", () => {
       .build();
 
     expect(reader).toBeInstanceOf(RedisItemReader);
-    expect((reader as any)._redisClient).toBe(redisClient);
-    expect((reader as any)._scanOptions).toBe(scanOptions);
+    const internals = reader as unknown as RedisItemReaderInternals;
+    expect(internals._redisClient).toBe(redisClient);
+    expect(internals._scanOptions).toBe(scanOptions);
   });
 
   it("builds a reader with ioredis client", () => {
@@ -38,8 +44,9 @@ describe("RedisItemReaderBuilder", () => {
       .build();
 
     expect(reader).toBeInstanceOf(RedisItemReader);
-    expect((reader as any)._redisClient).toBe(redisClient);
-    expect((reader as any)._scanOptions).toBe(scanOptions);
+    const internals = reader as unknown as RedisItemReaderInternals;
+    expect(internals._redisClient).toBe(redisClient);
+    expect(internals._scanOptions).toBe(scanOptions);
   });
 
   it("throws when both client types are set", () => {

@@ -44,8 +44,11 @@ describe("ItemReaderAdapter", () => {
 
     const returnedItems: Foo[] = [];
     let item: Foo | null;
-
-    while ((item = await provider.read()) != null) {
+    for (;;) {
+      item = await provider.read();
+      if (item == null) {
+        break;
+      }
       returnedItems.push(item);
     }
 

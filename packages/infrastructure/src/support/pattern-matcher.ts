@@ -40,7 +40,8 @@ export class PatternMatcher<S> {
     }
 
     // Process characters before first star
-    while ((ch = pattern[patIdxStart]) !== "*" && strIdxStart <= strIdxEnd) {
+    ch = pattern[patIdxStart];
+    while (ch !== "*" && strIdxStart <= strIdxEnd) {
       if (ch !== "?") {
         if (ch !== str[strIdxStart]) {
           return false; // Character mismatch
@@ -48,6 +49,7 @@ export class PatternMatcher<S> {
       }
       patIdxStart++;
       strIdxStart++;
+      ch = pattern[patIdxStart];
     }
     if (strIdxStart > strIdxEnd) {
       // All characters in the string are used. Check if only '*'s are
@@ -61,7 +63,8 @@ export class PatternMatcher<S> {
     }
 
     // Process characters after last star
-    while ((ch = pattern[patIdxEnd]) !== "*" && strIdxStart <= strIdxEnd) {
+    ch = pattern[patIdxEnd];
+    while (ch !== "*" && strIdxStart <= strIdxEnd) {
       if (ch !== "?") {
         if (ch !== str[strIdxEnd]) {
           return false; // Character mismatch
@@ -69,6 +72,7 @@ export class PatternMatcher<S> {
       }
       patIdxEnd--;
       strIdxEnd--;
+      ch = pattern[patIdxEnd];
     }
     if (strIdxStart > strIdxEnd) {
       // All characters in the string are used. Check if only '*'s are
