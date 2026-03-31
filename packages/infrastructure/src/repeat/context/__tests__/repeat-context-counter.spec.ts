@@ -15,68 +15,16 @@
  */
 
 import { beforeEach, describe, expect, it } from "vitest";
-import type { RepeatContext } from "../../repeat-context";
+import { RepeatContextSupport } from "../repeat-context-support";
 import { RepeatContextCounter } from "../repeat-context-counter";
 
-class TestRepeatContext implements RepeatContext {
-  private readonly attributes = new Map<string, unknown>();
-
-  constructor(private readonly _parent: RepeatContext | null) {}
-
-  get parent(): RepeatContext | null {
-    return this._parent;
-  }
-
-  get startedCount(): number {
-    return 0;
-  }
-
-  setCompleteOnly(): void {}
-
-  get isCompleteOnly(): boolean {
-    return false;
-  }
-
-  setTerminateOnly(): void {}
-
-  get isTerminateOnly(): boolean {
-    return false;
-  }
-
-  registerDestructionCallback(_name: string, _callback: () => void): void {}
-
-  close(): void {}
-
-  setAttribute(name: string, value: unknown): void {
-    this.attributes.set(name, value);
-  }
-
-  getAttribute(name: string): unknown {
-    return this.attributes.get(name) ?? null;
-  }
-
-  removeAttribute(name: string): unknown {
-    const value = this.attributes.get(name);
-    this.attributes.delete(name);
-    return value ?? null;
-  }
-
-  hasAttribute(name: string): boolean {
-    return this.attributes.has(name);
-  }
-
-  attributeNames(): string[] {
-    return [...this.attributes.keys()];
-  }
-}
-
 describe("RepeatContextCounter", () => {
-  let parent: TestRepeatContext;
-  let context: TestRepeatContext;
+  let parent: RepeatContextSupport;
+  let context: RepeatContextSupport;
 
   beforeEach(() => {
-    parent = new TestRepeatContext(null);
-    context = new TestRepeatContext(parent);
+    parent = new RepeatContextSupport(null);
+    context = new RepeatContextSupport(parent);
   });
 
   it("test attribute created", () => {
@@ -109,7 +57,7 @@ describe("RepeatContextCounter", () => {
     expect(counter.getCount()).toBe(0);
     counter.increment(1);
     // now get new context with same parent
-    counter = new RepeatContextCounter(new TestRepeatContext(parent), "FOO", true);
+    counter = new RepeatContextCounter(new RepeatContextSupport(parent), "FOO", true);
     expect(counter.getCount()).toBe(1);
     counter.increment(2);
     expect(counter.getCount()).toBe(3);
