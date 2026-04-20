@@ -1,4 +1,4 @@
-import type { DataSource } from "@nestjs-batch/commons";
+import type { DataSource } from "@nestjs-port/jsdbc";
 
 import type { Order } from "./order";
 
