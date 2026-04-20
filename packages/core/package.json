@@ -13,11 +13,11 @@
     }
   },
   "peerDependencies": {
-    "@nestjs-port/core": "^0.0.1",
+    "@nestjs-port/core": "^0.0.2",
     "@nestjs-batch/infrastructure": "workspace:*"
   },
   "devDependencies": {
-    "@nestjs-port/core": "^0.0.1",
+    "@nestjs-port/core": "^0.0.2",
     "@nestjs-batch/infrastructure": "workspace:*"
   },
   "scripts": {
