@@ -45,11 +45,13 @@ importers:
         version: 0.0.1(rxjs@7.8.2)
 
   packages/infrastructure:
-    dependencies:
+    devDependencies:
       '@nestjs-batch/commons':
         specifier: workspace:*
         version: link:../commons
-    devDependencies:
+      '@nestjs-port/core':
+        specifier: ^0.0.1
+        version: 0.0.1(rxjs@7.8.2)
       '@testcontainers/redis':
         specifier: ^11.8.1
         version: 11.13.0

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import type { Converter } from "@nestjs-batch/commons";
+import type { Converter } from "@nestjs-port/core";
 import type Redis from "ioredis";
 import type { createClient } from "redis";
 

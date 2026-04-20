@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 
-import { type DataSource, StringUtils } from "@nestjs-batch/commons";
+import type { DataSource } from "@nestjs-batch/commons";
+import { StringUtils } from "@nestjs-port/core";
 
 import { JdbcParameterUtils } from "../jdbc-parameter-utils";
 import type { Order } from "../order";

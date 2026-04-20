@@ -12,17 +12,17 @@
       "default": "./dist/index.js"
     }
   },
-  "dependencies": {
-    "@nestjs-batch/commons": "workspace:*"
-  },
   "devDependencies": {
     "@testcontainers/redis": "^11.8.1",
+    "@nestjs-port/core": "^0.0.1",
+    "@nestjs-batch/commons": "workspace:*",
     "redis": "^5.11.0",
     "ioredis": "^5.10.1",
     "testcontainers": "^11.8.1"
   },
   "peerDependencies": {
     "@nestjs-batch/commons": "*",
+    "@nestjs-port/core": "^0.0.1",
     "redis": "^5.0.0",
     "ioredis": "^5.0.0"
   },

@@ -1,4 +1,4 @@
-import { StringUtils } from "@nestjs-batch/commons";
+import { StringUtils } from "@nestjs-port/core";
 
 import { DefaultFieldSetFactory } from "./default-field-set-factory";
 import type { FieldSet } from "./field-set.interface";
