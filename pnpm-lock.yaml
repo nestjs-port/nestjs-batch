@@ -36,13 +36,13 @@ importers:
   packages/commons: {}
 
   packages/core:
-    dependencies:
-      '@nestjs-batch/commons':
-        specifier: workspace:*
-        version: link:../commons
+    devDependencies:
       '@nestjs-batch/infrastructure':
         specifier: workspace:*
         version: link:../infrastructure
+      '@nestjs-port/core':
+        specifier: ^0.0.1
+        version: 0.0.1(rxjs@7.8.2)
 
   packages/infrastructure:
     dependencies:

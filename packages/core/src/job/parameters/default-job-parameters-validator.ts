@@ -1,4 +1,4 @@
-import { type Logger, LoggerFactory } from "@nestjs-batch/commons";
+import { type Logger, LoggerFactory } from "@nestjs-port/core";
 import { InvalidJobParametersException } from "./invalid-job-parameters-exception";
 import type { JobParameters } from "./job-parameters";
 import type { JobParametersValidator } from "./job-parameters-validator";

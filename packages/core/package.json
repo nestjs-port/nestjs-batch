@@ -12,12 +12,13 @@
       "default": "./dist/index.js"
     }
   },
-  "dependencies": {
-    "@nestjs-batch/commons": "workspace:*",
+  "peerDependencies": {
+    "@nestjs-port/core": "^0.0.1",
     "@nestjs-batch/infrastructure": "workspace:*"
   },
-  "peerDependencies": {
-    "@nestjs-batch/commons": "*"
+  "devDependencies": {
+    "@nestjs-port/core": "^0.0.1",
+    "@nestjs-batch/infrastructure": "workspace:*"
   },
   "scripts": {
     "build": "pnpm clean && tsc -p tsconfig.build.json",
