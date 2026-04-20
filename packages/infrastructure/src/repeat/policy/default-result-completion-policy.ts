@@ -21,7 +21,7 @@ import { CompletionPolicySupport } from "./completion-policy-support";
 export class DefaultResultCompletionPolicy extends CompletionPolicySupport {
   isComplete(context: RepeatContext, result: RepeatStatus): boolean;
   isComplete(context: RepeatContext): boolean;
-  override isComplete(context: RepeatContext, result?: RepeatStatus): boolean {
+  override isComplete(_context: RepeatContext, result?: RepeatStatus): boolean {
     if (result !== undefined) {
       return result == null || !result.isContinuable;
     }

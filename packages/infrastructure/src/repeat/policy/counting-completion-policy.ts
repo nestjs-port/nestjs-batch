@@ -66,7 +66,9 @@ export abstract class CountingCompletionPolicy extends DefaultResultCompletionPo
       return result == null || !result.isContinuable;
     }
 
-    return this.getCountingContext(context).getCounter().getCount() >= this.maxCount;
+    return (
+      this.getCountingContext(context).getCounter().getCount() >= this.maxCount
+    );
   }
 
   override start(parent: RepeatContext): RepeatContext {

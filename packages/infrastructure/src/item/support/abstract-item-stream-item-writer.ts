@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { ItemStreamSupport } from "../item-stream-support";
 import type { Chunk } from "../chunk";
+import { ItemStreamSupport } from "../item-stream-support";
 import type { ItemStreamWriter } from "../item-stream-writer.interface";
 
 export abstract class AbstractItemStreamItemWriter<T>

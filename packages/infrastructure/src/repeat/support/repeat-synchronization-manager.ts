@@ -28,32 +28,34 @@ export class RepeatSynchronizationManager {
   private constructor() {}
 
   static getContext(): RepeatContext | null {
-    return this.contextStorage.getStore()?.context ?? null;
+    return (
+      RepeatSynchronizationManager.contextStorage.getStore()?.context ?? null
+    );
   }
 
   static setCompleteOnly(): void {
-    const context = this.getContext();
+    const context = RepeatSynchronizationManager.getContext();
     if (context != null) {
       context.setCompleteOnly();
     }
   }
 
   static register(context: RepeatContext): RepeatContext | null {
-    const previous = this.getContext();
-    const store = this.contextStorage.getStore();
+    const previous = RepeatSynchronizationManager.getContext();
+    const store = RepeatSynchronizationManager.contextStorage.getStore();
 
     if (store != null) {
       store.context = context;
     } else {
-      this.contextStorage.enterWith({ context });
+      RepeatSynchronizationManager.contextStorage.enterWith({ context });
     }
 
     return previous;
   }
 
   static clear(): RepeatContext | null {
-    const context = this.getContext();
-    const store = this.contextStorage.getStore();
+    const context = RepeatSynchronizationManager.getContext();
+    const store = RepeatSynchronizationManager.contextStorage.getStore();
 
     if (store != null) {
       store.context = null;
@@ -63,7 +65,7 @@ export class RepeatSynchronizationManager {
   }
 
   static setAncestorsCompleteOnly(): void {
-    let context = this.getContext();
+    let context = RepeatSynchronizationManager.getContext();
     while (context != null) {
       context.setCompleteOnly();
       context = context.parent;

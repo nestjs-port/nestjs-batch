@@ -3,7 +3,8 @@ import { ExecutionContextUserSupport } from "./util";
 export abstract class ItemStreamSupport {
   private readonly _defaultName: string;
 
-  private readonly _executionContextUserSupport = new ExecutionContextUserSupport();
+  private readonly _executionContextUserSupport =
+    new ExecutionContextUserSupport();
 
   private _name: string;
 

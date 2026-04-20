@@ -15,8 +15,8 @@
  */
 
 import { beforeEach, describe, expect, it } from "vitest";
-import { RepeatContextSupport } from "../repeat-context-support";
 import { RepeatContextCounter } from "../repeat-context-counter";
+import { RepeatContextSupport } from "../repeat-context-support";
 
 describe("RepeatContextCounter", () => {
   let parent: RepeatContextSupport;
@@ -57,7 +57,11 @@ describe("RepeatContextCounter", () => {
     expect(counter.getCount()).toBe(0);
     counter.increment(1);
     // now get new context with same parent
-    counter = new RepeatContextCounter(new RepeatContextSupport(parent), "FOO", true);
+    counter = new RepeatContextCounter(
+      new RepeatContextSupport(parent),
+      "FOO",
+      true,
+    );
     expect(counter.getCount()).toBe(1);
     counter.increment(2);
     expect(counter.getCount()).toBe(3);

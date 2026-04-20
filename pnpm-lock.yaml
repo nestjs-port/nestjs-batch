@@ -63,19 +63,6 @@ importers:
         specifier: ^11.8.1
         version: 11.13.0
 
-  packages/observation:
-    dependencies:
-      '@opentelemetry/api':
-        specifier: ^1.9.0
-        version: 1.9.0
-    devDependencies:
-      '@nestjs-batch/commons':
-        specifier: workspace:*
-        version: link:../commons
-      '@nestjs/common':
-        specifier: ^11.1.11
-        version: 11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2)
-
   packages/platform:
     dependencies:
       '@nestjs-batch/commons':

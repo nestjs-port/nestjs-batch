@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { ItemStreamSupport } from "../item-stream-support";
 
 class SimpleItemStreamSupport extends ItemStreamSupport {
+  // biome-ignore lint/complexity/noUselessConstructor: Needed to expose a public constructor for test instantiation.
   constructor() {
     super();
   }

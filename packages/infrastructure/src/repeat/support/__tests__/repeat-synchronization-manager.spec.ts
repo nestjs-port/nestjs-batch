@@ -39,9 +39,13 @@ describe("RepeatSynchronizationManagerTests", () => {
   it("test set session complete only", () => {
     expect(RepeatSynchronizationManager.getContext()).toBeNull();
     RepeatSynchronizationManager.register(context);
-    expect(RepeatSynchronizationManager.getContext()?.isCompleteOnly).toBe(false);
+    expect(RepeatSynchronizationManager.getContext()?.isCompleteOnly).toBe(
+      false,
+    );
     RepeatSynchronizationManager.setCompleteOnly();
-    expect(RepeatSynchronizationManager.getContext()?.isCompleteOnly).toBe(true);
+    expect(RepeatSynchronizationManager.getContext()?.isCompleteOnly).toBe(
+      true,
+    );
   });
 
   it("test set session complete only with parent", () => {

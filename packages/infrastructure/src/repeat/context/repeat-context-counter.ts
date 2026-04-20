@@ -47,7 +47,10 @@ export class RepeatContextCounter {
   constructor(context: RepeatContext, countKey: string, useParent: boolean);
 
   constructor(context: RepeatContext, countKey: string, useParent = false) {
-    assert(context != null, "The context must be provided to initialize a counter");
+    assert(
+      context != null,
+      "The context must be provided to initialize a counter",
+    );
 
     this.countKey = countKey;
 
