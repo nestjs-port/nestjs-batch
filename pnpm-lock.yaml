@@ -64,11 +64,10 @@ importers:
         version: 11.13.0
 
   packages/platform:
-    dependencies:
-      '@nestjs-batch/commons':
-        specifier: workspace:*
-        version: link:../commons
     devDependencies:
+      '@nestjs-port/core':
+        specifier: ^0.0.1
+        version: 0.0.1(rxjs@7.8.2)
       '@nestjs/common':
         specifier: ^11.1.11
         version: 11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -333,6 +332,11 @@ packages:
   '@lukeed/csprng@1.1.0':
     resolution: {integrity: sha512-Z7C/xXCiGWsg0KuKsHTKJxbWhpI3Vs5GwLfOean7MGyVFGqdRgBbAjOCh6u4bbjPc/8MJ2pZmK/0DLdCbivLDA==}
     engines: {node: '>=8'}
+
+  '@nestjs-port/core@0.0.1':
+    resolution: {integrity: sha512-8V9dWme2wlYFDhASVuCssSRZe9TQdg92LmKKzfAo07ruRZgFTi6voQgK1Fq8YjMfHcgH/Ym243D6wp1pJpigcA==}
+    peerDependencies:
+      rxjs: ^7.0.0
 
   '@nestjs/common@11.1.12':
     resolution: {integrity: sha512-v6U3O01YohHO+IE3EIFXuRuu3VJILWzyMmSYZXpyBbnp0hk0mFyHxK2w3dF4I5WnbwiRbWlEXdeXFvPQ7qaZzw==}
@@ -1759,6 +1763,10 @@ snapshots:
 
   '@lukeed/csprng@1.1.0': {}
 
+  '@nestjs-port/core@0.0.1(rxjs@7.8.2)':
+    dependencies:
+      rxjs: 7.8.2
+
   '@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2)':
     dependencies:
       file-type: 21.3.0
@@ -1793,7 +1801,8 @@ snapshots:
     dependencies:
       consola: 3.4.2
 
-  '@opentelemetry/api@1.9.0': {}
+  '@opentelemetry/api@1.9.0':
+    optional: true
 
   '@pkgjs/parseargs@0.11.0':
     optional: true

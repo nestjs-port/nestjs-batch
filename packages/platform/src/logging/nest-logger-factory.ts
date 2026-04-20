@@ -1,5 +1,5 @@
 import { Logger as NestLogger } from "@nestjs/common";
-import type { ILoggerFactory, Logger } from "@nestjs-batch/commons";
+import type { ILoggerFactory, Logger } from "@nestjs-port/core";
 
 /**
  * NestJS Logger adapter implementing the Logger interface.
