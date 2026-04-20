@@ -52,6 +52,9 @@ importers:
       '@nestjs-port/core':
         specifier: ^0.0.1
         version: 0.0.1(rxjs@7.8.2)
+      '@nestjs-port/jsdbc':
+        specifier: ^0.0.1
+        version: 0.0.1(@nestjs-port/core@0.0.1(rxjs@7.8.2))(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))
       '@testcontainers/redis':
         specifier: ^11.8.1
         version: 11.13.0
@@ -339,6 +342,40 @@ packages:
     resolution: {integrity: sha512-8V9dWme2wlYFDhASVuCssSRZe9TQdg92LmKKzfAo07ruRZgFTi6voQgK1Fq8YjMfHcgH/Ym243D6wp1pJpigcA==}
     peerDependencies:
       rxjs: ^7.0.0
+
+  '@nestjs-port/jsdbc@0.0.1':
+    resolution: {integrity: sha512-ho6sv0eozOjyaSXg1Uuwui6wouUTXyENUtCM6+nSFUyodEJ9B6yKC80eXVtvNvtyLT4FftIw3z4aF5uN6t7wPg==}
+    peerDependencies:
+      '@mikro-orm/core': ^7.0.0
+      '@nestjs-port/core': 0.0.1
+      '@nestjs/common': ^10.0.0 || ^11.0.0
+      '@nestjs/sequelize': ^11.0.0
+      '@nestjs/typeorm': ^10.0.0 || ^11.0.0
+      '@prisma/client': ^6.18.0
+      class-transformer: ^0.4.0 || ^0.5.0
+      drizzle-orm: ^0.45.0
+      sequelize: ^6.37.0
+      typeorm: ^0.3.0
+      zod: ^4.0.0
+    peerDependenciesMeta:
+      '@mikro-orm/core':
+        optional: true
+      '@nestjs/sequelize':
+        optional: true
+      '@nestjs/typeorm':
+        optional: true
+      '@prisma/client':
+        optional: true
+      class-transformer:
+        optional: true
+      drizzle-orm:
+        optional: true
+      sequelize:
+        optional: true
+      typeorm:
+        optional: true
+      zod:
+        optional: true
 
   '@nestjs/common@11.1.12':
     resolution: {integrity: sha512-v6U3O01YohHO+IE3EIFXuRuu3VJILWzyMmSYZXpyBbnp0hk0mFyHxK2w3dF4I5WnbwiRbWlEXdeXFvPQ7qaZzw==}
@@ -1768,6 +1805,11 @@ snapshots:
   '@nestjs-port/core@0.0.1(rxjs@7.8.2)':
     dependencies:
       rxjs: 7.8.2
+
+  '@nestjs-port/jsdbc@0.0.1(@nestjs-port/core@0.0.1(rxjs@7.8.2))(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))':
+    dependencies:
+      '@nestjs-port/core': 0.0.1(rxjs@7.8.2)
+      '@nestjs/common': 11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2)
 
   '@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2)':
     dependencies:
