@@ -57,8 +57,8 @@ class NestLoggerAdapter implements Logger {
  *
  * @example
  * ```typescript
- * import { LoggerFactory } from '@nestjs-ai/commons/logging';
- * import { NestLoggerFactory } from '@nestjs-ai/core';
+ * import { LoggerFactory } from '@nestjs-port/core';
+ * import { NestLoggerFactory } from '@nestjs-batch/platform';
  *
  * // At application bootstrap
  * LoggerFactory.bind(new NestLoggerFactory());
