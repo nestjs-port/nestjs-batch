@@ -1,12 +1,5 @@
+import { StringUtils } from "@nestjs-port/core";
 import { SimpleRecordSeparatorPolicy } from "./simple-record-separator-policy";
-
-const countOccurrences = (value: string, needle: string): number => {
-  if (needle.length === 0) {
-    return 0;
-  }
-
-  return value.split(needle).length - 1;
-};
 
 export class DefaultRecordSeparatorPolicy extends SimpleRecordSeparatorPolicy {
   private static readonly QUOTE = '"';
@@ -48,7 +41,8 @@ export class DefaultRecordSeparatorPolicy extends SimpleRecordSeparatorPolicy {
 
   private isQuoteUnterminated(line: string | null = null): boolean {
     return (
-      line != null && countOccurrences(line, this._quoteCharacter) % 2 !== 0
+      line != null &&
+      StringUtils.countOccurrences(line, this._quoteCharacter) % 2 !== 0
     );
   }
 

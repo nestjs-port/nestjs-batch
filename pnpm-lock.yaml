@@ -41,8 +41,8 @@ importers:
         specifier: workspace:*
         version: link:../infrastructure
       '@nestjs-port/core':
-        specifier: ^0.0.1
-        version: 0.0.1(rxjs@7.8.2)
+        specifier: ^0.0.2
+        version: 0.0.2(rxjs@7.8.2)
 
   packages/infrastructure:
     devDependencies:
@@ -50,11 +50,11 @@ importers:
         specifier: workspace:*
         version: link:../commons
       '@nestjs-port/core':
-        specifier: ^0.0.1
-        version: 0.0.1(rxjs@7.8.2)
+        specifier: ^0.0.2
+        version: 0.0.2(rxjs@7.8.2)
       '@nestjs-port/jsdbc':
-        specifier: ^0.0.1
-        version: 0.0.1(@nestjs-port/core@0.0.1(rxjs@7.8.2))(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))
+        specifier: ^0.0.2
+        version: 0.0.2(@nestjs-port/core@0.0.2(rxjs@7.8.2))(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))
       '@testcontainers/redis':
         specifier: ^11.8.1
         version: 11.13.0
@@ -71,8 +71,8 @@ importers:
   packages/platform:
     devDependencies:
       '@nestjs-port/core':
-        specifier: ^0.0.1
-        version: 0.0.1(rxjs@7.8.2)
+        specifier: ^0.0.2
+        version: 0.0.2(rxjs@7.8.2)
       '@nestjs/common':
         specifier: ^11.1.11
         version: 11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -338,16 +338,16 @@ packages:
     resolution: {integrity: sha512-Z7C/xXCiGWsg0KuKsHTKJxbWhpI3Vs5GwLfOean7MGyVFGqdRgBbAjOCh6u4bbjPc/8MJ2pZmK/0DLdCbivLDA==}
     engines: {node: '>=8'}
 
-  '@nestjs-port/core@0.0.1':
-    resolution: {integrity: sha512-8V9dWme2wlYFDhASVuCssSRZe9TQdg92LmKKzfAo07ruRZgFTi6voQgK1Fq8YjMfHcgH/Ym243D6wp1pJpigcA==}
+  '@nestjs-port/core@0.0.2':
+    resolution: {integrity: sha512-8MXfBdP/viZkq2jbcA7gJb1LO99ymyaCgwjgdF/7rmrgX4oNXYbI42mplbs3miZjjiSalE7XyEpOJv/bsLc58g==}
     peerDependencies:
       rxjs: ^7.0.0
 
-  '@nestjs-port/jsdbc@0.0.1':
-    resolution: {integrity: sha512-ho6sv0eozOjyaSXg1Uuwui6wouUTXyENUtCM6+nSFUyodEJ9B6yKC80eXVtvNvtyLT4FftIw3z4aF5uN6t7wPg==}
+  '@nestjs-port/jsdbc@0.0.2':
+    resolution: {integrity: sha512-XYkV7NKDrsETGCqZJEGbLmpRaYqmzlFtrIgMlon5iNWKhPrbQvDZvDXfYI+U3PUnRTjvOZgNqf/leMYZI+7MaA==}
     peerDependencies:
       '@mikro-orm/core': ^7.0.0
-      '@nestjs-port/core': 0.0.1
+      '@nestjs-port/core': 0.0.2
       '@nestjs/common': ^10.0.0 || ^11.0.0
       '@nestjs/sequelize': ^11.0.0
       '@nestjs/typeorm': ^10.0.0 || ^11.0.0
@@ -1802,13 +1802,13 @@ snapshots:
 
   '@lukeed/csprng@1.1.0': {}
 
-  '@nestjs-port/core@0.0.1(rxjs@7.8.2)':
+  '@nestjs-port/core@0.0.2(rxjs@7.8.2)':
     dependencies:
       rxjs: 7.8.2
 
-  '@nestjs-port/jsdbc@0.0.1(@nestjs-port/core@0.0.1(rxjs@7.8.2))(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))':
+  '@nestjs-port/jsdbc@0.0.2(@nestjs-port/core@0.0.2(rxjs@7.8.2))(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))':
     dependencies:
-      '@nestjs-port/core': 0.0.1(rxjs@7.8.2)
+      '@nestjs-port/core': 0.0.2(rxjs@7.8.2)
       '@nestjs/common': 11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2)
 
   '@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2)':
