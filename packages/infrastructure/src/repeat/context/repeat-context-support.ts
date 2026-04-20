@@ -76,7 +76,9 @@ export class RepeatContextSupport implements RepeatContext {
 
   close(): void {
     const errors: Error[] = [];
-    const callbackGroups = [...this._callbacks.values()].map((callbacks) => [...callbacks]);
+    const callbackGroups = [...this._callbacks.values()].map((callbacks) => [
+      ...callbacks,
+    ]);
 
     for (const callbacks of callbackGroups) {
       for (const callback of callbacks) {
@@ -122,5 +124,4 @@ export class RepeatContextSupport implements RepeatContext {
   attributeNames(): string[] {
     return [...this._attributes.keys()];
   }
-
 }

@@ -31,7 +31,9 @@ export class ExecutionContextUserSupport {
 
   getKey(suffix: string): string {
     if (typeof this._name !== "string" || this._name.trim().length === 0) {
-      throw new Error("Name must be assigned for the sake of defining the execution context keys prefix.");
+      throw new Error(
+        "Name must be assigned for the sake of defining the execution context keys prefix.",
+      );
     }
     return `${this._name}.${suffix}`;
   }

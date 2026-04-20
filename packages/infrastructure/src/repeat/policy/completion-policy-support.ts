@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import { RepeatContextSupport } from "../context";
 import type { CompletionPolicy } from "../completion-policy";
+import { RepeatContextSupport } from "../context";
 import type { RepeatContext } from "../repeat-context";
 import type { RepeatStatus } from "../repeat-status";
 
 export class CompletionPolicySupport implements CompletionPolicy {
   isComplete(context: RepeatContext, result: RepeatStatus): boolean;
   isComplete(context: RepeatContext): boolean;
-  isComplete(context: RepeatContext, result?: RepeatStatus): boolean {
+  isComplete(_context: RepeatContext, result?: RepeatStatus): boolean {
     if (result != null && !result.isContinuable) {
       return true;
     }

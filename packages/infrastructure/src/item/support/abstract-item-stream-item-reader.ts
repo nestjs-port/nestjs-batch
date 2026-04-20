@@ -1,5 +1,5 @@
-import { ItemStreamSupport } from "../item-stream-support";
 import type { ItemStreamReader } from "../item-stream-reader.interface";
+import { ItemStreamSupport } from "../item-stream-support";
 
 export abstract class AbstractItemStreamItemReader<T>
   extends ItemStreamSupport

@@ -43,7 +43,9 @@ describe("CountingCompletionPolicy", () => {
     const policy = new TestCountingCompletionPolicy();
     policy.setMaxCount(10);
     const context = policy.start(null as unknown as RepeatContext);
-    expect(policy.isComplete(context, null as unknown as RepeatStatus)).toBe(true);
+    expect(policy.isComplete(context, null as unknown as RepeatStatus)).toBe(
+      true,
+    );
   });
 
   it("test finished result", () => {

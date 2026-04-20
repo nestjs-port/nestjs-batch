@@ -22,7 +22,10 @@ import { CompletionPolicySupport } from "./completion-policy-support";
 class TimeoutBatchContext extends RepeatContextSupport {
   private readonly time = Date.now();
 
-  constructor(parent: RepeatContext, private readonly timeout: number) {
+  constructor(
+    parent: RepeatContext,
+    private readonly timeout: number,
+  ) {
     super(parent);
   }
 
