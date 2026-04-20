@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import type { Converter } from "@nestjs-batch/commons";
+import type { Converter } from "@nestjs-port/core";
 
 import type { Chunk } from "./chunk";
 import type { ItemWriter } from "./item-writer.interface";

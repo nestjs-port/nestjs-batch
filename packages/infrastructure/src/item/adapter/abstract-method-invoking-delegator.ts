@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import { StringUtils } from "@nestjs-batch/commons";
+import { StringUtils } from "@nestjs-port/core";
 
 import { DynamicMethodInvocationException } from "./dynamic-method-invocation-exception";
 
