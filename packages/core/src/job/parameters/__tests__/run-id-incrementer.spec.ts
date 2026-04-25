@@ -47,6 +47,8 @@ describe("RunIdIncrementer", () => {
     const jobParameters = new JobParametersBuilder()
       .addString("run.id", "foo")
       .toJobParameters();
-    expect(() => incrementer.getNext(jobParameters)).toThrow();
+    expect(() => incrementer.getNext(jobParameters)).toThrow(
+      "Invalid value for parameter run.id",
+    );
   });
 });

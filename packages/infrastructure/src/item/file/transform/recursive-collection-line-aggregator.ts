@@ -4,9 +4,9 @@ import { EOL } from "node:os";
 import type { LineAggregator } from "./line-aggregator";
 import { PassThroughLineAggregator } from "./pass-through-line-aggregator";
 
-export class RecursiveCollectionLineAggregator<T>
-  implements LineAggregator<Iterable<T>>
-{
+export class RecursiveCollectionLineAggregator<T> implements LineAggregator<
+  Iterable<T>
+> {
   private _lineSeparator = EOL;
   private _delegate: LineAggregator<T> = new PassThroughLineAggregator<T>();
 

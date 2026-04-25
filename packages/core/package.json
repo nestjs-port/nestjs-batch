@@ -12,18 +12,18 @@
       "default": "./dist/index.js"
     }
   },
-  "peerDependencies": {
-    "@nestjs-port/core": "^0.0.2",
-    "@nestjs-batch/infrastructure": "workspace:*"
-  },
-  "devDependencies": {
-    "@nestjs-port/core": "^0.0.2",
-    "@nestjs-batch/infrastructure": "workspace:*"
-  },
   "scripts": {
     "build": "pnpm clean && tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist",
     "test": "vitest run"
+  },
+  "devDependencies": {
+    "@nestjs-batch/infrastructure": "workspace:*",
+    "@nestjs-port/core": "^0.0.2"
+  },
+  "peerDependencies": {
+    "@nestjs-batch/infrastructure": "workspace:*",
+    "@nestjs-port/core": "^0.0.2"
   }
 }

@@ -7,9 +7,7 @@ import { JdbcParameterUtils } from "../jdbc-parameter-utils";
 import type { Order } from "../order";
 import type { PagingQueryProvider } from "../paging-query-provider";
 
-export abstract class AbstractSqlPagingQueryProvider
-  implements PagingQueryProvider
-{
+export abstract class AbstractSqlPagingQueryProvider implements PagingQueryProvider {
   private _selectClause: string | null = null;
 
   private _fromClause: string | null = null;

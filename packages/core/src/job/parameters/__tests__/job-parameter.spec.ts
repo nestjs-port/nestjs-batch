@@ -21,9 +21,7 @@ describe("JobParameter", () => {
         new JobParameter(
           "param",
           "test",
-          null as unknown as new (
-            ...args: never[]
-          ) => string,
+          null as unknown as new (...args: never[]) => string,
           true,
         ),
     ).toThrow("type must not be null");

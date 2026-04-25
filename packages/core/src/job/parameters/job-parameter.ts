@@ -5,9 +5,7 @@ export class JobParameter<T = unknown> {
 
   readonly value: T;
 
-  readonly type: new (
-    ...args: never[]
-  ) => T;
+  readonly type: new (...args: never[]) => T;
 
   readonly identifying: boolean;
 

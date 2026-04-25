@@ -31,7 +31,7 @@ describe("PatternMatchingCompositeLineTokenizer", () => {
     const tokenizer = new PatternMatchingCompositeLineTokenizer(
       new Map([["foo", new DelimitedLineTokenizer()]]),
     );
-    expect(() => tokenizer.tokenize("nomatch")).toThrow();
+    expect(() => tokenizer.tokenize("nomatch")).toThrow(/./);
   });
 
   it("test match with prefix", () => {
