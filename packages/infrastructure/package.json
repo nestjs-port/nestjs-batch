@@ -26,8 +26,8 @@
   },
   "devDependencies": {
     "@nestjs-batch/commons": "workspace:*",
-    "@nestjs-port/core": "^0.0.2",
-    "@nestjs-port/jsdbc": "^0.0.2",
+    "@nestjs-port/core": "^0.0.4",
+    "@nestjs-port/jsdbc": "^0.0.4",
     "@testcontainers/redis": "^11.8.1",
     "ioredis": "^5.10.1",
     "redis": "^5.11.0",
@@ -35,8 +35,8 @@
   },
   "peerDependencies": {
     "@nestjs-batch/commons": "*",
-    "@nestjs-port/core": "^0.0.2",
-    "@nestjs-port/jsdbc": "^0.0.2",
+    "@nestjs-port/core": "^0.0.4",
+    "@nestjs-port/jsdbc": "^0.0.4",
     "ioredis": "^5.0.0",
     "redis": "^5.0.0"
   },
