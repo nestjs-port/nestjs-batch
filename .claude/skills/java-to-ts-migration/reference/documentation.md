@@ -5,25 +5,43 @@
 Migrate only comments that are useful for implementation clarity in the target TS file.
 
 Required behavior:
-- Do not copy Java license headers.
-- Do not copy class/method/field Javadoc blocks by default.
+- Translate useful Java Javadocs into TypeScript JSDoc when the repository style calls for it.
+- Copy the Java copyright line into the TypeScript file when present.
+- Do not copy `@since` or `@author` tags into the TypeScript output.
+- Do not copy the rest of the Java license header verbatim; use the standard `nestjs-batch` Apache header in migrated TypeScript files.
 - Preserve inline comments inside method/function bodies when they explain logic.
+- For test files, copy Java test-method inline comments verbatim into the matching Vitest test body.
 
 ## What to Drop
 
 ### 1) License Header
 
-**Java (drop):**
+**Java (copy the copyright line, drop the rest):**
 ```java
 /*
- * Copyright 2006-2025 the original author or authors.
+ * Copyright 2006-present the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
 package org.springframework.batch.core;
 ```
 
-**TypeScript (correct):**
+**TypeScript (use the repo header instead):**
 ```typescript
+/*
+ * Copyright 2006-present the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 export class ExitStatus {
 ```
 
@@ -37,8 +55,11 @@ export class ExitStatus {
 public class ExitStatus {
 ```
 
-**TypeScript (correct):**
+**TypeScript (convert to JSDoc only when useful):**
 ```typescript
+/**
+ * Value object used to carry information about the status of a job or step execution.
+ */
 export class ExitStatus {
 ```
 
@@ -52,8 +73,11 @@ export class ExitStatus {
 public String getExitCode() {
 ```
 
-**TypeScript (correct):**
+**TypeScript (convert to JSDoc only when useful):**
 ```typescript
+/**
+ * Gets the exit code.
+ */
 get exitCode(): string {
 ```
 
@@ -83,8 +107,14 @@ async read(): Promise<T | null> {
 }
 ```
 
+### Test-Method Inline Comments
+
+Copy comments inside Java test methods directly into the matching Vitest test body.
+Do not paraphrase or shorten them unless the surrounding code forces a structural change.
+
 ## Practical Guidance
 
-- If nearby files in `nestjs-batch/packages/<pkg>/src` already keep extensive JSDoc, follow local style.
-- If nearby files are mostly minimal, keep migrated file minimal too.
 - Prefer consistency with sibling files over literal Javadoc translation.
+- If nearby files use TS JSDoc for public APIs, convert the useful Javadoc into JSDoc rather than dropping it.
+- If nearby files already keep extensive TypeDoc, follow local style.
+- If a comment explains non-obvious behavior, keep it even when the surrounding Javadoc is dropped.
