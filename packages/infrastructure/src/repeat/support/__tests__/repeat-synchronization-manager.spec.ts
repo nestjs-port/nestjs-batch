@@ -16,8 +16,8 @@
 
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
-import { RepeatContextSupport } from "../../context";
-import { RepeatSynchronizationManager } from "../repeat-synchronization-manager";
+import { RepeatContextSupport } from "../../context/index.js";
+import { RepeatSynchronizationManager } from "../repeat-synchronization-manager.js";
 
 describe("RepeatSynchronizationManagerTests", () => {
   let context: RepeatContextSupport;

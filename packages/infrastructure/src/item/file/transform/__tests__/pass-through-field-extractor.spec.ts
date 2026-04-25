@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import type { FieldSet } from "../field-set.interface";
-import { PassThroughFieldExtractor } from "../pass-through-field-extractor";
+import type { FieldSet } from "../field-set.interface.js";
+import { PassThroughFieldExtractor } from "../pass-through-field-extractor.js";
 
 describe("PassThroughFieldExtractor", () => {
   it("test extract string", () => {

@@ -1,4 +1,4 @@
-import { ExecutionContextUserSupport } from "./util";
+import { ExecutionContextUserSupport } from "./util/index.js";
 
 export abstract class ItemStreamSupport {
   private readonly _defaultName: string;

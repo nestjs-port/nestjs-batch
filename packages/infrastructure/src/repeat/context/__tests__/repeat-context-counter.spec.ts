@@ -15,8 +15,8 @@
  */
 
 import { beforeEach, describe, expect, it } from "vitest";
-import { RepeatContextCounter } from "../repeat-context-counter";
-import { RepeatContextSupport } from "../repeat-context-support";
+import { RepeatContextCounter } from "../repeat-context-counter.js";
+import { RepeatContextSupport } from "../repeat-context-support.js";
 
 describe("RepeatContextCounter", () => {
   let parent: RepeatContextSupport;

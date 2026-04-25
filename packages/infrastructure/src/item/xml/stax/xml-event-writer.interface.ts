@@ -1,5 +1,5 @@
-import type { XMLEvent } from "./xml-event.interface";
-import type { XMLEventReader } from "./xml-event-reader.interface";
+import type { XMLEvent } from "./xml-event.interface.js";
+import type { XMLEventReader } from "./xml-event-reader.interface.js";
 
 export interface XMLEventWriter {
   add(event: XMLEvent): void;

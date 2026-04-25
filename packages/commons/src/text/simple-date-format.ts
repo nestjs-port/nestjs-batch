@@ -1,4 +1,4 @@
-import { DateFormat } from "./date-format";
+import { DateFormat } from "./date-format.js";
 
 interface PatternToken {
   type: "field" | "literal";

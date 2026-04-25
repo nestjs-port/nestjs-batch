@@ -1,8 +1,8 @@
 import { ExecutionContext } from "@nestjs-batch/infrastructure";
-import { BatchStatus } from "../batch-status";
-import { ExitStatus } from "../exit-status";
-import type { JobInstance } from "./job-instance";
-import { JobParameters } from "./parameters";
+import { BatchStatus } from "../batch-status.js";
+import { ExitStatus } from "../exit-status.js";
+import type { JobInstance } from "./job-instance.js";
+import { JobParameters } from "./parameters/index.js";
 
 /**
  * Batch domain object representing the execution of a job.

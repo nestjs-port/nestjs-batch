@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { ItemProcessorAdapter } from "../item-processor-adapter";
+import { ItemProcessorAdapter } from "../item-processor-adapter.js";
 
 interface Foo {
   id: number;

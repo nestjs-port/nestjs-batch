@@ -15,10 +15,10 @@
  */
 
 import { describe, expect, it } from "vitest";
-import { RepeatContextSupport } from "../../context";
-import type { RepeatContext } from "../../repeat-context";
-import { RepeatStatus } from "../../repeat-status";
-import { CountingCompletionPolicy } from "../counting-completion-policy";
+import { RepeatContextSupport } from "../../context/index.js";
+import type { RepeatContext } from "../../repeat-context.js";
+import { RepeatStatus } from "../../repeat-status.js";
+import { CountingCompletionPolicy } from "../counting-completion-policy.js";
 
 describe("CountingCompletionPolicy", () => {
   it("test default behaviour", () => {

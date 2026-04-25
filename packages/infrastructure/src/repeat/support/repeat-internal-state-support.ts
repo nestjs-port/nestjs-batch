@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { RepeatInternalState } from "./repeat-internal-state";
+import type { RepeatInternalState } from "./repeat-internal-state.js";
 
 export class RepeatInternalStateSupport implements RepeatInternalState {
   private readonly _throwables = new Set<unknown>();

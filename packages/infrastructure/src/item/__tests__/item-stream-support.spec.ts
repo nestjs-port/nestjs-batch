@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { ItemStreamSupport } from "../item-stream-support";
+import { ItemStreamSupport } from "../item-stream-support.js";
 
 class SimpleItemStreamSupport extends ItemStreamSupport {
   constructor() {

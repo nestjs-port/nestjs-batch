@@ -1,4 +1,4 @@
-import type { JobParameter } from "./job-parameter";
+import type { JobParameter } from "./job-parameter.js";
 
 /**
  * Value object representing runtime parameters to a batch job.

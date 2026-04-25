@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { ExecutionContextUserSupport } from "../execution-context-user-support";
+import { ExecutionContextUserSupport } from "../execution-context-user-support.js";
 
 describe("ExecutionContextUserSupport", () => {
   let tested: ExecutionContextUserSupport;

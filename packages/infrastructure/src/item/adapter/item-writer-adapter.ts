@@ -1,6 +1,6 @@
-import type { Chunk } from "../chunk";
-import type { ItemWriter } from "../item-writer.interface";
-import { AbstractMethodInvokingDelegator } from "./abstract-method-invoking-delegator";
+import type { Chunk } from "../chunk.js";
+import type { ItemWriter } from "../item-writer.interface.js";
+import { AbstractMethodInvokingDelegator } from "./abstract-method-invoking-delegator.js";
 
 export class ItemWriterAdapter<T>
   extends AbstractMethodInvokingDelegator<T>

@@ -1,8 +1,8 @@
 import type { DateFormat } from "@nestjs-batch/commons";
 
-import { DefaultFieldSet } from "./default-field-set";
-import type { FieldSet } from "./field-set.interface";
-import type { FieldSetFactory } from "./field-set-factory.interface";
+import { DefaultFieldSet } from "./default-field-set.js";
+import type { FieldSet } from "./field-set.interface.js";
+import type { FieldSetFactory } from "./field-set-factory.interface.js";
 
 export class DefaultFieldSetFactory implements FieldSetFactory {
   private _dateFormat: DateFormat | null = null;

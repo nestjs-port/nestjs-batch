@@ -1,4 +1,4 @@
-import type { ExecutionContext } from "./execution-context";
+import type { ExecutionContext } from "./execution-context.js";
 
 export interface ItemStream {
   open?(executionContext: ExecutionContext): void;

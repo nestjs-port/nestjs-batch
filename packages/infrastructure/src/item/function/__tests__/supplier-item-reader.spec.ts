@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { SupplierItemReader } from "../supplier-item-reader";
+import { SupplierItemReader } from "../supplier-item-reader.js";
 
 describe("SupplierItemReader", () => {
   it("test mandatory supplier", () => {

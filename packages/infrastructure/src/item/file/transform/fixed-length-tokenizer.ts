@@ -1,6 +1,6 @@
-import { AbstractLineTokenizer } from "./abstract-line-tokenizer";
-import { IncorrectLineLengthException } from "./incorrect-line-length-exception";
-import type { Range } from "./range";
+import { AbstractLineTokenizer } from "./abstract-line-tokenizer.js";
+import { IncorrectLineLengthException } from "./incorrect-line-length-exception.js";
+import type { Range } from "./range.js";
 
 export class FixedLengthTokenizer extends AbstractLineTokenizer {
   private _ranges: Range[] = [];

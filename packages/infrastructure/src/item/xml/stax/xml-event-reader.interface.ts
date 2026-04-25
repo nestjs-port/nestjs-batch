@@ -1,4 +1,4 @@
-import type { XMLEvent } from "./xml-event.interface";
+import type { XMLEvent } from "./xml-event.interface.js";
 
 export interface XMLEventReader<
   E extends XMLEvent = XMLEvent,

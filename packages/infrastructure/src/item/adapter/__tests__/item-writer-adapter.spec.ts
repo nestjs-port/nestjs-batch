@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import { Chunk } from "../../chunk";
-import { ItemWriterAdapter } from "../item-writer-adapter";
+import { Chunk } from "../../chunk.js";
+import { ItemWriterAdapter } from "../item-writer-adapter.js";
 
 interface Foo {
   id: number;

@@ -1,1 +1,1 @@
-export { SupplierItemReader } from "./supplier-item-reader";
+export { SupplierItemReader } from "./supplier-item-reader.js";

@@ -1,4 +1,4 @@
-import { AbstractLineTokenizer } from "./abstract-line-tokenizer";
+import { AbstractLineTokenizer } from "./abstract-line-tokenizer.js";
 
 export class DelimitedLineTokenizer extends AbstractLineTokenizer {
   static readonly DELIMITER_TAB = "\t";

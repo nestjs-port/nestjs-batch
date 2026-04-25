@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { PatternMatcher } from "../pattern-matcher";
+import { PatternMatcher } from "../pattern-matcher.js";
 
 const map = new Map<string, number>([
   ["an*", 3],

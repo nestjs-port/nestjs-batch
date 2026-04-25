@@ -1,5 +1,5 @@
-import type { ItemReader } from "../item-reader.interface";
-import { AbstractMethodInvokingDelegator } from "./abstract-method-invoking-delegator";
+import type { ItemReader } from "../item-reader.interface.js";
+import { AbstractMethodInvokingDelegator } from "./abstract-method-invoking-delegator.js";
 
 export class ItemReaderAdapter<T>
   extends AbstractMethodInvokingDelegator<T>

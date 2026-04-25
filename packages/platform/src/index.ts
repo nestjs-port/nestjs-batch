@@ -1,2 +1,2 @@
-export * from "./logging";
-export * from "./module";
+export * from "./logging/index.js";
+export * from "./module/index.js";

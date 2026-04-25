@@ -1,4 +1,4 @@
-import { DefaultRecordSeparatorPolicy } from "./default-record-separator-policy";
+import { DefaultRecordSeparatorPolicy } from "./default-record-separator-policy.js";
 
 export class SuffixRecordSeparatorPolicy extends DefaultRecordSeparatorPolicy {
   static readonly DEFAULT_SUFFIX = ";";

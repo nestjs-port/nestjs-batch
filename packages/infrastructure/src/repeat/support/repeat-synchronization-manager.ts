@@ -16,7 +16,7 @@
 
 import { AsyncLocalStorage } from "node:async_hooks";
 
-import type { RepeatContext } from "../repeat-context";
+import type { RepeatContext } from "../repeat-context.js";
 
 type RepeatStore = {
   context: RepeatContext | null;

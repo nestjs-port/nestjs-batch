@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 
 import { StringUtils } from "@nestjs-port/core";
 
-import { DynamicMethodInvocationException } from "./dynamic-method-invocation-exception";
+import { DynamicMethodInvocationException } from "./dynamic-method-invocation-exception.js";
 
 type InvocableMethod = (...args: Array<unknown | null>) => unknown;
 

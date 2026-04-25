@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import type { ItemReader } from "../item-reader.interface";
+import type { ItemReader } from "../item-reader.interface.js";
 
 export class SupplierItemReader<T> implements ItemReader<T> {
   private readonly _supplier: () => T | null;

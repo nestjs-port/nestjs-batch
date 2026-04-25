@@ -1,5 +1,5 @@
-import { ExitStatus } from "../exit-status";
-import type { StepExecution } from "./step-execution";
+import { ExitStatus } from "../exit-status.js";
+import type { StepExecution } from "./step-execution.js";
 
 /**
  * Represents a contribution to a {@link StepExecution}, buffering changes until they can

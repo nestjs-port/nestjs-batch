@@ -2,12 +2,12 @@ import {
   RedisContainer,
   type StartedRedisContainer,
 } from "@testcontainers/redis";
-import Redis from "ioredis";
+import { Redis } from "ioredis";
 import { createClient } from "redis";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-import { ExecutionContext } from "../../execution-context";
-import { RedisItemReader } from "../redis-item-reader";
+import { ExecutionContext } from "../../execution-context.js";
+import { RedisItemReader } from "../redis-item-reader.js";
 
 async function readAllValues(reader: RedisItemReader): Promise<string[]> {
   reader.open(new ExecutionContext());

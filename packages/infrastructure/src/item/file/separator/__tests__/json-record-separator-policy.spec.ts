@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { JsonRecordSeparatorPolicy } from "../json-record-separator-policy";
+import { JsonRecordSeparatorPolicy } from "../json-record-separator-policy.js";
 
 describe("JsonRecordSeparatorPolicy", () => {
   const policy = new JsonRecordSeparatorPolicy();

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { JobParameter } from "../job-parameter";
+import { JobParameter } from "../job-parameter.js";
 
 describe("JobParameter", () => {
   it("test constructor name not null", () => {

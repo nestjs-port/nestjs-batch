@@ -1,10 +1,10 @@
 import { StringUtils } from "@nestjs-port/core";
 
-import { DefaultFieldSetFactory } from "./default-field-set-factory";
-import type { FieldSet } from "./field-set.interface";
-import type { FieldSetFactory } from "./field-set-factory.interface";
-import { IncorrectTokenCountException } from "./incorrect-token-count-exception";
-import type { LineTokenizer } from "./line-tokenizer";
+import { DefaultFieldSetFactory } from "./default-field-set-factory.js";
+import type { FieldSet } from "./field-set.interface.js";
+import type { FieldSetFactory } from "./field-set-factory.interface.js";
+import { IncorrectTokenCountException } from "./incorrect-token-count-exception.js";
+import type { LineTokenizer } from "./line-tokenizer.js";
 
 export abstract class AbstractLineTokenizer implements LineTokenizer {
   private static readonly EMPTY_TOKEN = "";

@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import { EOL } from "node:os";
 
-import type { LineAggregator } from "./line-aggregator";
-import { PassThroughLineAggregator } from "./pass-through-line-aggregator";
+import type { LineAggregator } from "./line-aggregator.js";
+import { PassThroughLineAggregator } from "./pass-through-line-aggregator.js";
 
 export class RecursiveCollectionLineAggregator<T> implements LineAggregator<
   Iterable<T>

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { CompletionPolicy } from "../completion-policy";
-import { RepeatContextSupport } from "../context";
-import type { RepeatContext } from "../repeat-context";
-import type { RepeatStatus } from "../repeat-status";
+import type { CompletionPolicy } from "../completion-policy.js";
+import { RepeatContextSupport } from "../context/index.js";
+import type { RepeatContext } from "../repeat-context.js";
+import type { RepeatStatus } from "../repeat-status.js";
 
 export class CompletionPolicySupport implements CompletionPolicy {
   isComplete(context: RepeatContext, result: RepeatStatus): boolean;

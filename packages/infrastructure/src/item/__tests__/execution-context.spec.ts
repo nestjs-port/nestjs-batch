@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { ExecutionContext } from "../execution-context";
+import { ExecutionContext } from "../execution-context.js";
 
 describe("ExecutionContext", () => {
   let context: ExecutionContext;

@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 
-import { JobParameters } from "../job-parameters";
-import { JobParametersBuilder } from "../job-parameters-builder";
-import { RunIdIncrementer } from "../run-id-incrementer";
+import { JobParameters } from "../job-parameters.js";
+import { JobParametersBuilder } from "../job-parameters-builder.js";
+import { RunIdIncrementer } from "../run-id-incrementer.js";
 
 describe("RunIdIncrementer", () => {
   const incrementer = new RunIdIncrementer();

@@ -1,6 +1,6 @@
 import type { MailMessage } from "@nestjs-batch/commons";
 
-import type { MailErrorHandler } from "./mail-error-handler.interface";
+import type { MailErrorHandler } from "./mail-error-handler.interface.js";
 
 export class DefaultMailErrorHandler implements MailErrorHandler {
   static readonly DEFAULT_MAX_MESSAGE_LENGTH = 1024;

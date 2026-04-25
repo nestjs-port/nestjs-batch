@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
-import { PatternMatcher } from "../../../support";
-import type { FieldSet } from "./field-set.interface";
-import type { LineTokenizer } from "./line-tokenizer";
+import { PatternMatcher } from "../../../support/index.js";
+import type { FieldSet } from "./field-set.interface.js";
+import type { LineTokenizer } from "./line-tokenizer.js";
 
 export class PatternMatchingCompositeLineTokenizer implements LineTokenizer {
   private _tokenizers: PatternMatcher<LineTokenizer>;

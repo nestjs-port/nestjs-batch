@@ -1,5 +1,5 @@
-import type { JobParameters } from "./job-parameters";
-import type { JobParametersValidator } from "./job-parameters-validator";
+import type { JobParameters } from "./job-parameters.js";
+import type { JobParametersValidator } from "./job-parameters-validator.js";
 
 export class CompositeJobParametersValidator implements JobParametersValidator {
   private _validators: JobParametersValidator[] = [];

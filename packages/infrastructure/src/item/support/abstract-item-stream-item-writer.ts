@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Chunk } from "../chunk";
-import { ItemStreamSupport } from "../item-stream-support";
-import type { ItemStreamWriter } from "../item-stream-writer.interface";
+import type { Chunk } from "../chunk.js";
+import { ItemStreamSupport } from "../item-stream-support.js";
+import type { ItemStreamWriter } from "../item-stream-writer.interface.js";
 
 export abstract class AbstractItemStreamItemWriter<T>
   extends ItemStreamSupport

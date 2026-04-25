@@ -1,4 +1,4 @@
-import type { JsonObjectMarshaller } from "./json-object-marshaller";
+import type { JsonObjectMarshaller } from "./json-object-marshaller.js";
 
 export class NodeJsonObjectMarshaller<T> implements JsonObjectMarshaller<T> {
   marshal(object: T): string {

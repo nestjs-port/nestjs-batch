@@ -1,4 +1,4 @@
-import { NonTransientResourceException } from "../non-transient-resource-exception";
+import { NonTransientResourceException } from "../non-transient-resource-exception.js";
 
 export class NonTransientFlatFileException extends NonTransientResourceException {
   private readonly _input: string | null;

@@ -1,2 +1,2 @@
-export * from "./jfr";
-export * from "./micrometer";
+export * from "./jfr/index.js";
+export * from "./micrometer/index.js";

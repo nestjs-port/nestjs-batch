@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import type { RepeatContext } from "../../repeat-context";
-import { CompositeExceptionHandler } from "../composite-exception-handler";
+import type { RepeatContext } from "../../repeat-context.js";
+import { CompositeExceptionHandler } from "../composite-exception-handler.js";
 
 describe("CompositeExceptionHandler", () => {
   const handler = new CompositeExceptionHandler();

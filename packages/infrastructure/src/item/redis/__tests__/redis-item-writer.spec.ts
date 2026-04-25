@@ -2,12 +2,12 @@ import {
   RedisContainer,
   type StartedRedisContainer,
 } from "@testcontainers/redis";
-import Redis from "ioredis";
+import { Redis } from "ioredis";
 import { createClient } from "redis";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-import { Chunk } from "../../chunk";
-import { RedisItemWriter } from "../redis-item-writer";
+import { Chunk } from "../../chunk.js";
+import { RedisItemWriter } from "../redis-item-writer.js";
 
 class RedisItemKeyMapper {
   convert(source: string): string {

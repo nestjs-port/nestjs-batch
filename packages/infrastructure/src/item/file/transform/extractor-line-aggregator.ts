@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 
-import type { FieldExtractor } from "./field-extractor.interface";
-import type { LineAggregator } from "./line-aggregator";
-import { PassThroughFieldExtractor } from "./pass-through-field-extractor";
+import type { FieldExtractor } from "./field-extractor.interface.js";
+import type { LineAggregator } from "./line-aggregator.js";
+import { PassThroughFieldExtractor } from "./pass-through-field-extractor.js";
 
 export abstract class ExtractorLineAggregator<T> implements LineAggregator<T> {
   private _fieldExtractor: FieldExtractor<T> =
