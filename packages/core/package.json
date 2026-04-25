@@ -26,10 +26,10 @@
   },
   "devDependencies": {
     "@nestjs-batch/infrastructure": "workspace:*",
-    "@nestjs-port/core": "^0.0.2"
+    "@nestjs-port/core": "^0.0.4"
   },
   "peerDependencies": {
     "@nestjs-batch/infrastructure": "workspace:*",
-    "@nestjs-port/core": "^0.0.2"
+    "@nestjs-port/core": "^0.0.4"
   }
 }
