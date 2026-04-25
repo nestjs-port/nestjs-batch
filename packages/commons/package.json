@@ -1,7 +1,14 @@
 {
   "name": "@nestjs-batch/commons",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
+  "homepage": "https://nestjs-port.github.io/nestjs-batch",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nestjs-port/nestjs-batch",
+    "directory": "packages/commons"
+  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
