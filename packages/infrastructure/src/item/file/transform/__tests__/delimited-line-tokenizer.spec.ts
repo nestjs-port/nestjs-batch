@@ -46,7 +46,7 @@ describe("DelimitedLineTokenizer", () => {
         new DelimitedLineTokenizer(
           DelimitedLineTokenizer.DEFAULT_QUOTE_CHARACTER,
         ),
-    ).toThrow();
+    ).toThrow(/./);
   });
 
   it("test delimited line tokenizer", () => {
@@ -88,14 +88,18 @@ describe("DelimitedLineTokenizer", () => {
 
   it("test too many names", () => {
     tokenizer.setNames("A", "B", "C", "D");
+    let exception: unknown;
     try {
       tokenizer.tokenize("a,b,c");
     } catch (e) {
-      const ex = e as IncorrectTokenCountException;
-      expect(ex.expectedCount).toBe(4);
-      expect(ex.actualCount).toBe(3);
-      expect(ex.input).toBe("a,b,c");
+      exception = e;
     }
+
+    expect(exception).toBeInstanceOf(IncorrectTokenCountException);
+    const ex = exception as IncorrectTokenCountException;
+    expect(ex.expectedCount).toBe(4);
+    expect(ex.actualCount).toBe(3);
+    expect(ex.input).toBe("a,b,c");
   });
 
   it("test too many names not strict", () => {
@@ -118,9 +122,9 @@ describe("DelimitedLineTokenizer", () => {
   });
 
   it("test delimited line tokenizer null delimiter", () => {
-    expect(
-      () => new DelimitedLineTokenizer(null as unknown as string),
-    ).toThrow();
+    expect(() => new DelimitedLineTokenizer(null as unknown as string)).toThrow(
+      /./,
+    );
   });
 
   it("test delimited line tokenizer string", () => {
@@ -248,17 +252,18 @@ describe("DelimitedLineTokenizer", () => {
 
   it("test empty line with names", () => {
     tokenizer.setNames("A", "B");
-    let ex: IncorrectTokenCountException | undefined;
+    let exception: unknown;
     try {
       tokenizer.tokenize("");
     } catch (e) {
-      ex = e as IncorrectTokenCountException;
+      exception = e;
     }
-    if (ex) {
-      expect(ex.expectedCount).toBe(2);
-      expect(ex.actualCount).toBe(0);
-      expect(ex.input).toBe("");
-    }
+
+    expect(exception).toBeInstanceOf(IncorrectTokenCountException);
+    const ex = exception as IncorrectTokenCountException;
+    expect(ex.expectedCount).toBe(2);
+    expect(ex.actualCount).toBe(0);
+    expect(ex.input).toBe("");
   });
 
   it("test whitespace line", () => {

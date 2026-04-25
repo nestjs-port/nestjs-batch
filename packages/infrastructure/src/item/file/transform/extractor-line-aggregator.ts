@@ -18,7 +18,7 @@ export abstract class ExtractorLineAggregator<T> implements LineAggregator<T> {
     //
     // Replace nulls with empty strings
     //
-    const args: unknown[] = new Array(fields.length);
+    const args: unknown[] = Array.from({ length: fields.length });
     for (let i = 0; i < fields.length; i += 1) {
       if (fields[i] == null) {
         args[i] = "";

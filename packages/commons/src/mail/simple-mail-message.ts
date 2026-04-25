@@ -122,13 +122,13 @@ export class SimpleMailMessage implements MailMessage {
       target.setReplyTo(this.replyTo);
     }
     if (this.to != null) {
-      target.setTo(...[...this.to]);
+      target.setTo(...this.to);
     }
     if (this.cc != null) {
-      target.setCc(...[...this.cc]);
+      target.setCc(...this.cc);
     }
     if (this.bcc != null) {
-      target.setBcc(...[...this.bcc]);
+      target.setBcc(...this.bcc);
     }
     if (this.sentDate != null) {
       target.setSentDate(this.sentDate);

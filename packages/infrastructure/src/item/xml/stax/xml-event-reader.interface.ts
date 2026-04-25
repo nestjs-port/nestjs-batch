@@ -1,7 +1,8 @@
 import type { XMLEvent } from "./xml-event.interface";
 
-export interface XMLEventReader<E extends XMLEvent = XMLEvent>
-  extends Iterator<E> {
+export interface XMLEventReader<
+  E extends XMLEvent = XMLEvent,
+> extends Iterator<E> {
   nextEvent(): E;
 
   hasNext(): boolean;

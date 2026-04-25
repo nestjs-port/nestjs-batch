@@ -61,6 +61,9 @@ describe("DefaultFieldSet", () => {
     ];
 
     fieldSet = new DefaultFieldSet(tokens, names);
+  });
+
+  it("test setup", () => {
     expect(fieldSet.fieldCount).toBe(14);
   });
 
@@ -72,7 +75,7 @@ describe("DefaultFieldSet", () => {
   it("test names not known", () => {
     fieldSet = new DefaultFieldSet(["foo"]);
     expect(fieldSet.hasNames()).toBe(false);
-    expect(() => fieldSet.names).toThrow();
+    expect(() => fieldSet.names).toThrow(/./);
   });
 
   it("test read string", () => {
@@ -155,8 +158,8 @@ describe("DefaultFieldSet", () => {
   });
 
   it("test read index out of range", () => {
-    expect(() => fieldSet.readShort(-1)).toThrow();
-    expect(() => fieldSet.readShort(99)).toThrow();
+    expect(() => fieldSet.readShort(-1)).toThrow(/./);
+    expect(() => fieldSet.readShort(99)).toThrow(/./);
   });
 
   it("test read boolean with true value", () => {
@@ -173,8 +176,8 @@ describe("DefaultFieldSet", () => {
   });
 
   it("test read char exception", () => {
-    expect(() => fieldSet.readChar(1)).toThrow();
-    expect(() => fieldSet.readChar("Boolean")).toThrow();
+    expect(() => fieldSet.readChar(1)).toThrow(/./);
+    expect(() => fieldSet.readChar("Boolean")).toThrow(/./);
   });
 
   it("test read int", () => {
@@ -194,8 +197,8 @@ describe("DefaultFieldSet", () => {
   });
 
   it("test read blank int", () => {
-    expect(() => fieldSet.readInt(13)).toThrow();
-    expect(() => fieldSet.readInt("BlankInput")).toThrow();
+    expect(() => fieldSet.readInt(13)).toThrow(/./);
+    expect(() => fieldSet.readInt("BlankInput")).toThrow(/./);
   });
 
   it("test read long", () => {
@@ -378,7 +381,7 @@ describe("DefaultFieldSet", () => {
   });
 
   it("test constructor", () => {
-    expect(() => new DefaultFieldSet(["1", "2"], ["a"])).toThrow();
+    expect(() => new DefaultFieldSet(["1", "2"], ["a"])).toThrow(/./);
   });
 
   it("test to string with names", () => {
@@ -403,7 +406,7 @@ describe("DefaultFieldSet", () => {
   });
 
   it("test properties with no names", () => {
-    expect(() => new DefaultFieldSet(["foo", "bar"]).properties).toThrow();
+    expect(() => new DefaultFieldSet(["foo", "bar"]).properties).toThrow(/./);
   });
 
   it("test properties with white space", () => {
@@ -419,7 +422,7 @@ describe("DefaultFieldSet", () => {
   });
 
   it("test access by name when names missing", () => {
-    expect(() => new DefaultFieldSet(["1", "2"]).readInt("a")).toThrow();
+    expect(() => new DefaultFieldSet(["1", "2"]).readInt("a")).toThrow(/./);
   });
 
   it("test get values", () => {

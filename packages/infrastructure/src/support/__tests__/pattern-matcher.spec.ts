@@ -78,7 +78,7 @@ describe("PatternMatcher", () => {
 
     it("test match prefix no match", () => {
       const matcher = new PatternMatcher(map);
-      expect(() => matcher.match("bat")).toThrow();
+      expect(() => matcher.match("bat")).toThrow(/./);
     });
 
     it("test match prefix default value unrelated", () => {
