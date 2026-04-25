@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { CompositeJobParametersValidator } from "../composite-job-parameters-validator";
-import { JobParameters } from "../job-parameters";
-import type { JobParametersValidator } from "../job-parameters-validator";
+import { CompositeJobParametersValidator } from "../composite-job-parameters-validator.js";
+import { JobParameters } from "../job-parameters.js";
+import type { JobParametersValidator } from "../job-parameters-validator.js";
 
 describe("CompositeJobParametersValidator", () => {
   let compositeValidator: CompositeJobParametersValidator;

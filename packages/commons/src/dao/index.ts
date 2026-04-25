@@ -1,1 +1,1 @@
-export { DataAccessException } from "./data-access-exception";
+export { DataAccessException } from "./data-access-exception.js";

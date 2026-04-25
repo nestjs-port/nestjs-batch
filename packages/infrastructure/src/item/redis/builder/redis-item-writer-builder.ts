@@ -1,10 +1,10 @@
 import assert from "node:assert/strict";
 
 import type { Converter } from "@nestjs-port/core";
-import type Redis from "ioredis";
+import type { Redis } from "ioredis";
 import type { createClient } from "redis";
 
-import { RedisItemWriter } from "../redis-item-writer";
+import { RedisItemWriter } from "../redis-item-writer.js";
 
 type NodeRedisClient = ReturnType<typeof createClient>;
 type RedisKey = string | Buffer;

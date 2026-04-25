@@ -1,7 +1,7 @@
 import { EOL } from "node:os";
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { RecursiveCollectionLineAggregator } from "../recursive-collection-line-aggregator";
+import { RecursiveCollectionLineAggregator } from "../recursive-collection-line-aggregator.js";
 
 describe("RecursiveCollectionLineAggregator", () => {
   let aggregator: RecursiveCollectionLineAggregator<string>;

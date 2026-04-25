@@ -1,3 +1,3 @@
-import { ItemReaderException } from "./item-reader-exception";
+import { ItemReaderException } from "./item-reader-exception.js";
 
 export class ParseException extends ItemReaderException {}

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { JobParameter } from "../job-parameter";
-import { JobParameters } from "../job-parameters";
+import { JobParameter } from "../job-parameter.js";
+import { JobParameters } from "../job-parameters.js";
 
 describe("JobParameters", () => {
   const date1 = new Date(4321431242);

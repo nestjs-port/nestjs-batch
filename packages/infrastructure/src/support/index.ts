@@ -1,5 +1,5 @@
-export { IntArrayPropertyEditor } from "./int-array-property-editor";
-export type { MethodInvoker } from "./method-invoker";
-export type { MethodResolver } from "./method-resolver.interface";
-export { PatternMatcher } from "./pattern-matcher";
-export * from "./transaction";
+export { IntArrayPropertyEditor } from "./int-array-property-editor.js";
+export type { MethodInvoker } from "./method-invoker.js";
+export type { MethodResolver } from "./method-resolver.interface.js";
+export { PatternMatcher } from "./pattern-matcher.js";
+export * from "./transaction/index.js";

@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { DateFormat, SimpleDateFormat } from "@nestjs-batch/commons";
 import { StringUtils } from "@nestjs-port/core";
 
-import type { FieldSet } from "./field-set.interface";
+import type { FieldSet } from "./field-set.interface.js";
 
 type DateFormatLike = DateFormat | string;
 

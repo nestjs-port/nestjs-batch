@@ -1,3 +1,3 @@
-export * from "./builder";
-export { RedisItemReader, type RedisScanOptions } from "./redis-item-reader";
-export { RedisItemWriter } from "./redis-item-writer";
+export * from "./builder/index.js";
+export { RedisItemReader, type RedisScanOptions } from "./redis-item-reader.js";
+export { RedisItemWriter } from "./redis-item-writer.js";

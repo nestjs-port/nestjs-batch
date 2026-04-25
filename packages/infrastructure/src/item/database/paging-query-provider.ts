@@ -1,6 +1,6 @@
 import type { DataSource } from "@nestjs-port/jsdbc";
 
-import type { Order } from "./order";
+import type { Order } from "./order.js";
 
 /**
  * Interface defining the functionality to be provided for generating paging queries for use with paging item readers.

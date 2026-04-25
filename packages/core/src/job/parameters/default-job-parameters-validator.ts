@@ -1,7 +1,7 @@
 import { type Logger, LoggerFactory } from "@nestjs-port/core";
-import { InvalidJobParametersException } from "./invalid-job-parameters-exception";
-import type { JobParameters } from "./job-parameters";
-import type { JobParametersValidator } from "./job-parameters-validator";
+import { InvalidJobParametersException } from "./invalid-job-parameters-exception.js";
+import type { JobParameters } from "./job-parameters.js";
+import type { JobParametersValidator } from "./job-parameters-validator.js";
 
 export class DefaultJobParametersValidator implements JobParametersValidator {
   private readonly _logger: Logger = LoggerFactory.getLogger(

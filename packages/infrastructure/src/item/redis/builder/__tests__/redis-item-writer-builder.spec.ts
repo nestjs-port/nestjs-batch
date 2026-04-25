@@ -1,9 +1,9 @@
-import type Redis from "ioredis";
+import type { Redis } from "ioredis";
 import type { createClient } from "redis";
 import { describe, expect, it } from "vitest";
 
-import { RedisItemWriter } from "../../redis-item-writer";
-import { RedisItemWriterBuilder } from "../redis-item-writer-builder";
+import { RedisItemWriter } from "../../redis-item-writer.js";
+import { RedisItemWriterBuilder } from "../redis-item-writer-builder.js";
 
 type RedisItemWriterInternals = {
   _redisClient: ReturnType<typeof createClient> | Redis;

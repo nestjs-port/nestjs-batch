@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 
-import { JobParameter } from "./job-parameter";
-import { JobParameters } from "./job-parameters";
+import { JobParameter } from "./job-parameter.js";
+import { JobParameters } from "./job-parameters.js";
 
 export class JobParametersBuilder {
   private readonly _parameters: Map<string, JobParameter>;

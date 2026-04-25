@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { RepeatContext } from "./repeat-context";
-import type { RepeatStatus } from "./repeat-status";
+import type { RepeatContext } from "./repeat-context.js";
+import type { RepeatStatus } from "./repeat-status.js";
 
 export interface CompletionPolicy {
   isComplete(context: RepeatContext, result: RepeatStatus): boolean;

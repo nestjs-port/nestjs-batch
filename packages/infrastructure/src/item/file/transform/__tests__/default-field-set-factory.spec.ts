@@ -1,7 +1,7 @@
 import { SimpleDateFormat } from "@nestjs-batch/commons";
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { DefaultFieldSetFactory } from "../default-field-set-factory";
+import { DefaultFieldSetFactory } from "../default-field-set-factory.js";
 
 describe("DefaultFieldSetFactory", () => {
   let factory: DefaultFieldSetFactory;

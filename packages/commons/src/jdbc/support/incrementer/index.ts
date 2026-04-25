@@ -1,1 +1,1 @@
-export type { DataFieldMaxValueIncrementer } from "./data-field-max-value-incrementer";
+export type { DataFieldMaxValueIncrementer } from "./data-field-max-value-incrementer.js";

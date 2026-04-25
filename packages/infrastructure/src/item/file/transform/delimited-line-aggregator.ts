@@ -1,4 +1,4 @@
-import { ExtractorLineAggregator } from "./extractor-line-aggregator";
+import { ExtractorLineAggregator } from "./extractor-line-aggregator.js";
 
 export class DelimitedLineAggregator<T> extends ExtractorLineAggregator<T> {
   private _delimiter = ",";

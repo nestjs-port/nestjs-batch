@@ -1,1 +1,1 @@
-export { NestLoggerFactory } from "./nest-logger-factory";
+export { NestLoggerFactory } from "./nest-logger-factory.js";

@@ -1,4 +1,4 @@
-import type { StepExecution } from "../../step";
+import type { StepExecution } from "../../step/index.js";
 
 /**
  * A context object that can be used to interrogate the current StepExecution and

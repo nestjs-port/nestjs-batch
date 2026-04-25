@@ -1,4 +1,4 @@
-import { JdbcUtils } from "../../support";
+import { JdbcUtils } from "../../support/index.js";
 
 /**
  * Defines common functionality for objects that can provide parameter values for named SQL parameters.

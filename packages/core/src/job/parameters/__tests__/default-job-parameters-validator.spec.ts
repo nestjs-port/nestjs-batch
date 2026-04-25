@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import { DefaultJobParametersValidator } from "../default-job-parameters-validator";
-import { InvalidJobParametersException } from "../invalid-job-parameters-exception";
-import { JobParameters } from "../job-parameters";
-import { JobParametersBuilder } from "../job-parameters-builder";
+import { DefaultJobParametersValidator } from "../default-job-parameters-validator.js";
+import { InvalidJobParametersException } from "../invalid-job-parameters-exception.js";
+import { JobParameters } from "../job-parameters.js";
+import { JobParametersBuilder } from "../job-parameters-builder.js";
 
 describe("DefaultJobParametersValidator", () => {
   const validator = new DefaultJobParametersValidator();

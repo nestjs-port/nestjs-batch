@@ -1,4 +1,4 @@
-import { ParseException } from "../parse-exception";
+import { ParseException } from "../parse-exception.js";
 
 export class FlatFileParseException extends ParseException {
   private readonly _input: string;

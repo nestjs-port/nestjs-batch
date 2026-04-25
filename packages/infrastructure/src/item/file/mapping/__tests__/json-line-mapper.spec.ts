@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { JsonLineMapper } from "../json-line-mapper";
+import { JsonLineMapper } from "../json-line-mapper.js";
 
 describe("JsonLineMapper", () => {
   const mapper = new JsonLineMapper();

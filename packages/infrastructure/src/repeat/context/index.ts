@@ -1,2 +1,2 @@
-export { RepeatContextCounter } from "./repeat-context-counter";
-export { RepeatContextSupport } from "./repeat-context-support";
+export { RepeatContextCounter } from "./repeat-context-counter.js";
+export { RepeatContextSupport } from "./repeat-context-support.js";

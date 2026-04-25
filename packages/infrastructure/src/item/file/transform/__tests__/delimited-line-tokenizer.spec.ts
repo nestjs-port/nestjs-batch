@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { DelimitedLineTokenizer } from "../delimited-line-tokenizer";
-import { IncorrectTokenCountException } from "../incorrect-token-count-exception";
+import { DelimitedLineTokenizer } from "../delimited-line-tokenizer.js";
+import { IncorrectTokenCountException } from "../incorrect-token-count-exception.js";
 
 describe("DelimitedLineTokenizer", () => {
   let tokenizer: DelimitedLineTokenizer;

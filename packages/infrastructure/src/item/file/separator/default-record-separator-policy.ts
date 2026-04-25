@@ -1,5 +1,5 @@
 import { StringUtils } from "@nestjs-port/core";
-import { SimpleRecordSeparatorPolicy } from "./simple-record-separator-policy";
+import { SimpleRecordSeparatorPolicy } from "./simple-record-separator-policy.js";
 
 export class DefaultRecordSeparatorPolicy extends SimpleRecordSeparatorPolicy {
   private static readonly QUOTE = '"';

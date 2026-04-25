@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { SuffixRecordSeparatorPolicy } from "../suffix-record-separator-policy";
+import { SuffixRecordSeparatorPolicy } from "../suffix-record-separator-policy.js";
 
 describe("SuffixRecordSeparatorPolicy", () => {
   const line = "a string";

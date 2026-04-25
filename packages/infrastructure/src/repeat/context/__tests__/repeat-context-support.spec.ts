@@ -15,7 +15,7 @@
  */
 
 import { beforeEach, describe, expect, it } from "vitest";
-import { RepeatContextSupport } from "../repeat-context-support";
+import { RepeatContextSupport } from "../repeat-context-support.js";
 
 describe("RepeatContextSupport", () => {
   const list: string[] = [];

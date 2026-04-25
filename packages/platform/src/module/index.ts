@@ -1,2 +1,2 @@
-export { NestBatchModule } from "./nest-batch.module";
-export { NestBatchModuleOptions } from "./nest-batch-module.options";
+export { NestBatchModule } from "./nest-batch.module.js";
+export type { NestBatchModuleOptions } from "./nest-batch-module.options.js";

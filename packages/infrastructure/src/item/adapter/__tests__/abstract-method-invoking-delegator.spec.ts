@@ -3,8 +3,8 @@ import { describe, expect, it } from "vitest";
 import {
   AbstractMethodInvokingDelegator,
   InvocationTargetThrowableWrapper,
-} from "../abstract-method-invoking-delegator";
-import { DynamicMethodInvocationException } from "../dynamic-method-invocation-exception";
+} from "../abstract-method-invoking-delegator.js";
+import { DynamicMethodInvocationException } from "../dynamic-method-invocation-exception.js";
 
 class TestDelegator<T> extends AbstractMethodInvokingDelegator<T> {
   invoke(): Promise<T | null> {

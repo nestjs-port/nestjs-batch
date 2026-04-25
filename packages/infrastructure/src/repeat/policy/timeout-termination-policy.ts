@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { RepeatContextSupport } from "../context";
-import type { RepeatContext } from "../repeat-context";
-import type { RepeatStatus } from "../repeat-status";
-import { CompletionPolicySupport } from "./completion-policy-support";
+import { RepeatContextSupport } from "../context/index.js";
+import type { RepeatContext } from "../repeat-context.js";
+import type { RepeatStatus } from "../repeat-status.js";
+import { CompletionPolicySupport } from "./completion-policy-support.js";
 
 class TimeoutBatchContext extends RepeatContextSupport {
   private readonly time = Date.now();

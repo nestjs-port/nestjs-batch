@@ -1,18 +1,24 @@
 import assert from "node:assert/strict";
 import type { Readable } from "node:stream";
 
-import type Redis from "ioredis";
-import type { ScanStreamOptions } from "ioredis/built/types";
+import type { Redis } from "ioredis";
 import type { createClient } from "redis";
 
-import type { ExecutionContext } from "../execution-context";
-import type { ItemStreamReader } from "../item-stream-reader.interface";
+import type { ExecutionContext } from "../execution-context.js";
+import type { ItemStreamReader } from "../item-stream-reader.interface.js";
 
 export interface RedisScanOptions {
   count?: number;
   pattern?: string;
   bytePattern?: Buffer;
 }
+
+type ScanStreamOptions = {
+  count?: number;
+  match?: string;
+  noValues?: boolean;
+  type?: string;
+};
 
 type NodeRedisClient = ReturnType<typeof createClient>;
 

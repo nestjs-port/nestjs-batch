@@ -16,7 +16,7 @@
 
 import assert from "node:assert/strict";
 
-import type { RepeatContext } from "../repeat-context";
+import type { RepeatContext } from "../repeat-context.js";
 
 /**
  * Helper class for policies that need to count the number of occurrences of some event

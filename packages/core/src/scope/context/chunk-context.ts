@@ -1,4 +1,4 @@
-import type { StepContext } from "./step-context";
+import type { StepContext } from "./step-context.js";
 
 /**
  * Context object for weakly typed data stored for the duration of a chunk

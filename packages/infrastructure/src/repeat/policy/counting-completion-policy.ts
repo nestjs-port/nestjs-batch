@@ -16,10 +16,13 @@
 
 import assert from "node:assert/strict";
 
-import { RepeatContextCounter, RepeatContextSupport } from "../context";
-import type { RepeatContext } from "../repeat-context";
-import type { RepeatStatus } from "../repeat-status";
-import { DefaultResultCompletionPolicy } from "./default-result-completion-policy";
+import {
+  RepeatContextCounter,
+  RepeatContextSupport,
+} from "../context/index.js";
+import type { RepeatContext } from "../repeat-context.js";
+import type { RepeatStatus } from "../repeat-status.js";
+import { DefaultResultCompletionPolicy } from "./default-result-completion-policy.js";
 
 class CountingBatchContext extends RepeatContextSupport {
   private readonly counter: RepeatContextCounter;

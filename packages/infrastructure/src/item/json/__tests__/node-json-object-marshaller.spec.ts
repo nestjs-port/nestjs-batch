@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { NodeJsonObjectMarshaller } from "../node-json-object-marshaller";
+import { NodeJsonObjectMarshaller } from "../node-json-object-marshaller.js";
 
 describe("NodeJsonObjectMarshaller", () => {
   it("test json marshalling", () => {

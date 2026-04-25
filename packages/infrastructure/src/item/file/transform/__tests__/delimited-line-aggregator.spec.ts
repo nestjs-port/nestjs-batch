@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { DelimitedLineAggregator } from "../delimited-line-aggregator";
+import { DelimitedLineAggregator } from "../delimited-line-aggregator.js";
 
 describe("DelimitedLineAggregator", () => {
   let aggregator: DelimitedLineAggregator<(string | null)[]>;

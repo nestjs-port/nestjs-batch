@@ -3,9 +3,9 @@ import assert from "node:assert/strict";
 import { StringUtils } from "@nestjs-port/core";
 import type { DataSource } from "@nestjs-port/jsdbc";
 
-import { JdbcParameterUtils } from "../jdbc-parameter-utils";
-import type { Order } from "../order";
-import type { PagingQueryProvider } from "../paging-query-provider";
+import { JdbcParameterUtils } from "../jdbc-parameter-utils.js";
+import type { Order } from "../order.js";
+import type { PagingQueryProvider } from "../paging-query-provider.js";
 
 export abstract class AbstractSqlPagingQueryProvider implements PagingQueryProvider {
   private _selectClause: string | null = null;

@@ -1,7 +1,7 @@
 import { SimpleMailMessage } from "@nestjs-batch/commons";
 import { describe, expect, it } from "vitest";
 
-import { DefaultMailErrorHandler } from "../default-mail-error-handler";
+import { DefaultMailErrorHandler } from "../default-mail-error-handler.js";
 
 describe("DefaultMailErrorHandler", () => {
   const handler = new DefaultMailErrorHandler();

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { SimpleDateFormat } from "../simple-date-format";
+import { SimpleDateFormat } from "../simple-date-format.js";
 
 // Helper to create a local Date without timezone ambiguity
 function localDate(

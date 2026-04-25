@@ -1,1 +1,1 @@
-export { Writer } from "./writer";
+export { Writer } from "./writer.js";

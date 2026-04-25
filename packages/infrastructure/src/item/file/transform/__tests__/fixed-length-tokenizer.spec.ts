@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { FixedLengthTokenizer } from "../fixed-length-tokenizer";
-import { IncorrectLineLengthException } from "../incorrect-line-length-exception";
-import { IncorrectTokenCountException } from "../incorrect-token-count-exception";
-import { Range } from "../range";
+import { FixedLengthTokenizer } from "../fixed-length-tokenizer.js";
+import { IncorrectLineLengthException } from "../incorrect-line-length-exception.js";
+import { IncorrectTokenCountException } from "../incorrect-token-count-exception.js";
+import { Range } from "../range.js";
 
 describe("FixedLengthTokenizer", () => {
   let tokenizer: FixedLengthTokenizer;

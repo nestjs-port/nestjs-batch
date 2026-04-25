@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { DefaultFieldSet } from "../default-field-set";
-import { DelimitedLineTokenizer } from "../delimited-line-tokenizer";
-import type { FieldSet } from "../field-set.interface";
-import type { LineTokenizer } from "../line-tokenizer";
-import { PatternMatchingCompositeLineTokenizer } from "../pattern-matching-composite-line-tokenizer";
+import { DefaultFieldSet } from "../default-field-set.js";
+import { DelimitedLineTokenizer } from "../delimited-line-tokenizer.js";
+import type { FieldSet } from "../field-set.interface.js";
+import type { LineTokenizer } from "../line-tokenizer.js";
+import { PatternMatchingCompositeLineTokenizer } from "../pattern-matching-composite-line-tokenizer.js";
 
 describe("PatternMatchingCompositeLineTokenizer", () => {
   it("test empty key matches any line", () => {

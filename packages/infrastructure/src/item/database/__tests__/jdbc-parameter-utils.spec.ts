@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { JdbcParameterUtils } from "../jdbc-parameter-utils";
+import { JdbcParameterUtils } from "../jdbc-parameter-utils.js";
 
 describe("JdbcParameterUtils", () => {
   it("testCountParameterPlaceholders", () => {

@@ -1,5 +1,5 @@
-import type { FieldExtractor } from "./field-extractor.interface";
-import type { FieldSet } from "./field-set.interface";
+import type { FieldExtractor } from "./field-extractor.interface.js";
+import type { FieldSet } from "./field-set.interface.js";
 
 export class PassThroughFieldExtractor<T> implements FieldExtractor<T> {
   extract(item: T): unknown[] {

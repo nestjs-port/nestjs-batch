@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { RepeatContext } from "../repeat-context";
+import type { RepeatContext } from "../repeat-context.js";
 
 export class RepeatContextSupport implements RepeatContext {
   private readonly _parent: RepeatContext | null;

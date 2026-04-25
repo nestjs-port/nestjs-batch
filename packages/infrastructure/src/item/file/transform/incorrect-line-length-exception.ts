@@ -1,4 +1,4 @@
-import { FlatFileFormatException } from "./flat-file-format-exception";
+import { FlatFileFormatException } from "./flat-file-format-exception.js";
 
 export class IncorrectLineLengthException extends FlatFileFormatException {
   private readonly _actualLength: number;

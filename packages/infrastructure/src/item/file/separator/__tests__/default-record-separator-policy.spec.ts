@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { DefaultRecordSeparatorPolicy } from "../default-record-separator-policy";
+import { DefaultRecordSeparatorPolicy } from "../default-record-separator-policy.js";
 
 describe("DefaultRecordSeparatorPolicy", () => {
   it("test normal line", () => {

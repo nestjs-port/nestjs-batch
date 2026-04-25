@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { DateFormat } from "../date-format";
-import { SimpleDateFormat } from "../simple-date-format";
+import { DateFormat } from "../date-format.js";
+import { SimpleDateFormat } from "../simple-date-format.js";
 
 describe("DateFormat", () => {
   it("style constants have correct values", () => {

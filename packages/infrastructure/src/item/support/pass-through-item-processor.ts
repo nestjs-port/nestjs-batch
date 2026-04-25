@@ -1,4 +1,4 @@
-import type { ItemProcessor } from "../item-processor.interface";
+import type { ItemProcessor } from "../item-processor.interface.js";
 
 export class PassThroughItemProcessor<T> implements ItemProcessor<T, T> {
   async process(item: T): Promise<T | null> {

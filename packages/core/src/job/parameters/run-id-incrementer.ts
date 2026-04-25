@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
-import { JobParameter } from "./job-parameter";
-import type { JobParameters } from "./job-parameters";
-import { JobParametersBuilder } from "./job-parameters-builder";
-import type { JobParametersIncrementer } from "./job-parameters-incrementer";
+import { JobParameter } from "./job-parameter.js";
+import type { JobParameters } from "./job-parameters.js";
+import { JobParametersBuilder } from "./job-parameters-builder.js";
+import type { JobParametersIncrementer } from "./job-parameters-incrementer.js";
 
 export class RunIdIncrementer implements JobParametersIncrementer {
   private static readonly RUN_ID_KEY = "run.id";
