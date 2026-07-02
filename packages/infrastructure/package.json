@@ -2,13 +2,26 @@
   "name": "@nestjs-batch/infrastructure",
   "version": "0.0.0",
   "private": false,
+  "description": "Infrastructure adapters and integration helpers for NestJS Batch",
+  "keywords": [
+    "batch",
+    "infrastructure",
+    "nestjs"
+  ],
   "homepage": "https://nestjs-port.github.io/nestjs-batch",
+  "bugs": {
+    "url": "https://github.com/nestjs-port/nestjs-batch/issues"
+  },
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/nestjs-port/nestjs-batch",
     "directory": "packages/infrastructure"
   },
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -22,7 +35,8 @@
     "build": "pnpm clean && tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist",
-    "test": "vitest run"
+    "test": "vitest run",
+    "prepack": "shx cp ../../README.md README.md"
   },
   "devDependencies": {
     "@nestjs-batch/commons": "workspace:*",
