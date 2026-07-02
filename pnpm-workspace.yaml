@@ -1,2 +1,8 @@
 packages:
   - 'packages/*'
+allowBuilds:
+  '@nestjs/core': true
+  cpu-features: true
+  esbuild: true
+  protobufjs: true
+  ssh2: true
