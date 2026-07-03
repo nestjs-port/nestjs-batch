@@ -17,7 +17,7 @@
 import assert from "node:assert/strict";
 
 import { StringUtils } from "@nestjs-port/core";
-import type { DataSource } from "@nestjs-port/jsdbc";
+import { sql, type DataSource, type SQL } from "@nestjs-port/jsdbc";
 
 import { JdbcParameterUtils } from "../jdbc-parameter-utils.js";
 import type { Order } from "../order.js";
@@ -135,9 +135,9 @@ export abstract class AbstractSqlPagingQueryProvider implements PagingQueryProvi
     }
   }
 
-  abstract generateFirstPageQuery(pageSize: number): string;
+  abstract generateFirstPageQuery(pageSize: number): SQL;
 
-  abstract generateRemainingPagesQuery(pageSize: number): string;
+  abstract generateRemainingPagesQuery(pageSize: number): SQL;
 
   get sortKeysWithoutAliases(): ReadonlyMap<string, Order> {
     const sortKeysWithoutAliases = new Map<string, Order>();
@@ -169,5 +169,9 @@ export abstract class AbstractSqlPagingQueryProvider implements PagingQueryProvi
     }
 
     return trimmedClause;
+  }
+
+  protected buildSql(query: string): SQL {
+    return sql.raw(query);
   }
 }
