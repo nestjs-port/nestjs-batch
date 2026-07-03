@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { DataSource } from "@nestjs-port/jsdbc";
+import type { DataSource, SQL } from "@nestjs-port/jsdbc";
 
 import type { Order } from "./order.js";
 
@@ -30,12 +30,12 @@ export interface PagingQueryProvider {
   /**
    * Generate the query that will provide the first page, limited by the page size.
    */
-  generateFirstPageQuery(pageSize: number): string;
+  generateFirstPageQuery(pageSize: number): SQL;
 
   /**
    * Generate the query that will provide the remaining pages, limited by the page size.
    */
-  generateRemainingPagesQuery(pageSize: number): string;
+  generateRemainingPagesQuery(pageSize: number): SQL;
 
   /**
    * The number of parameters that are declared in the query.
