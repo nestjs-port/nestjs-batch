@@ -12,13 +12,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+*/
 
+import { SynchronizedAttributeAccessor } from "./synchronized-attribute-accessor.js";
 import type { RepeatContext } from "../repeat-context.js";
 
-export class RepeatContextSupport implements RepeatContext {
+export class RepeatContextSupport
+  extends SynchronizedAttributeAccessor
+  implements RepeatContext
+{
   private readonly _parent: RepeatContext | null;
-  private readonly _attributes = new Map<string, unknown>();
   private readonly _callbacks = new Map<string, Set<() => void>>();
   private _count = 0;
   private _completeOnly = false;
@@ -30,6 +33,7 @@ export class RepeatContextSupport implements RepeatContext {
    * @param parent the parent context
    */
   constructor(parent: RepeatContext | null) {
+    super();
     this._parent = parent;
   }
 
@@ -101,27 +105,5 @@ export class RepeatContextSupport implements RepeatContext {
     if (errors.length > 0) {
       throw errors[0];
     }
-  }
-
-  setAttribute(name: string, value: unknown): void {
-    this._attributes.set(name, value);
-  }
-
-  getAttribute(name: string): unknown | null {
-    return this._attributes.get(name) ?? null;
-  }
-
-  removeAttribute(name: string): unknown | null {
-    const value = this._attributes.get(name);
-    this._attributes.delete(name);
-    return value ?? null;
-  }
-
-  hasAttribute(name: string): boolean {
-    return this._attributes.has(name);
-  }
-
-  attributeNames(): string[] {
-    return [...this._attributes.keys()];
   }
 }
