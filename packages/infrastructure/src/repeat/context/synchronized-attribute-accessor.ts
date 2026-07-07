@@ -1,0 +1,61 @@
+/*
+ * Copyright 2006-present the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import type { AttributeAccessor } from "@nestjs-batch/commons";
+
+/**
+ * Node-friendly attribute accessor base class.
+ *
+ * The implementation intentionally uses an internal `Map` and copies out keys/values on
+ * access where appropriate. Java-style mutex synchronization is not necessary in the
+ * single-threaded event loop, but the dedicated base keeps attribute handling isolated
+ * from repeat-context state.
+ */
+export class SynchronizedAttributeAccessor implements AttributeAccessor {
+  protected readonly _attributes = new Map<string, unknown>();
+
+  setAttribute(name: string, value: unknown): void {
+    this._attributes.set(name, value);
+  }
+
+  getAttribute(name: string): unknown {
+    return this._attributes.get(name) ?? null;
+  }
+
+  removeAttribute(name: string): unknown {
+    const value = this._attributes.get(name);
+    this._attributes.delete(name);
+    return value ?? null;
+  }
+
+  hasAttribute(name: string): boolean {
+    return this._attributes.has(name);
+  }
+
+  attributeNames(): string[] {
+    return [...this._attributes.keys()];
+  }
+
+  setAttributeIfAbsent(name: string, value: unknown): unknown {
+    const existing = this._attributes.get(name);
+    if (existing !== undefined) {
+      return existing;
+    }
+
+    this._attributes.set(name, value);
+    return null;
+  }
+}
