@@ -19,8 +19,17 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { Order } from "../order.js";
 import type { AbstractSqlPagingQueryProvider } from "./abstract-sql-paging-query-provider.js";
 
+interface AbstractSqlPagingQueryProviderTestSuite {
+  getFirstPageSqlWithMultipleSortKeys(): string;
+  getRemainingSqlWithMultipleSortKeys(): string;
+  configureGroupClause(provider: AbstractSqlPagingQueryProvider): void;
+  expectedFirstPageQueryWithGroupBy: string;
+  expectedRemainingPagesQueryWithGroupBy: string;
+}
+
 export function runAbstractSqlPagingQueryProviderTests(
   providerFactory: () => AbstractSqlPagingQueryProvider,
+  suite: AbstractSqlPagingQueryProviderTestSuite,
 ): void {
   describe("AbstractSqlPagingQueryProvider", () => {
     let pagingQueryProvider: AbstractSqlPagingQueryProvider;
@@ -60,11 +69,8 @@ export function runAbstractSqlPagingQueryProviderTests(
       sortKeys.set("name", Order.ASCENDING);
       sortKeys.set("id", Order.DESCENDING);
       pagingQueryProvider.setSortKeys(sortKeys);
-      const s = pagingQueryProvider
-        .generateFirstPageQuery(pageSize)
-        .toQuery().sql;
-      expect(s).toContain("name asc");
-      expect(s).toContain("id desc");
+      const s = pagingQueryProvider.generateFirstPageQuery(pageSize).toQuery().sql;
+      expect(s).toBe(suite.getFirstPageSqlWithMultipleSortKeys());
     });
 
     it("test generate remaining pages query with multiple sort keys", () => {
@@ -75,7 +81,7 @@ export function runAbstractSqlPagingQueryProviderTests(
       const s = pagingQueryProvider
         .generateRemainingPagesQuery(pageSize)
         .toQuery().sql;
-      expect(s).toBe("select 2");
+      expect(s).toBe(suite.getRemainingSqlWithMultipleSortKeys());
     });
 
     it("test remove key words followed by space char", () => {
@@ -115,6 +121,20 @@ export function runAbstractSqlPagingQueryProviderTests(
       expect(pagingQueryProvider.selectClause).toBe("id, 'yes', false");
       expect(pagingQueryProvider.fromClause).toBe("test.verification_table");
       expect(pagingQueryProvider.whereClause).toBe("TRUE");
+    });
+
+    it("test generate first page query with group by", () => {
+      suite.configureGroupClause(pagingQueryProvider);
+      const s = pagingQueryProvider.generateFirstPageQuery(pageSize).toQuery().sql;
+      expect(s).toBe(suite.expectedFirstPageQueryWithGroupBy);
+    });
+
+    it("test generate remaining pages query with group by", () => {
+      suite.configureGroupClause(pagingQueryProvider);
+      const s = pagingQueryProvider
+        .generateRemainingPagesQuery(pageSize)
+        .toQuery().sql;
+      expect(s).toBe(suite.expectedRemainingPagesQueryWithGroupBy);
     });
   });
 }
