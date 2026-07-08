@@ -5,13 +5,16 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 usage() {
   cat <<'USAGE'
-Usage: ./scripts/check-missing-ts.sh <absolute-path-to-spring-batch-module-root>
+Usage: ./scripts/check-missing-ts.sh [--ignore-file <absolute-path-to-ignore-file>] <absolute-path-to-spring-batch-module-root>
 
 Examples:
   ./scripts/check-missing-ts.sh /path/to/spring-batch-core
   ./scripts/check-missing-ts.sh /path/to/spring-batch-infrastructure
+  ./scripts/check-missing-ts.sh --ignore-file /path/to/check-missing-ts.ignore /path/to/spring-batch-infrastructure
 USAGE
 }
+
+DEFAULT_IGNORE_FILE="$ROOT_DIR/scripts/check-missing-ts.ignore"
 
 camel_to_kebab() {
   printf '%s' "$1" \
@@ -95,12 +98,47 @@ resolve_nest_package_dir() {
   return 1
 }
 
-if [[ $# -ne 1 ]]; then
+ignore_file=""
+spring_module_dir=""
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --ignore-file)
+      if [[ $# -lt 2 ]]; then
+        echo "[ERROR] Missing value for --ignore-file" >&2
+        usage
+        exit 1
+      fi
+      ignore_file="$2"
+      shift 2
+      ;;
+    --ignore-file=*)
+      ignore_file="${1#*=}"
+      shift
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      if [[ -n "$spring_module_dir" ]]; then
+        echo "[ERROR] Unexpected extra argument: $1" >&2
+        usage
+        exit 1
+      fi
+      spring_module_dir="$1"
+      shift
+      ;;
+  esac
+done
+
+if [[ -z "$ignore_file" && -f "$DEFAULT_IGNORE_FILE" ]]; then
+  ignore_file="$DEFAULT_IGNORE_FILE"
+fi
+
+if [[ -z "$spring_module_dir" ]]; then
   usage
   exit 1
 fi
-
-spring_module_dir="$1"
 
 if [[ "$spring_module_dir" != /* ]]; then
   echo "[ERROR] Please pass an absolute path: $spring_module_dir" >&2
@@ -140,6 +178,33 @@ fi
 tmp_file="$(mktemp)"
 trap 'rm -f "$tmp_file"' EXIT
 
+if [[ -n "${ignore_file:-}" ]]; then
+  if [[ ! -f "$ignore_file" ]]; then
+    echo "[ERROR] Ignore file not found: $ignore_file" >&2
+    exit 1
+  fi
+fi
+
+is_ignored_ts_file() {
+  local candidate="$1"
+
+  if [[ -z "$ignore_file" ]]; then
+    return 1
+  fi
+
+  while IFS= read -r ignored_path || [[ -n "$ignored_path" ]]; do
+    ignored_path="${ignored_path%%#*}"
+    ignored_path="${ignored_path#"${ignored_path%%[![:space:]]*}"}"
+    ignored_path="${ignored_path%"${ignored_path##*[![:space:]]}"}"
+
+    if [[ -n "$ignored_path" && "$ignored_path" == "$candidate" ]]; then
+      return 0
+    fi
+  done < "$ignore_file"
+
+  return 1
+}
+
 while IFS= read -r java_file; do
   imports_count="$(grep -cE '^[[:space:]]*import[[:space:]]+' "$java_file" || true)"
 
@@ -165,6 +230,9 @@ while IFS= read -r java_file; do
   fi
 
   if [[ ! -f "$candidate_a" && ! -f "$candidate_b" && ! -f "$candidate_c" ]]; then
+    if is_ignored_ts_file "$candidate_a" || is_ignored_ts_file "$candidate_b" || is_ignored_ts_file "$candidate_c"; then
+      continue
+    fi
     printf '%s\t%s\t%s\n' \
       "$imports_count" \
       "$java_file" \
@@ -180,7 +248,7 @@ fi
 
 echo "Missing TS files for module: $spring_module_name"
 echo "(sorted by Java import count asc)"
-sort -t $'\t' -n -k1,1 -k2,2 "$tmp_file" | while IFS=$'\t' read -r count java_file expected_ts; do
+sort -t $'\t' -n -k1,1 -k2,2 "$tmp_file" | head -n 5 | while IFS=$'\t' read -r count java_file expected_ts; do
   java_display="${java_file#"$spring_module_dir/"}"
   ts_display="${expected_ts#"$ROOT_DIR/"}"
   printf '[imports=%s] %s -> %s\n' "$count" "$java_display" "$ts_display"

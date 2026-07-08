@@ -42,6 +42,7 @@
     "@nestjs-batch/commons": "workspace:*",
     "@nestjs-port/core": "^0.1.1",
     "@nestjs-port/jsdbc": "^0.1.1",
+    "@nestjs-port/testing": "^0.1.0",
     "@testcontainers/redis": "^11.8.1",
     "ioredis": "^5.10.1",
     "redis": "^5.11.0",
