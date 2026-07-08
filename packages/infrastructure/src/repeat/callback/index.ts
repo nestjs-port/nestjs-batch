@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export {};
+export { NestedRepeatCallback } from "./nested-repeat-callback.js";

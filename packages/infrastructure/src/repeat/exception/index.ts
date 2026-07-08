@@ -16,4 +16,9 @@
 
 export { CompositeExceptionHandler } from "./composite-exception-handler.js";
 export { DefaultExceptionHandler } from "./default-exception-handler.js";
+export {
+  LogOrRethrowExceptionHandler,
+  LogOrRethrowExceptionHandlerLevel,
+  type LogOrRethrowExceptionClassifier,
+} from "./log-or-rethrow-exception-handler.js";
 export type { ExceptionHandler } from "./exception-handler.js";
