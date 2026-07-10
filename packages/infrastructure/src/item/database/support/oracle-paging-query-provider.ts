@@ -21,24 +21,34 @@ import { AbstractSqlPagingQueryProvider } from "./abstract-sql-paging-query-prov
 
 export class OraclePagingQueryProvider extends AbstractSqlPagingQueryProvider {
   override generateFirstPageQuery(pageSize: number): SQL {
-    return this.buildSql(this.generateRowNumSqlQuery(false, this.buildRowNumClause(pageSize)));
+    return this.buildSql(
+      this.generateRowNumSqlQuery(false, this.buildRowNumClause(pageSize)),
+    );
   }
 
   override generateRemainingPagesQuery(pageSize: number): SQL {
-    return this.buildSql(this.generateRowNumSqlQuery(true, this.buildRowNumClause(pageSize)));
+    return this.buildSql(
+      this.generateRowNumSqlQuery(true, this.buildRowNumClause(pageSize)),
+    );
   }
 
   private buildRowNumClause(pageSize: number): string {
     return `ROWNUM <= ${pageSize}`;
   }
 
-  private generateRowNumSqlQuery(remainingPageQuery: boolean, rowNumClause: string): string {
+  private generateRowNumSqlQuery(
+    remainingPageQuery: boolean,
+    rowNumClause: string,
+  ): string {
     return `SELECT * FROM (SELECT ${this.selectClause} FROM ${this.fromClause}${this.whereClause == null ? "" : ` WHERE ${this.whereClause}`}${this.groupClause == null ? "" : ` GROUP BY ${this.groupClause}`} ORDER BY ${this.buildSortClause()}) WHERE ${rowNumClause}${remainingPageQuery ? ` AND ${this.buildSortConditions()}` : ""}`;
   }
 
   private buildSortClause(): string {
     return Array.from(this.sortKeys.entries())
-      .map(([key, value]) => `${key}${value === Order.DESCENDING ? " DESC" : " ASC"}`)
+      .map(
+        ([key, value]) =>
+          `${key}${value === Order.DESCENDING ? " DESC" : " ASC"}`,
+      )
       .join(", ");
   }
 
@@ -53,7 +63,9 @@ export class OraclePagingQueryProvider extends AbstractSqlPagingQueryProvider {
         parts.push(`${key} = ${this.getSortKeyPlaceHolder(key)}`);
       }
       const [key, order] = keys[i]!;
-      parts.push(`${key} ${order === Order.DESCENDING ? "<" : ">"} ${this.getSortKeyPlaceHolder(key)}`);
+      parts.push(
+        `${key} ${order === Order.DESCENDING ? "<" : ">"} ${this.getSortKeyPlaceHolder(key)}`,
+      );
       clauses.push(parts.join(" AND "));
     }
 
