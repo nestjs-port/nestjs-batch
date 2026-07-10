@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export {};
+export { CompositeRepeatListener } from "./composite-repeat-listener.js";
