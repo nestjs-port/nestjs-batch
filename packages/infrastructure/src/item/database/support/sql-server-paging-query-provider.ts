@@ -22,7 +22,9 @@ import { AbstractSqlPagingQueryProvider } from "./abstract-sql-paging-query-prov
 
 export class SqlServerPagingQueryProvider extends AbstractSqlPagingQueryProvider {
   override generateFirstPageQuery(pageSize: number): SQL {
-    return this.buildSql(this.generateTopSqlQuery(false, this.buildTopClause(pageSize)));
+    return this.buildSql(
+      this.generateTopSqlQuery(false, this.buildTopClause(pageSize)),
+    );
   }
 
   override generateRemainingPagesQuery(pageSize: number): SQL {
@@ -38,7 +40,10 @@ export class SqlServerPagingQueryProvider extends AbstractSqlPagingQueryProvider
     return `TOP ${pageSize}`;
   }
 
-  private generateTopSqlQuery(remainingPageQuery: boolean, topClause: string): string {
+  private generateTopSqlQuery(
+    remainingPageQuery: boolean,
+    topClause: string,
+  ): string {
     let query = `SELECT ${topClause} ${this.selectClause} FROM ${this.fromClause}`;
     if (remainingPageQuery) {
       query += ` WHERE (${this.whereClause}) AND ${this.buildSortConditions()}`;
@@ -58,7 +63,10 @@ export class SqlServerPagingQueryProvider extends AbstractSqlPagingQueryProvider
 
   private buildSortClause(): string {
     return Array.from(this.sortKeys.entries())
-      .map(([key, value]) => `${key}${value === Order.DESCENDING ? " DESC" : " ASC"}`)
+      .map(
+        ([key, value]) =>
+          `${key}${value === Order.DESCENDING ? " DESC" : " ASC"}`,
+      )
       .join(", ");
   }
 
@@ -73,7 +81,9 @@ export class SqlServerPagingQueryProvider extends AbstractSqlPagingQueryProvider
         parts.push(`${key} = ${this.getSortKeyPlaceHolder(key)}`);
       }
       const [key, order] = keys[i]!;
-      parts.push(`${key} ${order === Order.DESCENDING ? "<" : ">"} ${this.getSortKeyPlaceHolder(key)}`);
+      parts.push(
+        `${key} ${order === Order.DESCENDING ? "<" : ">"} ${this.getSortKeyPlaceHolder(key)}`,
+      );
       clauses.push(parts.join(" AND "));
     }
 

@@ -44,12 +44,16 @@ describe("LogOrRethrowExceptionHandler", () => {
   it("test error", () => {
     const handler = new LogOrRethrowExceptionHandler();
 
-    expect(() => handler.handleException(null as never, new Error("Foo"))).toThrow("Foo");
+    expect(() =>
+      handler.handleException(null as never, new Error("Foo")),
+    ).toThrow("Foo");
   });
 
   it("test not rethrown error level", () => {
     const handler = new LogOrRethrowExceptionHandler();
-    handler.setExceptionClassifier(() => LogOrRethrowExceptionHandlerLevel.ERROR);
+    handler.setExceptionClassifier(
+      () => LogOrRethrowExceptionHandlerLevel.ERROR,
+    );
 
     // No exception...
     handler.handleException(null as never, new Error("Foo"));
@@ -64,7 +68,9 @@ describe("LogOrRethrowExceptionHandler", () => {
 
   it("test not rethrown warn level", () => {
     const handler = new LogOrRethrowExceptionHandler();
-    handler.setExceptionClassifier(() => LogOrRethrowExceptionHandlerLevel.WARN);
+    handler.setExceptionClassifier(
+      () => LogOrRethrowExceptionHandlerLevel.WARN,
+    );
 
     // No exception...
     handler.handleException(null as never, new Error("Foo"));
@@ -79,7 +85,9 @@ describe("LogOrRethrowExceptionHandler", () => {
 
   it("test not rethrown debug level", () => {
     const handler = new LogOrRethrowExceptionHandler();
-    handler.setExceptionClassifier(() => LogOrRethrowExceptionHandlerLevel.DEBUG);
+    handler.setExceptionClassifier(
+      () => LogOrRethrowExceptionHandlerLevel.DEBUG,
+    );
 
     // No exception...
     handler.handleException(null as never, new Error("Foo"));

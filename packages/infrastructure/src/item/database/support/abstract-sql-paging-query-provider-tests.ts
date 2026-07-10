@@ -69,7 +69,9 @@ export function runAbstractSqlPagingQueryProviderTests(
       sortKeys.set("name", Order.ASCENDING);
       sortKeys.set("id", Order.DESCENDING);
       pagingQueryProvider.setSortKeys(sortKeys);
-      const s = pagingQueryProvider.generateFirstPageQuery(pageSize).toQuery().sql;
+      const s = pagingQueryProvider
+        .generateFirstPageQuery(pageSize)
+        .toQuery().sql;
       expect(s).toBe(suite.getFirstPageSqlWithMultipleSortKeys());
     });
 
@@ -125,7 +127,9 @@ export function runAbstractSqlPagingQueryProviderTests(
 
     it("test generate first page query with group by", () => {
       suite.configureGroupClause(pagingQueryProvider);
-      const s = pagingQueryProvider.generateFirstPageQuery(pageSize).toQuery().sql;
+      const s = pagingQueryProvider
+        .generateFirstPageQuery(pageSize)
+        .toQuery().sql;
       expect(s).toBe(suite.expectedFirstPageQueryWithGroupBy);
     });
 

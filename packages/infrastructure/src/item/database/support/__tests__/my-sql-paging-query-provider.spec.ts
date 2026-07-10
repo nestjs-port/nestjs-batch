@@ -20,22 +20,19 @@ import { MySqlPagingQueryProvider } from "../mysql-paging-query-provider.js";
 import { runAbstractSqlPagingQueryProviderTests } from "../abstract-sql-paging-query-provider-tests.js";
 
 describe("MySqlPagingQueryProvider", () => {
-  runAbstractSqlPagingQueryProviderTests(
-    () => new MySqlPagingQueryProvider(),
-    {
-      getFirstPageSqlWithMultipleSortKeys() {
-        return "SELECT id, name, age FROM foo WHERE bar = 1 ORDER BY name ASC, id DESC LIMIT 100";
-      },
-      getRemainingSqlWithMultipleSortKeys() {
-        return "SELECT id, name, age FROM foo WHERE (bar = 1) AND ((name > ?) OR (name = ? AND id < ?)) ORDER BY name ASC, id DESC LIMIT 100";
-      },
-      configureGroupClause(provider) {
-        provider.setGroupClause("dep");
-      },
-      expectedFirstPageQueryWithGroupBy:
-        "SELECT id, name, age FROM foo WHERE bar = 1 GROUP BY dep ORDER BY id ASC LIMIT 100",
-      expectedRemainingPagesQueryWithGroupBy:
-        "SELECT * FROM (SELECT id, name, age FROM foo WHERE bar = 1 GROUP BY dep) AS MAIN_QRY WHERE ((id > ?)) ORDER BY id ASC LIMIT 100",
+  runAbstractSqlPagingQueryProviderTests(() => new MySqlPagingQueryProvider(), {
+    getFirstPageSqlWithMultipleSortKeys() {
+      return "SELECT id, name, age FROM foo WHERE bar = 1 ORDER BY name ASC, id DESC LIMIT 100";
     },
-  );
+    getRemainingSqlWithMultipleSortKeys() {
+      return "SELECT id, name, age FROM foo WHERE (bar = 1) AND ((name > ?) OR (name = ? AND id < ?)) ORDER BY name ASC, id DESC LIMIT 100";
+    },
+    configureGroupClause(provider) {
+      provider.setGroupClause("dep");
+    },
+    expectedFirstPageQueryWithGroupBy:
+      "SELECT id, name, age FROM foo WHERE bar = 1 GROUP BY dep ORDER BY id ASC LIMIT 100",
+    expectedRemainingPagesQueryWithGroupBy:
+      "SELECT * FROM (SELECT id, name, age FROM foo WHERE bar = 1 GROUP BY dep) AS MAIN_QRY WHERE ((id > ?)) ORDER BY id ASC LIMIT 100",
+  });
 });
