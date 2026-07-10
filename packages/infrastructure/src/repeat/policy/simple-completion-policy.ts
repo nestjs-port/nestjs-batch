@@ -58,17 +58,20 @@ export class SimpleCompletionPolicy extends DefaultResultCompletionPolicy {
   }
 
   /** Reset the counter. */
-  override start(context: RepeatContext): RepeatContext {
+  override start(context: RepeatContext | null): RepeatContext {
     return new SimpleTerminationContext(context);
   }
 
-  isComplete(context: RepeatContext, result: RepeatStatus): boolean;
+  isComplete(context: RepeatContext, result: RepeatStatus | null): boolean;
   isComplete(context: RepeatContext): boolean;
   /**
    * Terminate if the chunk size has been reached, or the result is null.
    */
-  override isComplete(context: RepeatContext, result?: RepeatStatus): boolean {
-    if (result !== undefined && super.isComplete(context, result)) {
+  override isComplete(
+    context: RepeatContext,
+    result: RepeatStatus | null,
+  ): boolean {
+    if (super.isComplete(context, result)) {
       return true;
     }
 

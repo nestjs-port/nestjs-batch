@@ -64,7 +64,10 @@ export abstract class CountingCompletionPolicy extends DefaultResultCompletionPo
 
   isComplete(context: RepeatContext, result: RepeatStatus): boolean;
   isComplete(context: RepeatContext): boolean;
-  override isComplete(context: RepeatContext, result?: RepeatStatus): boolean {
+  override isComplete(
+    context: RepeatContext,
+    result: RepeatStatus | null,
+  ): boolean {
     if (result !== undefined) {
       return result == null || !result.isContinuable;
     }
@@ -74,7 +77,7 @@ export abstract class CountingCompletionPolicy extends DefaultResultCompletionPo
     );
   }
 
-  override start(parent: RepeatContext): RepeatContext {
+  override start(parent: RepeatContext | null): RepeatContext {
     return new CountingBatchContext(parent, this.useParent);
   }
 

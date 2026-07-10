@@ -47,17 +47,20 @@ export class TimeoutTerminationPolicy extends CompletionPolicySupport {
     }
   }
 
-  isComplete(context: RepeatContext, result: RepeatStatus): boolean;
+  isComplete(context: RepeatContext, result: RepeatStatus | null): boolean;
   isComplete(context: RepeatContext): boolean;
-  override isComplete(context: RepeatContext, result?: RepeatStatus): boolean {
-    if (result !== undefined) {
+  override isComplete(
+    context: RepeatContext,
+    result: RepeatStatus | null,
+  ): boolean {
+    if (result !== null) {
       return super.isComplete(context, result);
     }
 
     return this.getTimeoutContext(context).isComplete();
   }
 
-  override start(context: RepeatContext): RepeatContext {
+  override start(context: RepeatContext | null): RepeatContext {
     return new TimeoutBatchContext(context, this.timeout);
   }
 
