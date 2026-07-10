@@ -18,6 +18,7 @@ import type { CompletionPolicy } from "../completion-policy.js";
 import { type Logger, LoggerFactory } from "@nestjs-port/core";
 import type { RepeatCallback } from "../repeat-callback.js";
 import type { RepeatContext } from "../repeat-context.js";
+import { RepeatException } from "../repeat-exception.js";
 import type { RepeatListener } from "../repeat-listener.js";
 import type { RepeatOperations } from "../repeat-operations.js";
 import { RepeatStatus } from "../repeat-status.js";
@@ -255,13 +256,17 @@ export class RepeatTemplate implements RepeatOperations {
     context: RepeatContext,
     deferred: unknown[],
   ): void {
+    const unwrapped =
+      throwable instanceof RepeatException && throwable.cause != null
+        ? throwable.cause
+        : throwable;
     // An exception alone is not sufficient grounds for not
     // continuing
     for (let i = this.listeners.length - 1; i >= 0; i -= 1) {
-      this.listeners[i].onError?.(context, throwable);
+      this.listeners[i].onError?.(context, unwrapped);
     }
     try {
-      this.exceptionHandler.handleException(context, throwable);
+      this.exceptionHandler.handleException(context, unwrapped);
     } catch (handled) {
       deferred.push(handled);
     }
