@@ -19,13 +19,12 @@ import type { RepeatStatus } from "../repeat-status.js";
 import { CompletionPolicySupport } from "./completion-policy-support.js";
 
 export class DefaultResultCompletionPolicy extends CompletionPolicySupport {
-  isComplete(context: RepeatContext, result: RepeatStatus): boolean;
+  isComplete(context: RepeatContext, result: RepeatStatus | null): boolean;
   isComplete(context: RepeatContext): boolean;
-  override isComplete(_context: RepeatContext, result?: RepeatStatus): boolean {
-    if (result !== undefined) {
-      return result == null || !result.isContinuable;
-    }
-
-    return false;
+  override isComplete(
+    _context: RepeatContext,
+    result: RepeatStatus | null,
+  ): boolean {
+    return result == null || !result.isContinuable;
   }
 }

@@ -15,6 +15,7 @@
  */
 
 export { CompletionPolicySupport } from "./completion-policy-support.js";
+export { CompositeCompletionPolicy } from "./composite-completion-policy.js";
 export { CountingCompletionPolicy } from "./counting-completion-policy.js";
 export { DefaultResultCompletionPolicy } from "./default-result-completion-policy.js";
 export { SimpleCompletionPolicy } from "./simple-completion-policy.js";
