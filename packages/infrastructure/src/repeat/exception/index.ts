@@ -21,4 +21,6 @@ export {
   LogOrRethrowExceptionHandlerLevel,
   type LogOrRethrowExceptionClassifier,
 } from "./log-or-rethrow-exception-handler.js";
+export { RethrowOnThresholdExceptionHandler } from "./rethrow-on-threshold-exception-handler.js";
+export { SimpleLimitExceptionHandler } from "./simple-limit-exception-handler.js";
 export type { ExceptionHandler } from "./exception-handler.js";
