@@ -16,6 +16,7 @@
 
 import { beforeEach, describe, expect, it } from "vitest";
 import { RepeatContextSupport } from "../../context/index.js";
+import type { RepeatContext } from "../../repeat-context.js";
 import { RepeatException } from "../../repeat-exception.js";
 import { RepeatStatus } from "../../repeat-status.js";
 import { NestedRepeatCallback } from "../../callback/index.js";

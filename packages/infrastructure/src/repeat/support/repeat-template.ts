@@ -228,7 +228,7 @@ export class RepeatTemplate implements RepeatOperations {
     const complete = this.completionPolicy.isComplete(context, result ?? null);
     if (complete) {
       this._logger.debug(
-        result === undefined
+        result == null
           ? "Repeat is complete according to policy alone not including result."
           : "Repeat is complete according to policy and result value.",
       );

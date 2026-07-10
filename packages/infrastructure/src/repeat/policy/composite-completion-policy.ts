@@ -46,10 +46,12 @@ export class CompositeCompletionPolicy implements CompletionPolicy {
    * @see CompletionPolicy.isComplete
    */
   isComplete(context: RepeatContext): boolean;
-  isComplete(context: RepeatContext, result: RepeatStatus | null): boolean {
+  isComplete(context: RepeatContext, result?: RepeatStatus | null): boolean {
     const composite = context as CompositeBatchContext;
     return composite.policies.some((policy, index) =>
-      policy.isComplete(composite.contexts[index], result),
+      result == null
+        ? policy.isComplete(composite.contexts[index])
+        : policy.isComplete(composite.contexts[index], result),
     );
   }
 
@@ -85,7 +87,7 @@ export class CompositeCompletionPolicy implements CompletionPolicy {
  */
 class CompositeBatchContext extends RepeatContextSupport {
   constructor(
-    context: RepeatContext,
+    context: RepeatContext | null,
     readonly contexts: RepeatContext[],
     readonly policies: CompletionPolicy[],
   ) {

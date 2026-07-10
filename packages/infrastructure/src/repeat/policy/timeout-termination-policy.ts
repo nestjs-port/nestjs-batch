@@ -23,7 +23,7 @@ class TimeoutBatchContext extends RepeatContextSupport {
   private readonly time = Date.now();
 
   constructor(
-    parent: RepeatContext,
+    parent: RepeatContext | null,
     private readonly timeout: number,
   ) {
     super(parent);
@@ -51,9 +51,9 @@ export class TimeoutTerminationPolicy extends CompletionPolicySupport {
   isComplete(context: RepeatContext): boolean;
   override isComplete(
     context: RepeatContext,
-    result: RepeatStatus | null,
+    result?: RepeatStatus | null,
   ): boolean {
-    if (result !== null) {
+    if (result != null) {
       return super.isComplete(context, result);
     }
 
