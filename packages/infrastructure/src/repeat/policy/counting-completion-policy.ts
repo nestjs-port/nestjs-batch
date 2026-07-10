@@ -27,7 +27,7 @@ import { DefaultResultCompletionPolicy } from "./default-result-completion-polic
 class CountingBatchContext extends RepeatContextSupport {
   private readonly counter: RepeatContextCounter;
 
-  constructor(parent: RepeatContext, useParent: boolean) {
+  constructor(parent: RepeatContext | null, useParent: boolean) {
     super(parent);
     this.counter = new RepeatContextCounter(
       this,
@@ -66,15 +66,18 @@ export abstract class CountingCompletionPolicy extends DefaultResultCompletionPo
   isComplete(context: RepeatContext): boolean;
   override isComplete(
     context: RepeatContext,
-    result: RepeatStatus | null,
+    result?: RepeatStatus | null,
   ): boolean {
-    if (result !== undefined) {
-      return result == null || !result.isContinuable;
+    if (arguments.length < 2) {
+      return (
+        this.getCountingContext(context).getCounter().getCount() >=
+        this.maxCount
+      );
     }
-
-    return (
-      this.getCountingContext(context).getCounter().getCount() >= this.maxCount
-    );
+    if (result == null) {
+      return true;
+    }
+    return !result.isContinuable;
   }
 
   override start(parent: RepeatContext | null): RepeatContext {

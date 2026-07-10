@@ -20,7 +20,7 @@ import { RepeatContextSupport } from "../context/index.js";
 import { DefaultResultCompletionPolicy } from "./default-result-completion-policy.js";
 
 class SimpleTerminationContext extends RepeatContextSupport {
-  constructor(context: RepeatContext) {
+  constructor(context: RepeatContext | null) {
     super(context);
   }
 
@@ -69,9 +69,13 @@ export class SimpleCompletionPolicy extends DefaultResultCompletionPolicy {
    */
   override isComplete(
     context: RepeatContext,
-    result: RepeatStatus | null,
+    result?: RepeatStatus | null,
   ): boolean {
-    if (super.isComplete(context, result)) {
+    if (
+      result === undefined
+        ? super.isComplete(context)
+        : super.isComplete(context, result)
+    ) {
       return true;
     }
 

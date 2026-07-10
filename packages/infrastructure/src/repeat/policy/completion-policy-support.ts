@@ -22,7 +22,7 @@ import type { RepeatStatus } from "../repeat-status.js";
 export class CompletionPolicySupport implements CompletionPolicy {
   isComplete(context: RepeatContext, result: RepeatStatus | null): boolean;
   isComplete(context: RepeatContext): boolean;
-  isComplete(_context: RepeatContext, result: RepeatStatus | null): boolean {
+  isComplete(_context: RepeatContext, result?: RepeatStatus | null): boolean {
     if (result != null && !result.isContinuable) {
       return true;
     }

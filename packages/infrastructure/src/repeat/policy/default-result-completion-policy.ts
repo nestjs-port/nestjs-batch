@@ -23,8 +23,11 @@ export class DefaultResultCompletionPolicy extends CompletionPolicySupport {
   isComplete(context: RepeatContext): boolean;
   override isComplete(
     _context: RepeatContext,
-    result: RepeatStatus | null,
+    result?: RepeatStatus | null,
   ): boolean {
-    return result == null || !result.isContinuable;
+    if (result == null) {
+      return false;
+    }
+    return !result.isContinuable;
   }
 }
