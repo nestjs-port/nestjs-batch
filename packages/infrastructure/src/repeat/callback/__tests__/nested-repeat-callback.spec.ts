@@ -19,7 +19,7 @@ import { describe, expect, it } from "vitest";
 import { NestedRepeatCallback } from "../nested-repeat-callback.js";
 import { RepeatStatus } from "../../repeat-status.js";
 import type { RepeatCallback } from "../../repeat-callback.js";
-import type { RepeatOperations } from "../../repeat-operations.js";
+import { RepeatTemplate } from "../../support/repeat-template.js";
 
 describe("NestedRepeatCallback", () => {
   it("test execute", () => {
@@ -30,9 +30,7 @@ describe("NestedRepeatCallback", () => {
         return RepeatStatus.continueIf(count <= 1);
       },
     };
-    const template: RepeatOperations = {
-      iterate: (delegate) => delegate.doInIteration(null as never),
-    };
+    const template = new RepeatTemplate();
     const nestedRepeatCallback = new NestedRepeatCallback(template, callback);
 
     const result = nestedRepeatCallback.doInIteration(null as never);
