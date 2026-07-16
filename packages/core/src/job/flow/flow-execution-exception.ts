@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-export * from "./support/index.js";
-export { FlowExecution } from "./flow-execution.js";
-export { FlowExecutionException } from "./flow-execution-exception.js";
-export { FlowExecutionStatus } from "./flow-execution-status.js";
-export type { State } from "./state.interface.js";
+export class FlowExecutionException extends Error {
+  /** @param message the error message. */
+  constructor(message: string, cause: unknown | null = null) {
+    super(message, cause != null ? { cause } : undefined);
+  }
+}
