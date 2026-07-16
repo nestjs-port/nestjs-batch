@@ -14,6 +14,13 @@
  * limitations under the License.
  */
 
-export * from "./jdbc/index.js";
-export * from "./mongodb/index.js";
-export { NoSuchObjectException } from "./no-such-object-exception.js";
+/** Exception to indicate a problem in a step listener. */
+export class StepListenerFailedException extends Error {
+  /**
+   * @param message describes the error to the user
+   * @param cause the exception that was thrown by a listener
+   */
+  constructor(message: string, cause: unknown) {
+    super(message, { cause });
+  }
+}

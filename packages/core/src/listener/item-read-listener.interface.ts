@@ -14,6 +14,14 @@
  * limitations under the License.
  */
 
-export * from "./jdbc/index.js";
-export * from "./mongodb/index.js";
-export { NoSuchObjectException } from "./no-such-object-exception.js";
+import type { StepListener } from "./step-listener.js";
+
+/** Listener interface around the reading of an item. */
+export interface ItemReadListener<T> extends StepListener {
+  /** Called before the reader reads an item. */
+  beforeRead?(): void;
+  /** Called after the reader returns an actual item. */
+  afterRead?(item: T): void;
+  /** Called if an error occurs while trying to read. */
+  onReadError?(exception: Error): void;
+}

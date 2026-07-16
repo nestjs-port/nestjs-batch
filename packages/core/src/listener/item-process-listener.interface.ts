@@ -14,6 +14,17 @@
  * limitations under the License.
  */
 
-export * from "./jdbc/index.js";
-export * from "./mongodb/index.js";
-export { NoSuchObjectException } from "./no-such-object-exception.js";
+import type { StepListener } from "./step-listener.js";
+
+/**
+ * Listener interface for the processing of an item. Implementations are notified before
+ * and after an item is passed to the processor and when the processor throws an exception.
+ */
+export interface ItemProcessListener<T, S> extends StepListener {
+  /** Called before an item is processed. */
+  beforeProcess?(item: T): void;
+  /** Called after processing, including when the result is null. */
+  afterProcess?(item: T, result: S | null): void;
+  /** Called if an exception was thrown during processing. */
+  onProcessError?(item: T, exception: Error): void;
+}

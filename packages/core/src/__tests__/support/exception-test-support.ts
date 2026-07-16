@@ -14,6 +14,21 @@
  * limitations under the License.
  */
 
-export * from "./jdbc/index.js";
-export * from "./mongodb/index.js";
-export { NoSuchObjectException } from "./no-such-object-exception.js";
+/* oxlint-disable eslint-plugin-jest/no-export */
+
+import { expect, it } from "vitest";
+
+export function describeExceptionContract(
+  create: (message: string) => Error,
+  createWithCause: (message: string, cause: Error) => Error,
+): void {
+  it("test exception string", () => {
+    const exception = create("foo");
+    expect(exception.message).toBe("foo");
+  });
+
+  it("test exception string throwable", () => {
+    const exception = createWithCause("foo", new Error());
+    expect(exception.message.slice(0, 3)).toBe("foo");
+  });
+}

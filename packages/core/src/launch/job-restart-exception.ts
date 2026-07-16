@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
-export * from "./jdbc/index.js";
-export * from "./mongodb/index.js";
-export { NoSuchObjectException } from "./no-such-object-exception.js";
+import { JobExecutionException } from "../job/job-execution-exception.js";
+
+/** An exception indicating an illegal attempt to restart a job. */
+export class JobRestartException extends JobExecutionException {
+  constructor(message: string, cause: unknown | null = null) {
+    super(message, cause);
+  }
+}

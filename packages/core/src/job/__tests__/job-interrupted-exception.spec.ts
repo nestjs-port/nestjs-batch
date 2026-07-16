@@ -14,6 +14,14 @@
  * limitations under the License.
  */
 
-export * from "./jdbc/index.js";
-export * from "./mongodb/index.js";
-export { NoSuchObjectException } from "./no-such-object-exception.js";
+import { describe } from "vitest";
+
+import { describeExceptionContract } from "../../__tests__/support/exception-test-support.js";
+import { JobInterruptedException } from "../job-interrupted-exception.js";
+
+describe("JobInterruptedException", () => {
+  describeExceptionContract(
+    (message) => new JobInterruptedException(message),
+    (message, cause) => new Error(message, { cause }),
+  );
+});

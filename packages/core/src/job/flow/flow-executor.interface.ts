@@ -14,14 +14,20 @@
  * limitations under the License.
  */
 
+import type { JobExecution } from "../job-execution.js";
+import type { Step } from "../../step/step.interface.js";
+import type { StepExecution } from "../../step/step-execution.js";
+import type { FlowExecution } from "./flow-execution.js";
 import type { FlowExecutionStatus } from "./flow-execution-status.js";
-import type { FlowExecutor } from "./flow-executor.interface.js";
 
-export interface State {
-  /** The name of the state. Should be unique within a flow. */
-  getName(): string;
-  /** Handle processing logic and return a status that drives the flow. */
-  handle(executor: FlowExecutor): FlowExecutionStatus;
-  /** Inquire as to whether this state is an end state. */
-  isEndState(): boolean;
+/** Context and execution strategy for a flow to delegate execution step by step. */
+export interface FlowExecutor {
+  executeStep(step: Step): string;
+  getJobExecution(): JobExecution;
+  getStepExecution(): StepExecution | null;
+  close(result: FlowExecution): void;
+  abandonStepExecution(): void;
+  updateJobExecutionStatus(status: FlowExecutionStatus): void;
+  isRestart(): boolean;
+  addExitStatus(code: string): void;
 }

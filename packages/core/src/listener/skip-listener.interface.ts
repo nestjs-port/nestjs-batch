@@ -14,6 +14,14 @@
  * limitations under the License.
  */
 
-export * from "./jdbc/index.js";
-export * from "./mongodb/index.js";
-export { NoSuchObjectException } from "./no-such-object-exception.js";
+import type { StepListener } from "./step-listener.js";
+
+/** Interface for listeners to skipped items. */
+export interface SkipListener<T, S> extends StepListener {
+  /** Callback for a failure on read that is not going to be re-thrown. */
+  onSkipInRead?(cause: unknown): void;
+  /** Callback when an item failed on write and a skip was called for. */
+  onSkipInWrite?(item: S, cause: unknown): void;
+  /** Callback when an item failed on processing and a skip was called for. */
+  onSkipInProcess?(item: T, cause: unknown): void;
+}

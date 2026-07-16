@@ -14,6 +14,19 @@
  * limitations under the License.
  */
 
-export * from "./jdbc/index.js";
-export * from "./mongodb/index.js";
-export { NoSuchObjectException } from "./no-such-object-exception.js";
+import { BatchStatus } from "../batch-status.js";
+import { JobExecutionException } from "./job-execution-exception.js";
+
+/** Exception indicating that the job has been interrupted. */
+export class JobInterruptedException extends JobExecutionException {
+  private readonly _status: BatchStatus;
+
+  constructor(message: string, status: BatchStatus = BatchStatus.STOPPED) {
+    super(message);
+    this._status = status;
+  }
+
+  get status(): BatchStatus {
+    return this._status;
+  }
+}

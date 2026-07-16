@@ -16,6 +16,7 @@
 
 export { JobExecution } from "./job-execution.js";
 export { JobExecutionException } from "./job-execution-exception.js";
+export { JobInterruptedException } from "./job-interrupted-exception.js";
 export { JobInstance } from "./job-instance.js";
 export { StartLimitExceededException } from "./start-limit-exceeded-exception.js";
 export { UnexpectedJobExecutionException } from "./unexpected-job-execution-exception.js";
