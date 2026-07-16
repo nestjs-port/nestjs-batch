@@ -14,5 +14,16 @@
  * limitations under the License.
  */
 
-export { FlowBuilderException } from "./flow-builder-exception.js";
-export { JobBuilderException } from "./job-builder-exception.js";
+/**
+ * Exception to report an error when converting job parameters.
+ */
+export class JobParametersConversionException extends Error {
+  /**
+   * Create a new {@link JobParametersConversionException}.
+   * @param message the message of the exception
+   * @param cause the cause of the exception
+   */
+  constructor(message: string, cause: unknown | null = null) {
+    super(message, cause != null ? { cause } : undefined);
+  }
+}

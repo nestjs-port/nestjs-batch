@@ -14,5 +14,9 @@
  * limitations under the License.
  */
 
-export { FlowBuilderException } from "./flow-builder-exception.js";
-export { JobBuilderException } from "./job-builder-exception.js";
+export class JobBuilderException extends Error {
+  /** Creates an exception wrapping the given cause. */
+  constructor(cause: unknown) {
+    super(cause instanceof Error ? cause.message : String(cause), { cause });
+  }
+}

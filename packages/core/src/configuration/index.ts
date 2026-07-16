@@ -17,3 +17,4 @@
 export * from "./annotation/index.js";
 export * from "./support/index.js";
 export * from "./xml/index.js";
+export { BatchConfigurationException } from "./batch-configuration-exception.js";

@@ -14,5 +14,16 @@
  * limitations under the License.
  */
 
-export { FlowBuilderException } from "./flow-builder-exception.js";
-export { JobBuilderException } from "./job-builder-exception.js";
+/**
+ * Indicates to the framework that a critical error has occurred and processing should
+ * immediately stop.
+ */
+export class UnexpectedJobExecutionException extends Error {
+  /**
+   * Constructs a new instance with a message.
+   * @param message The exception message.
+   */
+  constructor(message: string, cause: unknown | null = null) {
+    super(message, cause != null ? { cause } : undefined);
+  }
+}
