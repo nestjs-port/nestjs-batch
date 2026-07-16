@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export {};
+export { JobParametersConversionException } from "./job-parameters-conversion-exception.js";

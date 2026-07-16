@@ -14,5 +14,15 @@
  * limitations under the License.
  */
 
-export { FlowBuilderException } from "./flow-builder-exception.js";
-export { JobBuilderException } from "./job-builder-exception.js";
+/**
+ * Indicates the step's start limit has been exceeded.
+ */
+export class StartLimitExceededException extends Error {
+  /**
+   * Constructor that sets the message for the exception.
+   * @param message The message for the exception.
+   */
+  constructor(message: string) {
+    super(message);
+  }
+}
