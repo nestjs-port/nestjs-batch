@@ -14,8 +14,14 @@
  * limitations under the License.
  */
 
-export * from "./support/index.js";
-export { FlowExecution } from "./flow-execution.js";
-export { FlowExecutionException } from "./flow-execution-exception.js";
-export { FlowExecutionStatus } from "./flow-execution-status.js";
-export type { State } from "./state.interface.js";
+import type { FlowExecutionStatus } from "./flow-execution-status.js";
+import type { FlowExecutor } from "./flow-executor.js";
+
+export interface State {
+  /** The name of the state. Should be unique within a flow. */
+  getName(): string;
+  /** Handle processing logic and return a status that drives the flow. */
+  handle(executor: FlowExecutor): FlowExecutionStatus;
+  /** Inquire as to whether this state is an end state. */
+  isEndState(): boolean;
+}

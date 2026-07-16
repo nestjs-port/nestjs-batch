@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export {};
+export { ExitCodeMapper } from "./exit-code-mapper.js";
