@@ -16,4 +16,6 @@
 
 export { StepContribution } from "./step-contribution.js";
 export { StepExecution } from "./step-execution.js";
+export { STEP_TYPE_KEY } from "./step.interface.js";
+export type { Step } from "./step.interface.js";
 export * from "./tasklet/index.js";

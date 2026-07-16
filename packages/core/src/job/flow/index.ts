@@ -18,4 +18,5 @@ export * from "./support/index.js";
 export { FlowExecution } from "./flow-execution.js";
 export { FlowExecutionException } from "./flow-execution-exception.js";
 export { FlowExecutionStatus } from "./flow-execution-status.js";
+export type { FlowExecutor } from "./flow-executor.interface.js";
 export type { State } from "./state.interface.js";

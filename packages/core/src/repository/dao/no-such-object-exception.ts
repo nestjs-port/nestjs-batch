@@ -14,6 +14,12 @@
  * limitations under the License.
  */
 
-export * from "./jdbc/index.js";
-export * from "./mongodb/index.js";
-export { NoSuchObjectException } from "./no-such-object-exception.js";
+/**
+ * This exception identifies that a batch domain object is invalid, which is generally
+ * caused by an invalid ID. (An ID which doesn't exist in the database).
+ */
+export class NoSuchObjectException extends Error {
+  constructor(message: string) {
+    super(message);
+  }
+}

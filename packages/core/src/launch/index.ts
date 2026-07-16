@@ -15,3 +15,4 @@
  */
 
 export * from "./support/index.js";
+export { JobRestartException } from "./job-restart-exception.js";

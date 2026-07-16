@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
-export * from "./jdbc/index.js";
-export * from "./mongodb/index.js";
-export { NoSuchObjectException } from "./no-such-object-exception.js";
+/**
+ * Marker interface that acts as a parent to all step domain listeners, such as:
+ * {@link StepExecutionListener}, {@link ChunkListener}, {@link ItemReadListener}, and
+ * {@link ItemWriteListener}
+ */
+export interface StepListener {}

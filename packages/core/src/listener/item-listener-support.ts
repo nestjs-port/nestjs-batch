@@ -14,6 +14,17 @@
  * limitations under the License.
  */
 
-export * from "./jdbc/index.js";
-export * from "./mongodb/index.js";
-export { NoSuchObjectException } from "./no-such-object-exception.js";
+import type { ItemProcessListener } from "./item-process-listener.interface.js";
+import type { ItemReadListener } from "./item-read-listener.interface.js";
+import type { ItemWriteListener } from "./item-write-listener.interface.js";
+
+/**
+ * Basic no-op implementation of the {@link ItemReadListener},
+ * {@link ItemProcessListener}, and {@link ItemWriteListener} interfaces. All are
+ * implemented, since it is very common that all may need to be implemented at once.
+ */
+export class ItemListenerSupport<I, O>
+  implements
+    ItemReadListener<I>,
+    ItemProcessListener<I, O>,
+    ItemWriteListener<O> {}

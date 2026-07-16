@@ -14,6 +14,14 @@
  * limitations under the License.
  */
 
-export * from "./jdbc/index.js";
-export * from "./mongodb/index.js";
-export { NoSuchObjectException } from "./no-such-object-exception.js";
+import type { ExitStatus } from "../exit-status.js";
+import type { StepExecution } from "../step/step-execution.js";
+import type { StepListener } from "./step-listener.js";
+
+/** Listener interface for the lifecycle of a step. */
+export interface StepExecutionListener extends StepListener {
+  /** Initialize the state of the listener with the current step execution. */
+  beforeStep?(stepExecution: StepExecution): void;
+  /** Give a listener a chance to modify the exit status from a step. */
+  afterStep?(stepExecution: StepExecution): ExitStatus | null;
+}
