@@ -16,7 +16,11 @@
 
 import type { StepExecution } from "./step-execution.js";
 
-/** Batch domain interface representing the configuration and execution of a step. */
+/**
+ * Batch domain interface representing the configuration of a step. As with a
+ * {@link Job}, a {@link Step} is meant to explicitly represent the configuration of a
+ * developer but also the ability to execute the step.
+ */
 export interface Step {
   /**
    * The name of the step. This is used to distinguish between different steps and must
@@ -31,8 +35,9 @@ export interface Step {
   getStartLimit(): number;
 
   /**
-   * Process the step and assign progress and status meta information to the provided
-   * step execution.
+   * Process the step and assign progress and status meta information to the
+   * {@link StepExecution} provided. The {@link Step} is responsible for setting the
+   * meta information and also saving it, if required by the implementation.
    */
   execute(stepExecution: StepExecution): void;
 }

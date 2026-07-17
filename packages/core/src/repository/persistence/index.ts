@@ -15,3 +15,6 @@
  */
 
 export * from "./converter/index.js";
+export { ExitStatus } from "./exit-status.js";
+export { JobInstance } from "./job-instance.js";
+export { JobParameter } from "./job-parameter.js";
