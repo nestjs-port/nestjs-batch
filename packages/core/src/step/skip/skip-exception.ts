@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
-export type { Tasklet } from "./tasklet.js";
-export { SystemCommandException } from "./system-command-exception.js";
-export { UncheckedTransactionException } from "./unchecked-transaction-exception.js";
+import { UnexpectedJobExecutionException } from "../../job/unexpected-job-execution-exception.js";
+
+/** Base exception indicating that the skip has failed or caused a failure. */
+export abstract class SkipException extends UnexpectedJobExecutionException {
+  constructor(message: string, cause: unknown | null = null) {
+    super(message, cause);
+  }
+}

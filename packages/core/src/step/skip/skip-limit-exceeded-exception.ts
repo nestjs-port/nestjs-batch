@@ -14,6 +14,18 @@
  * limitations under the License.
  */
 
-export type { Tasklet } from "./tasklet.js";
-export { SystemCommandException } from "./system-command-exception.js";
-export { UncheckedTransactionException } from "./unchecked-transaction-exception.js";
+import { SkipException } from "./skip-exception.js";
+
+/** Exception indicating that a step's skip limit has been exceeded. */
+export class SkipLimitExceededException extends SkipException {
+  private readonly _skipLimit: number;
+
+  constructor(skipLimit: number, cause: unknown) {
+    super(`Skip limit of '${skipLimit}' exceeded`, cause);
+    this._skipLimit = skipLimit;
+  }
+
+  get skipLimit(): number {
+    return this._skipLimit;
+  }
+}

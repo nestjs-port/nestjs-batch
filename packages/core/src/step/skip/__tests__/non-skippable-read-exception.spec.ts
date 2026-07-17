@@ -14,6 +14,14 @@
  * limitations under the License.
  */
 
-export type { Tasklet } from "./tasklet.js";
-export { SystemCommandException } from "./system-command-exception.js";
-export { UncheckedTransactionException } from "./unchecked-transaction-exception.js";
+import { describe } from "vitest";
+
+import { describeExceptionContract } from "../../../__tests__/support/exception-test-support.js";
+import { NonSkippableReadException } from "../non-skippable-read-exception.js";
+
+describe("NonSkippableReadException", () => {
+  describeExceptionContract(
+    (message) => new NonSkippableReadException(message, new Error()),
+    (message, cause) => new NonSkippableReadException(message, cause),
+  );
+});

@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
-export type { Tasklet } from "./tasklet.js";
-export { SystemCommandException } from "./system-command-exception.js";
-export { UncheckedTransactionException } from "./unchecked-transaction-exception.js";
+/** Policy for determining whether or not processing should be skipped. */
+export interface SkipPolicy {
+  shouldSkip(exception: unknown, skipCount: number): boolean;
+}

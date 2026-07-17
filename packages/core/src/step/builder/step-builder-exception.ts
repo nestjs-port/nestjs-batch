@@ -14,6 +14,17 @@
  * limitations under the License.
  */
 
-export type { Tasklet } from "./tasklet.js";
-export { SystemCommandException } from "./system-command-exception.js";
-export { UncheckedTransactionException } from "./unchecked-transaction-exception.js";
+/** Utility exception thrown by builders when they encounter unexpected checked exceptions. */
+export class StepBuilderException extends Error {
+  constructor(messageOrCause: string | unknown, cause: unknown | null = null) {
+    const message =
+      typeof messageOrCause === "string"
+        ? messageOrCause
+        : messageOrCause instanceof Error
+          ? messageOrCause.message
+          : String(messageOrCause);
+    super(message, {
+      cause: typeof messageOrCause === "string" ? cause : messageOrCause,
+    });
+  }
+}

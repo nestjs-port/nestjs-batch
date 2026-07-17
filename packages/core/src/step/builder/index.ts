@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export {};
+export { StepBuilderException } from "./step-builder-exception.js";
