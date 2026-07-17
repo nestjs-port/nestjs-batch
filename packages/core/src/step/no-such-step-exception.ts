@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-export { StepContribution } from "./step-contribution.js";
-export { StepExecution } from "./step-execution.js";
-export { NoSuchStepException } from "./no-such-step-exception.js";
-export { STEP_TYPE_KEY } from "./step.interface.js";
-export type { Step } from "./step.interface.js";
-export type { StepHolder } from "./step-holder.interface.js";
-export * from "./tasklet/index.js";
+/** Exception signaling that a requested step is unknown or does not exist. */
+export class NoSuchStepException extends Error {
+  /** Create a new exception instance with the provided message. */
+  constructor(message: string) {
+    super(message);
+  }
+}

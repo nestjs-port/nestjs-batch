@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-export { StepContribution } from "./step-contribution.js";
-export { StepExecution } from "./step-execution.js";
-export { NoSuchStepException } from "./no-such-step-exception.js";
-export { STEP_TYPE_KEY } from "./step.interface.js";
-export type { Step } from "./step.interface.js";
-export type { StepHolder } from "./step-holder.interface.js";
-export * from "./tasklet/index.js";
+import type { Step } from "./step.interface.js";
+
+/**
+ * Interface for holders of a {@link Step} as a convenience for callers who need access
+ * to the underlying instance.
+ */
+export interface StepHolder {
+  getStep(): Step;
+}

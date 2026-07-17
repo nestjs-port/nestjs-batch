@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-export { StepContribution } from "./step-contribution.js";
-export { StepExecution } from "./step-execution.js";
-export { NoSuchStepException } from "./no-such-step-exception.js";
-export { STEP_TYPE_KEY } from "./step.interface.js";
-export type { Step } from "./step.interface.js";
-export type { StepHolder } from "./step-holder.interface.js";
-export * from "./tasklet/index.js";
+export class JobParameter<T> {
+  constructor(
+    public readonly name: string,
+    public readonly value: T,
+    public readonly type: string,
+    public readonly identifying: boolean,
+  ) {}
+}
