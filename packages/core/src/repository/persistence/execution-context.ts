@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-present the original author or authors.
+ * Copyright 2024-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,5 +14,12 @@
  * limitations under the License.
  */
 
-export { AFTER_JOB_METADATA, AfterJob } from "./after-job.decorator.js";
-export { BEFORE_JOB_METADATA, BeforeJob } from "./before-job.decorator.js";
+/**
+ * Persistence representation of an execution context.
+ */
+export class ExecutionContext {
+  constructor(
+    readonly map: Record<string, unknown>,
+    readonly dirty: boolean,
+  ) {}
+}

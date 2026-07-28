@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-present the original author or authors.
+ * Copyright 2002-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,5 +14,13 @@
  * limitations under the License.
  */
 
-export { AFTER_JOB_METADATA, AfterJob } from "./after-job.decorator.js";
-export { BEFORE_JOB_METADATA, BeforeJob } from "./before-job.decorator.js";
+/**
+ * A common interface for listener meta data enumerations.
+ */
+export interface ListenerMetaData {
+  getMethodName(): string;
+  getAnnotation(): unknown;
+  getListenerInterface(): unknown;
+  getPropertyName(): string;
+  getParamTypes(): unknown[];
+}
