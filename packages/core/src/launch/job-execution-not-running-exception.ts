@@ -14,10 +14,19 @@
  * limitations under the License.
  */
 
-export * from "./support/index.js";
-export { JobRestartException } from "./job-restart-exception.js";
-export { JobExecutionAlreadyRunningException } from "./job-execution-already-running-exception.js";
-export { JobExecutionNotRunningException } from "./job-execution-not-running-exception.js";
-export { JobExecutionNotFailedException } from "./job-execution-not-failed-exception.js";
-export { JobExecutionNotStoppedException } from "./job-execution-not-stopped-exception.js";
-export { JobInstanceAlreadyCompleteException } from "./job-instance-already-complete-exception.js";
+import { JobExecutionException } from "../job/job-execution-exception.js";
+
+/**
+ * Checked exception indicating that a {@link JobExecution} that is not currently
+ * running has been requested to stop.
+ */
+export class JobExecutionNotRunningException extends JobExecutionException {
+  /**
+   * Create a {@link JobExecutionNotRunningException} with a message.
+   * @param message the message to signal cause of failure with details about the
+   * job execution
+   */
+  constructor(message: string) {
+    super(message);
+  }
+}

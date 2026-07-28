@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 
-export * from "./support/index.js";
-export { JobRestartException } from "./job-restart-exception.js";
-export { JobExecutionAlreadyRunningException } from "./job-execution-already-running-exception.js";
-export { JobExecutionNotRunningException } from "./job-execution-not-running-exception.js";
-export { JobExecutionNotFailedException } from "./job-execution-not-failed-exception.js";
-export { JobExecutionNotStoppedException } from "./job-execution-not-stopped-exception.js";
-export { JobInstanceAlreadyCompleteException } from "./job-instance-already-complete-exception.js";
+import { JobExecutionException } from "../job/job-execution-exception.js";
+
+/**
+ * An exception indicating an illegal attempt to restart a job that was already
+ * completed successfully.
+ */
+export class JobInstanceAlreadyCompleteException extends JobExecutionException {
+  constructor(message: string, cause: unknown | null = null) {
+    super(message, cause);
+  }
+}
