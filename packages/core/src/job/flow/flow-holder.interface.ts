@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-export * from "./support/index.js";
-export { JobRestartException } from "./job-restart-exception.js";
-export { JobExecutionAlreadyRunningException } from "./job-execution-already-running-exception.js";
-export { JobExecutionNotFailedException } from "./job-execution-not-failed-exception.js";
+import type { Flow } from "./flow.interface.js";
+
+/**
+ * Convenient interface for components that contain nested flows.
+ */
+export interface FlowHolder {
+  getFlows(): Flow[];
+}

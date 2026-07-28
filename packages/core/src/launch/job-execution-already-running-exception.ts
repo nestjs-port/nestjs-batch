@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
-export * from "./support/index.js";
-export { JobRestartException } from "./job-restart-exception.js";
-export { JobExecutionAlreadyRunningException } from "./job-execution-already-running-exception.js";
-export { JobExecutionNotFailedException } from "./job-execution-not-failed-exception.js";
+import { JobExecutionException } from "../job/job-execution-exception.js";
+
+export class JobExecutionAlreadyRunningException extends JobExecutionException {
+  constructor(message: string, cause: unknown | null = null) {
+    super(message, cause);
+  }
+}
