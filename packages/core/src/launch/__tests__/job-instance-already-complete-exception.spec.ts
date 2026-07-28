@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 
-export * from "./support/index.js";
-export { JobRestartException } from "./job-restart-exception.js";
-export { JobExecutionAlreadyRunningException } from "./job-execution-already-running-exception.js";
-export { JobExecutionNotRunningException } from "./job-execution-not-running-exception.js";
-export { JobExecutionNotFailedException } from "./job-execution-not-failed-exception.js";
-export { JobExecutionNotStoppedException } from "./job-execution-not-stopped-exception.js";
-export { JobInstanceAlreadyCompleteException } from "./job-instance-already-complete-exception.js";
+import { describe } from "vitest";
+
+import { describeExceptionContract } from "../../__tests__/support/exception-test-support.js";
+import { JobInstanceAlreadyCompleteException } from "../job-instance-already-complete-exception.js";
+
+describe("JobInstanceAlreadyCompleteException", () => {
+  describeExceptionContract(
+    (message) => new JobInstanceAlreadyCompleteException(message),
+    (message, cause) => new JobInstanceAlreadyCompleteException(message, cause),
+  );
+});

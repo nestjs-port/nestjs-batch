@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-export * from "./support/index.js";
-export { JobRestartException } from "./job-restart-exception.js";
-export { JobExecutionAlreadyRunningException } from "./job-execution-already-running-exception.js";
-export { JobExecutionNotRunningException } from "./job-execution-not-running-exception.js";
-export { JobExecutionNotFailedException } from "./job-execution-not-failed-exception.js";
-export { JobExecutionNotStoppedException } from "./job-execution-not-stopped-exception.js";
-export { JobInstanceAlreadyCompleteException } from "./job-instance-already-complete-exception.js";
+import { describe, expect, it } from "vitest";
+
+import { JobExecutionNotRunningException } from "../job-execution-not-running-exception.js";
+
+describe("JobExecutionNotRunningException", () => {
+  it("test exception string", () => {
+    const exception = new JobExecutionNotRunningException("foo");
+    expect(exception.message).toBe("foo");
+  });
+});
