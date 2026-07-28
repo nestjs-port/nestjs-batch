@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export {};
+export { JobInstanceConverter } from "./job-instance-converter.js";
