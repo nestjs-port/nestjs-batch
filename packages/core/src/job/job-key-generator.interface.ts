@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-present the original author or authors.
+ * Copyright 2013-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,17 @@
  * limitations under the License.
  */
 
-export * from "./support/index.js";
-export { JobRestartException } from "./job-restart-exception.js";
-export { JobExecutionAlreadyRunningException } from "./job-execution-already-running-exception.js";
-export { JobExecutionNotFailedException } from "./job-execution-not-failed-exception.js";
+import type { JobParameters } from "./parameters/job-parameters.js";
+
+/**
+ * Strategy for the generation of the key used in identifying unique job
+ * {@link JobInstance} objects.
+ */
+export interface JobKeyGenerator {
+  /**
+   * Method to generate the unique key used to identify a job instance.
+   * @param source source information used to generate the key
+   * @return a unique string identifying the job based on the information supplied
+   */
+  generateKey(source: JobParameters): string;
+}

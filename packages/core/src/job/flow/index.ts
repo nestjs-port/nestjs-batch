@@ -19,4 +19,6 @@ export { FlowExecution } from "./flow-execution.js";
 export { FlowExecutionException } from "./flow-execution-exception.js";
 export { FlowExecutionStatus } from "./flow-execution-status.js";
 export type { FlowExecutor } from "./flow-executor.interface.js";
+export type { Flow } from "./flow.interface.js";
+export type { FlowHolder } from "./flow-holder.interface.js";
 export type { State } from "./state.interface.js";
