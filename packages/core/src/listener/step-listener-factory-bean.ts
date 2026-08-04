@@ -14,55 +14,48 @@
  * limitations under the License.
  */
 
-import type { ListenerMetaData } from "./listener-meta-data.interface.js";
+import { STEP_LISTENER_METADATA } from "../annotation/step-listener-decorator.js";
+import { AbstractListenerFactoryBean } from "./abstract-listener-factory-bean.js";
+import type { StepListener } from "./step-listener.js";
 
-/**
- * This factory implementation is used to create a step listener.
- */
-export class StepListenerFactoryBean {
-  private _delegate: unknown = null;
+const STEP_CALLBACKS = [
+  "beforeStep",
+  "afterStep",
+  "beforeChunk",
+  "afterChunk",
+  "afterChunkError",
+  "beforeRead",
+  "afterRead",
+  "onReadError",
+  "beforeProcess",
+  "afterProcess",
+  "onProcessError",
+  "beforeWrite",
+  "afterWrite",
+  "onWriteError",
+  "onSkipInRead",
+  "onSkipInProcess",
+  "onSkipInWrite",
+] as const;
 
-  setDelegate(delegate: unknown): void {
-    this._delegate = delegate;
+export class StepListenerFactoryBean extends AbstractListenerFactoryBean<StepListener> {
+  protected readonly listenerMetadataKey = STEP_LISTENER_METADATA;
+
+  protected getListenerCallbacks(): readonly string[] {
+    return STEP_CALLBACKS;
   }
 
-  getObject(): unknown {
-    return this._delegate;
-  }
-
-  getObjectType(): unknown {
-    return undefined;
-  }
-
-  protected getMetaDataFromPropertyName(
-    _propertyName: string,
-  ): ListenerMetaData | null {
-    return null;
-  }
-
-  protected getMetaDataValues(): ListenerMetaData[] {
-    return [];
-  }
-
-  /**
-   * Convenience method to wrap any object and expose the appropriate step listener
-   * interfaces.
-   * @param delegate a delegate object
-   * @return a step listener instance constructed from the delegate
-   */
-  static getListener(delegate: unknown): unknown {
+  static getListener(delegate: object): StepListener {
     const factory = new StepListenerFactoryBean();
     factory.setDelegate(delegate);
     return factory.getObject();
   }
 
-  /**
-   * Convenience method to check whether the given object is or can be made into a
-   * step listener.
-   * @param delegate the object to check
-   * @return true if the delegate is a listener object
-   */
   static isListener(delegate: unknown): boolean {
-    return delegate != null && typeof delegate === "object";
+    return AbstractListenerFactoryBean.isListener(
+      delegate,
+      STEP_CALLBACKS,
+      STEP_LISTENER_METADATA,
+    );
   }
 }

@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+export { AbstractListenerFactoryBean } from "./abstract-listener-factory-bean.js";
 export { ItemListenerSupport } from "./item-listener-support.js";
 export { JobListenerFactoryBean } from "./job-listener-factory-bean.js";
 export { StepListenerFactoryBean } from "./step-listener-factory-bean.js";

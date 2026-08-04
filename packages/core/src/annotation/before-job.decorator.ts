@@ -46,7 +46,12 @@ type BeforeJobMethodDecorator = <T extends (...args: any[]) => any>(
  */
 export function BeforeJob(): BeforeJobMethodDecorator;
 export function BeforeJob(): MethodDecorator {
-  return (target, _propertyKey, _descriptor): void => {
-    Reflect.defineMetadata(BEFORE_JOB_METADATA, true, target);
+  return (target, propertyKey, _descriptor): void => {
+    Reflect.defineMetadata(
+      BEFORE_JOB_METADATA,
+      { callback: "beforeJob", methodName: propertyKey },
+      target,
+      propertyKey,
+    );
   };
 }

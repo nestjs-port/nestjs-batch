@@ -46,7 +46,12 @@ type AfterJobMethodDecorator = <T extends (...args: any[]) => any>(
  */
 export function AfterJob(): AfterJobMethodDecorator;
 export function AfterJob(): MethodDecorator {
-  return (target, _propertyKey, _descriptor): void => {
-    Reflect.defineMetadata(AFTER_JOB_METADATA, true, target);
+  return (target, propertyKey, _descriptor): void => {
+    Reflect.defineMetadata(
+      AFTER_JOB_METADATA,
+      { callback: "afterJob", methodName: propertyKey },
+      target,
+      propertyKey,
+    );
   };
 }
