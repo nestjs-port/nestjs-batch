@@ -14,55 +14,49 @@
  * limitations under the License.
  */
 
-import type { ListenerMetaData } from "./listener-meta-data.interface.js";
+import { AFTER_JOB_METADATA } from "../annotation/after-job.decorator.js";
+import { BEFORE_JOB_METADATA } from "../annotation/before-job.decorator.js";
+import { AbstractListenerFactoryBean } from "./abstract-listener-factory-bean.js";
+import type { JobExecutionListener } from "./job-execution-listener.interface.js";
 
-/**
- * This factory implementation is used to create a job execution listener.
- */
-export class JobListenerFactoryBean {
-  private _delegate: unknown = null;
+export class JobListenerFactoryBean extends AbstractListenerFactoryBean<JobExecutionListener> {
+  protected readonly listenerMetadataKey = BEFORE_JOB_METADATA;
 
-  setDelegate(delegate: unknown): void {
-    this._delegate = delegate;
+  protected getListenerCallbacks(): readonly string[] {
+    return ["beforeJob", "afterJob"];
   }
 
-  getObject(): unknown {
-    return this._delegate;
+  protected override resolveCallbacks(
+    delegate: object,
+  ): Map<string, string | symbol> {
+    const callbacks = super.resolveCallbacks(delegate);
+    const prototype = Object.getPrototypeOf(delegate);
+
+    for (const methodName of Object.getOwnPropertyNames(prototype)) {
+      const afterMetadata = Reflect.getMetadata(
+        AFTER_JOB_METADATA,
+        prototype,
+        methodName,
+      ) as { callback: string; methodName: string | symbol } | undefined;
+      if (afterMetadata?.callback === "afterJob") {
+        callbacks.set("afterJob", afterMetadata.methodName);
+      }
+    }
+
+    return callbacks;
   }
 
-  getObjectType(): unknown {
-    return undefined;
-  }
-
-  protected getMetaDataFromPropertyName(
-    _propertyName: string,
-  ): ListenerMetaData | null {
-    return null;
-  }
-
-  protected getMetaDataValues(): ListenerMetaData[] {
-    return [];
-  }
-
-  /**
-   * Convenience method to wrap any object and expose the appropriate job listener
-   * interfaces.
-   * @param delegate a delegate object
-   * @return a job listener instance constructed from the delegate
-   */
-  static getListener(delegate: unknown): unknown {
+  static getListener(delegate: object): JobExecutionListener {
     const factory = new JobListenerFactoryBean();
     factory.setDelegate(delegate);
     return factory.getObject();
   }
 
-  /**
-   * Convenience method to check whether the given object is or can be made into a
-   * job listener.
-   * @param delegate the object to check
-   * @return true if the delegate is a listener object
-   */
   static isListener(delegate: unknown): boolean {
-    return delegate != null && typeof delegate === "object";
+    return AbstractListenerFactoryBean.isListener(
+      delegate,
+      ["beforeJob", "afterJob"],
+      BEFORE_JOB_METADATA,
+    );
   }
 }
