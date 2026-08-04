@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import "reflect-metadata";
+
 import type { JobExecution } from "../job/job-execution.js";
 
 export const AFTER_JOB_METADATA = Symbol("nestjs-batch:after-job");

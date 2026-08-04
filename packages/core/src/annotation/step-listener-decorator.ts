@@ -16,37 +16,36 @@
 
 import "reflect-metadata";
 
-import type { JobExecution } from "../job/job-execution.js";
+export const STEP_LISTENER_METADATA = Symbol("nestjs-batch:step-listener");
 
-export const BEFORE_JOB_METADATA = Symbol("nestjs-batch:before-job");
+type AnyMethod = (...args: any[]) => any;
 
-type ExactJobListenerMethod<
-  T extends (...args: any[]) => any,
-  Signature extends (...args: any[]) => any,
+type ExactMethod<
+  T extends AnyMethod,
+  Signature extends AnyMethod,
 > = T extends Signature
   ? Parameters<T> extends Parameters<Signature>
     ? T
     : never
   : never;
 
-type BeforeJobMethodDecorator = <T extends (...args: any[]) => any>(
+export type StepListenerMethodDecorator<Signature extends AnyMethod> = <
+  T extends AnyMethod,
+>(
   target: object,
   propertyKey: string | symbol,
-  descriptor: TypedPropertyDescriptor<
-    ExactJobListenerMethod<T, (jobExecution: JobExecution) => void>
-  >,
+  descriptor: TypedPropertyDescriptor<ExactMethod<T, Signature>>,
 ) => void;
 
-/**
- * Marks a method to be called before a {@link Job} is executed.
- *
- * Expected signature: `void beforeJob(JobExecution jobExecution)`.
- *
- * @see JobExecutionListener
- */
-export function BeforeJob(): BeforeJobMethodDecorator;
-export function BeforeJob(): MethodDecorator {
-  return (target, _propertyKey, _descriptor): void => {
-    Reflect.defineMetadata(BEFORE_JOB_METADATA, true, target);
+export function createStepListenerDecorator<Signature extends AnyMethod>(
+  callback: string,
+): StepListenerMethodDecorator<Signature> {
+  return (target, propertyKey): void => {
+    Reflect.defineMetadata(
+      STEP_LISTENER_METADATA,
+      { callback, methodName: propertyKey },
+      target,
+      propertyKey,
+    );
   };
 }

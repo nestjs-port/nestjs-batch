@@ -16,3 +16,20 @@
 
 export { AFTER_JOB_METADATA, AfterJob } from "./after-job.decorator.js";
 export { BEFORE_JOB_METADATA, BeforeJob } from "./before-job.decorator.js";
+export { AfterChunk } from "./after-chunk.decorator.js";
+export { AfterChunkError } from "./after-chunk-error.decorator.js";
+export { AfterProcess } from "./after-process.decorator.js";
+export { AfterRead } from "./after-read.decorator.js";
+export { AfterStep } from "./after-step.decorator.js";
+export { AfterWrite } from "./after-write.decorator.js";
+export { BeforeChunk } from "./before-chunk.decorator.js";
+export { BeforeProcess } from "./before-process.decorator.js";
+export { BeforeRead } from "./before-read.decorator.js";
+export { BeforeStep } from "./before-step.decorator.js";
+export { BeforeWrite } from "./before-write.decorator.js";
+export { OnProcessError } from "./on-process-error.decorator.js";
+export { OnReadError } from "./on-read-error.decorator.js";
+export { OnSkipInProcess } from "./on-skip-in-process.decorator.js";
+export { OnSkipInRead } from "./on-skip-in-read.decorator.js";
+export { OnSkipInWrite } from "./on-skip-in-write.decorator.js";
+export { OnWriteError } from "./on-write-error.decorator.js";
