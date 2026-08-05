@@ -14,8 +14,14 @@
  * limitations under the License.
  */
 
-export * from "./annotation/index.js";
-export * from "./support/index.js";
-export * from "./xml/index.js";
-export { BatchConfigurationException } from "./batch-configuration-exception.js";
-export { DuplicateJobException } from "./duplicate-job-exception.js";
+import { describe } from "vitest";
+
+import { describeExceptionContract } from "../../__tests__/support/exception-test-support.js";
+import { DuplicateJobException } from "../duplicate-job-exception.js";
+
+describe("DuplicateJobException", () => {
+  describeExceptionContract(
+    (message) => new DuplicateJobException(message),
+    (message, cause) => new DuplicateJobException(message, cause),
+  );
+});

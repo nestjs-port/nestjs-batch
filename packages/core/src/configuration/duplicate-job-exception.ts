@@ -14,8 +14,21 @@
  * limitations under the License.
  */
 
-export * from "./annotation/index.js";
-export * from "./support/index.js";
-export * from "./xml/index.js";
-export { BatchConfigurationException } from "./batch-configuration-exception.js";
-export { DuplicateJobException } from "./duplicate-job-exception.js";
+import { JobExecutionException } from "../job/job-execution-exception.js";
+
+/**
+ * Checked exception that indicates a name clash when registering jobs.
+ */
+export class DuplicateJobException extends JobExecutionException {
+  /**
+   * Creates an exception with the given message.
+   */
+  constructor(message: string);
+  /**
+   * Creates an exception with the given message and cause.
+   */
+  constructor(message: string, cause: unknown);
+  constructor(message: string, cause: unknown | null = null) {
+    super(message, cause);
+  }
+}

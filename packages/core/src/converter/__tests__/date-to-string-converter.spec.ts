@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-present the original author or authors.
+ * Copyright 2023-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,21 @@
  * limitations under the License.
  */
 
-export * from "./annotation/index.js";
-export * from "./support/index.js";
-export * from "./xml/index.js";
-export { BatchConfigurationException } from "./batch-configuration-exception.js";
-export { DuplicateJobException } from "./duplicate-job-exception.js";
+import { describe, expect, it } from "vitest";
+
+import { DateToStringConverter } from "../date-to-string-converter.js";
+
+describe("DateToStringConverter", () => {
+  const converter = new DateToStringConverter();
+
+  it("test convert", () => {
+    // given
+    const date = new Date(0);
+
+    // when
+    const converted = converter.convert(date);
+
+    // then
+    expect(converted).toBe("1970-01-01T00:00:00Z");
+  });
+});
