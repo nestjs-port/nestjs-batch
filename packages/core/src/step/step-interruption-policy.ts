@@ -14,13 +14,17 @@
  * limitations under the License.
  */
 
-export { StepContribution } from "./step-contribution.js";
-export { StepExecution } from "./step-execution.js";
-export { FatalStepExecutionException } from "./fatal-step-execution-exception.js";
-export type { ListableStepLocator } from "./listable-step-locator.js";
-export { NoSuchStepException } from "./no-such-step-exception.js";
-export { STEP_TYPE_KEY } from "./step.interface.js";
-export type { StepInterruptionPolicy } from "./step-interruption-policy.js";
-export type { Step } from "./step.interface.js";
-export type { StepHolder } from "./step-holder.interface.js";
-export * from "./tasklet/index.js";
+import type { StepExecution } from "./step-execution.js";
+
+/**
+ * Strategy interface for an interruption policy. This policy allows step
+ * implementations to check if a job has been interrupted.
+ */
+export interface StepInterruptionPolicy {
+  /**
+   * Has the job been interrupted? If so, throw a JobInterruptedException.
+   * @param stepExecution the current context of the running step
+   * @throws {JobInterruptedException} when the job has been interrupted
+   */
+  checkInterrupted(stepExecution: StepExecution): void;
+}
