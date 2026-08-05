@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-export { StepContribution } from "./step-contribution.js";
-export { StepExecution } from "./step-execution.js";
-export { FatalStepExecutionException } from "./fatal-step-execution-exception.js";
-export type { ListableStepLocator } from "./listable-step-locator.js";
-export { NoSuchStepException } from "./no-such-step-exception.js";
-export { STEP_TYPE_KEY } from "./step.interface.js";
-export type { StepInterruptionPolicy } from "./step-interruption-policy.js";
-export type { Step } from "./step.interface.js";
-export type { StepHolder } from "./step-holder.interface.js";
-export * from "./tasklet/index.js";
+import { UnexpectedJobExecutionException } from "../job/unexpected-job-execution-exception.js";
+
+export class FatalStepExecutionException extends UnexpectedJobExecutionException {
+  /**
+   * Creates an exception with the message and underlying cause.
+   * @param message the message to send to the caller
+   * @param cause the cause of this exception
+   */
+  constructor(message: string, cause: unknown) {
+    super(message, cause);
+  }
+}
