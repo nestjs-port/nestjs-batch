@@ -21,6 +21,7 @@ export type { ListableStepLocator } from "./listable-step-locator.js";
 export { NoSuchStepException } from "./no-such-step-exception.js";
 export { STEP_TYPE_KEY } from "./step.interface.js";
 export type { StepInterruptionPolicy } from "./step-interruption-policy.js";
+export type { StepLocator } from "./step-locator.js";
 export type { Step } from "./step.interface.js";
 export type { StepHolder } from "./step-holder.interface.js";
 export * from "./tasklet/index.js";

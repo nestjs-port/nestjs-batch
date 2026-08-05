@@ -14,8 +14,15 @@
  * limitations under the License.
  */
 
-export * from "./annotation/index.js";
-export * from "./support/index.js";
-export * from "./xml/index.js";
-export { BatchConfigurationException } from "./batch-configuration-exception.js";
-export { DuplicateJobException } from "./duplicate-job-exception.js";
+import { ExitStatus } from "../../exit-status.js";
+import type { SystemProcessExitCodeMapper } from "./system-process-exit-code-mapper.js";
+
+/**
+ * Simple {@link SystemProcessExitCodeMapper} implementation that maps exit code
+ * 0 to {@link ExitStatus.COMPLETED} and all other codes to {@link ExitStatus.FAILED}.
+ */
+export class SimpleSystemProcessExitCodeMapper implements SystemProcessExitCodeMapper {
+  getExitStatus(exitCode: number): ExitStatus {
+    return exitCode === 0 ? ExitStatus.COMPLETED : ExitStatus.FAILED;
+  }
+}

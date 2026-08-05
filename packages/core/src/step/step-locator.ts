@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-present the original author or authors.
+ * Copyright 2009-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-export * from "./annotation/index.js";
-export * from "./support/index.js";
-export * from "./xml/index.js";
-export { BatchConfigurationException } from "./batch-configuration-exception.js";
-export { DuplicateJobException } from "./duplicate-job-exception.js";
+import type { Step } from "./step.interface.js";
+
+/**
+ * Interface for locating a {@link Step} instance by name.
+ */
+export interface StepLocator {
+  getStep(stepName: string): Step | null;
+}

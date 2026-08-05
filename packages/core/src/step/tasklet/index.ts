@@ -15,5 +15,6 @@
  */
 
 export type { Tasklet } from "./tasklet.js";
+export { SimpleSystemProcessExitCodeMapper } from "./simple-system-process-exit-code-mapper.js";
 export { SystemCommandException } from "./system-command-exception.js";
 export { UncheckedTransactionException } from "./unchecked-transaction-exception.js";
