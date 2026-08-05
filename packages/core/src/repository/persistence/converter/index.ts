@@ -15,3 +15,4 @@
  */
 
 export { JobInstanceConverter } from "./job-instance-converter.js";
+export { JobParameterConverter } from "./job-parameter-converter.js";
