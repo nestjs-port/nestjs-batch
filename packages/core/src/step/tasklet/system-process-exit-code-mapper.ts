@@ -14,8 +14,16 @@
  * limitations under the License.
  */
 
-export type { Tasklet } from "./tasklet.js";
-export { SimpleSystemProcessExitCodeMapper } from "./simple-system-process-exit-code-mapper.js";
-export { SystemCommandException } from "./system-command-exception.js";
-export type { SystemProcessExitCodeMapper } from "./system-process-exit-code-mapper.js";
-export { UncheckedTransactionException } from "./unchecked-transaction-exception.js";
+import type { ExitStatus } from "../../exit-status.js";
+
+/**
+ * Maps the exit code of a system process to the {@link ExitStatus} returned by a
+ * system command.
+ */
+export interface SystemProcessExitCodeMapper {
+  /**
+   * @param exitCode exit code returned by the system process
+   * @returns the appropriate exit status for the system process exit code
+   */
+  getExitStatus(exitCode: number): ExitStatus;
+}
