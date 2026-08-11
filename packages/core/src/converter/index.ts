@@ -16,3 +16,4 @@
 
 export { JobParametersConversionException } from "./job-parameters-conversion-exception.js";
 export { DateToStringConverter } from "./date-to-string-converter.js";
+export { StringToDateConverter } from "./string-to-date-converter.js";
