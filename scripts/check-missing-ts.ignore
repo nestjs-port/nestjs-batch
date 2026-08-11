@@ -1,8 +1,0 @@
-# Deprecated in Spring Batch 6.0 and scheduled for removal.
-/Users/int/personal/worktrees/nestjs-batch/young-thistle/nestjs-batch/packages/core/src/launch/support/jvm-system-exiter.ts
-/Users/int/personal/worktrees/nestjs-batch/young-thistle/nestjs-batch/packages/core/src/launch/support/system-exiter.ts
-/Users/int/personal/worktrees/nestjs-batch/young-thistle/nestjs-batch/packages/core/src/step/item/force-rollback-for-write-skip-exception.ts
-/Users/int/personal/worktrees/nestjs-batch/young-thistle/nestjs-batch/packages/core/src/step/item/key-generator.ts
-/Users/int/personal/worktrees/nestjs-batch/young-thistle/nestjs-batch/packages/core/src/step/skip/skip-policy-failed-exception.ts
-/Users/int/personal/worktrees/nestjs-batch/young-thistle/nestjs-batch/packages/core/src/configuration/job-factory.ts
-/Users/int/personal/worktrees/nestjs-batch/young-thistle/nestjs-batch/packages/core/src/configuration/listable-job-locator.ts

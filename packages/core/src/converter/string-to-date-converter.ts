@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-present the original author or authors.
+ * Copyright 2023-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,22 @@
  * limitations under the License.
  */
 
-interface DateTimeFormatter {
-  format(value: Date): string;
-}
+import { AbstractDateTimeConverter } from "./abstract-date-time-converter.js";
 
-/** Base class for date/time converters. */
-export abstract class AbstractDateTimeConverter {
-  protected readonly instantFormatter: DateTimeFormatter = {
-    format: (value) => value.toISOString(),
-  };
+/**
+ * Converter from an ISO instant string to {@link Date}.
+ */
+export class StringToDateConverter extends AbstractDateTimeConverter {
+  convert(source: string): Date {
+    const converted = new Date(source);
+
+    if (
+      Number.isNaN(converted.getTime()) ||
+      !/[Tt].*[Zz]|[Tt].*[+-]\d{2}:?\d{2}$/.test(source)
+    ) {
+      throw new Error(`Invalid ISO instant: ${source}`);
+    }
+
+    return converted;
+  }
 }
