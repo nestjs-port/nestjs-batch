@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export {};
+export { AbstractState } from "./abstract-state.js";

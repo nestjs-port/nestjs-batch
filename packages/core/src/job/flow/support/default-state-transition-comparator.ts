@@ -14,11 +14,33 @@
  * limitations under the License.
  */
 
-interface StateTransition {
-  getPattern(): string;
-}
+import type { StateTransition } from "./state-transition.js";
 
-/** Sorts state transitions from the most specific pattern to the most generic. */
+/**
+ * Sorts by descending specificity of pattern, based on counting wildcards (with ?
+ * being considered more specific than *). This means that more specific patterns
+ * will be considered greater than less specific patterns. Hence foo > fo? > ??? >
+ * foo* > *.
+ *
+ * For more complex comparisons, any string containing at least one * token will be
+ * considered more generic than any string that has no * token. If both strings have
+ * at least one * token, then the string with fewer * tokens will be considered the
+ * most generic. If both strings have the same number of * tokens, then the comparison
+ * will fall back to length of the overall string with the shortest value being the
+ * most generic. Finally, if the * token count is equal and the string length is equal
+ * then the final comparison will be alphabetic.
+ *
+ * When two strings have ? tokens, then the string with the most ? tokens will be
+ * considered the most generic. If both strings have the same number of ? tokens, then
+ * the comparison will fall back to length of the overall string with the shortest
+ * value being the most generic. Finally, if the ? token count is equal and the string
+ * length is equal then the final comparison will be alphabetic.
+ *
+ * If the strings contain neither * nor ? tokens then alphabetic comparison will be
+ * used.
+ *
+ * Hence bar > foo > fo? > bar?? > foo?? > ?0? > ??? > *foo* > *f* > foo* > *.
+ */
 export class DefaultStateTransitionComparator {
   static readonly STATE_TRANSITION_COMPARATOR =
     "batch_state_transition_comparator";

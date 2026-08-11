@@ -18,6 +18,7 @@ import { ExecutionContext } from "@nestjs-batch/infrastructure";
 import { BatchStatus } from "../batch-status.js";
 import { ExitStatus } from "../exit-status.js";
 import type { JobInstance } from "./job-instance.js";
+import type { StepExecution } from "../step/step-execution.js";
 import { JobParameters } from "./parameters/index.js";
 
 /**
@@ -34,6 +35,7 @@ export class JobExecution {
   private _startTime: Date | null = null;
   private _endTime: Date | null = null;
   private _lastUpdated: Date | null = null;
+  private readonly _stepExecutions: StepExecution[] = [];
 
   /**
    * Creates a new JobExecution.
@@ -82,6 +84,19 @@ export class JobExecution {
    */
   get executionContext(): ExecutionContext {
     return this._executionContext;
+  }
+
+  /** @returns the step executions belonging to this job execution */
+  get stepExecutions(): readonly StepExecution[] {
+    return [...this._stepExecutions];
+  }
+
+  /**
+   * Add a step execution to this job execution.
+   * @param stepExecution the step execution to add
+   */
+  addStepExecution(stepExecution: StepExecution): void {
+    this._stepExecutions.push(stepExecution);
   }
 
   /**
