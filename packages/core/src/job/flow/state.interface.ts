@@ -18,10 +18,29 @@ import type { FlowExecutionStatus } from "./flow-execution-status.js";
 import type { FlowExecutor } from "./flow-executor.interface.js";
 
 export interface State {
-  /** The name of the state. Should be unique within a flow. */
+  /**
+   * The name of the state. Should be unique within a flow.
+   * @returns the name of this state
+   */
   getName(): string;
-  /** Handle processing logic and return a status that drives the flow. */
+
+  /**
+   * Handle business or processing logic and return a status that can be used to
+   * drive a flow to the next {@link State}. The status can be any string, but
+   * special meaning is assigned to the static constants in {@link FlowExecution}.
+   * The context can be used by implementations to do whatever they need to do.
+   * The same context will be passed to all {@link State} instances, so
+   * implementations should be careful that the context is thread-safe, or used in
+   * a thread-safe manner.
+   * @param executor the context passed in by the caller
+   * @returns a status for the execution
+   */
   handle(executor: FlowExecutor): FlowExecutionStatus;
-  /** Inquire as to whether this state is an end state. */
+
+  /**
+   * Inquire as to whether a {@link State} is an end state. Implementations should
+   * return false if processing can continue, even if that would require a restart.
+   * @returns true if this {@link State} is the end of processing
+   */
   isEndState(): boolean;
 }

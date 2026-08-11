@@ -15,3 +15,5 @@
  */
 
 export * from "./state/index.js";
+export { DefaultStateTransitionComparator } from "./default-state-transition-comparator.js";
+export { StateTransition } from "./state-transition.js";
