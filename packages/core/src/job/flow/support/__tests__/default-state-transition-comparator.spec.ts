@@ -16,36 +16,116 @@
 
 import { describe, expect, it } from "vitest";
 
+import { StateSupport } from "../../__tests__/state-support.js";
 import { DefaultStateTransitionComparator } from "../default-state-transition-comparator.js";
-
-const transition = (pattern: string) => ({ getPattern: () => pattern });
+import { StateTransition } from "../state-transition.js";
 
 describe("DefaultStateTransitionComparator", () => {
+  const state = new StateSupport("state1");
   const comparator = new DefaultStateTransitionComparator();
 
-  it.each([
-    ["CONTINUABLE", "CONTIN???LE"],
-    ["CONTINUABLE", "*"],
-    ["CONTINUABLE", "CONTIN*"],
-    ["C?", "*"],
-    ["CON?", "CON*"],
-    ["**", "*"],
-    ["CONTI?UABLE", "CONTI??ABLE"],
-    ["CONTINUABLE*", "CON*"],
-    ["CONTINUABLE??", "CON??"],
-    ["CAT**", "DOG**"],
-    ["CAT", "DOG"],
-  ])("orders %s before %s", (specific, generic) => {
-    expect(comparator.compare(transition(specific), transition(generic))).toBe(
-      1,
-    );
-    expect(comparator.compare(transition(generic), transition(specific))).toBe(
-      -1,
-    );
+  const transition = (pattern: string): StateTransition =>
+    StateTransition.createStateTransition(state, pattern, "start");
+
+  it("test simple ordering equal", () => {
+    const transition1 = transition("CONTIN???LE");
+
+    expect(comparator.compare(transition1, transition1)).toBe(0);
   });
 
-  it("considers equal patterns equal", () => {
-    const same = transition("CONTIN???LE");
-    expect(comparator.compare(same, same)).toBe(0);
+  it("test simple ordering more general", () => {
+    const generic = transition("CONTIN???LE");
+    const specific = transition("CONTINUABLE");
+
+    expect(comparator.compare(specific, generic)).toBe(1);
+    expect(comparator.compare(generic, specific)).toBe(-1);
+  });
+
+  it("test simple ordering most general", () => {
+    const generic = transition("*");
+    const specific = transition("CONTINUABLE");
+
+    expect(comparator.compare(specific, generic)).toBe(1);
+    expect(comparator.compare(generic, specific)).toBe(-1);
+  });
+
+  it("test substring and wildcard", () => {
+    const generic = transition("CONTIN*");
+    const specific = transition("CONTINUABLE");
+
+    expect(comparator.compare(specific, generic)).toBe(1);
+    expect(comparator.compare(generic, specific)).toBe(-1);
+  });
+
+  it("test simple ordering most to next general", () => {
+    const generic = transition("*");
+    const specific = transition("C?");
+
+    expect(comparator.compare(specific, generic)).toBe(1);
+    expect(comparator.compare(generic, specific)).toBe(-1);
+  });
+
+  it("test simple ordering adjacent", () => {
+    const generic = transition("CON*");
+    const specific = transition("CON?");
+
+    expect(comparator.compare(specific, generic)).toBe(1);
+    expect(comparator.compare(generic, specific)).toBe(-1);
+  });
+
+  it("test order by number of generic wildcards", () => {
+    const generic = transition("*");
+    const specific = transition("**");
+
+    expect(comparator.compare(specific, generic)).toBe(1);
+    expect(comparator.compare(generic, specific)).toBe(-1);
+  });
+
+  it("test order by number of specific wildcards", () => {
+    const generic = transition("CONTI??ABLE");
+    const specific = transition("CONTI?UABLE");
+
+    expect(comparator.compare(specific, generic)).toBe(1);
+    expect(comparator.compare(generic, specific)).toBe(-1);
+  });
+
+  it("test order by length with asterisk equality", () => {
+    const generic = transition("CON*");
+    const specific = transition("CONTINUABLE*");
+
+    expect(comparator.compare(specific, generic)).toBe(1);
+    expect(comparator.compare(generic, specific)).toBe(-1);
+  });
+
+  it("test order by length with wildcard equality", () => {
+    const generic = transition("CON??");
+    const specific = transition("CONTINUABLE??");
+
+    expect(comparator.compare(specific, generic)).toBe(1);
+    expect(comparator.compare(generic, specific)).toBe(-1);
+  });
+
+  it("test order by alpha with asterisk equality", () => {
+    const generic = transition("DOG**");
+    const specific = transition("CAT**");
+
+    expect(comparator.compare(specific, generic)).toBe(1);
+    expect(comparator.compare(generic, specific)).toBe(-1);
+  });
+
+  it("test order by alpha with wildcard equality", () => {
+    const generic = transition("DOG??");
+    const specific = transition("CAT??");
+
+    expect(comparator.compare(specific, generic)).toBe(1);
+    expect(comparator.compare(generic, specific)).toBe(-1);
+  });
+
+  it("test priority ordering with alphabetic comparison", () => {
+    const generic = transition("DOG");
+    const specific = transition("CAT");
+
+    expect(comparator.compare(specific, generic)).toBe(1);
+    expect(comparator.compare(generic, specific)).toBe(-1);
   });
 });
